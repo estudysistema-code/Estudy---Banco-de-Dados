@@ -1,0 +1,395 @@
+{
+  "planner_profile_v1": {
+    "username": "aluno026",
+    "email": "a@b.com",
+    "passHash": null,
+    "provider": "email",
+    "name": "Aluno Legado",
+    "course": "Medicina",
+    "institution": "",
+    "period": "Internato",
+    "avatarUrl": null,
+    "onboarded": true,
+    "signedIn": true,
+    "files": []
+  },
+  "estudy:identity": {
+    "v": 2,
+    "at": "2026-09-30T13:47:37.842Z",
+    "data": {
+      "username": "aluno026",
+      "email": "a@b.com",
+      "passHash": null,
+      "provider": "email",
+      "name": "Aluno Legado",
+      "course": "Medicina",
+      "institution": "",
+      "period": "Internato",
+      "avatarUrl": null,
+      "onboarded": true,
+      "signedIn": true,
+      "files": [],
+      "userId": "722f7a70-78a3-46fe-adf2-8be002411578"
+    }
+  },
+  "estudy:users": {
+    "v": 1,
+    "at": "2026-09-30T13:47:37.843Z",
+    "data": {
+      "byId": {
+        "722f7a70-78a3-46fe-adf2-8be002411578": {
+          "id": "722f7a70-78a3-46fe-adf2-8be002411578",
+          "displayName": "Aluno Legado",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:37.442Z",
+          "updatedAt": "2026-09-30T13:47:37.442Z"
+        },
+        "mLEG02": {
+          "id": "mLEG02",
+          "displayName": "Ana Souza",
+          "avatarUrl": null,
+          "course": "",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:37.443Z",
+          "updatedAt": "2026-09-30T13:47:37.443Z"
+        }
+      }
+    }
+  },
+  "estudy:workspace": {
+    "v": 3,
+    "at": "2026-09-30T13:47:37.843Z",
+    "data": {
+      "workspaces": [
+        {
+          "id": "wLEG01",
+          "name": "Grupo antigo",
+          "color": "var(--campo)",
+          "icon": "◆",
+          "createdAt": "2026-08-01T12:00:00.000Z",
+          "updatedAt": "2026-08-01T12:00:00.000Z",
+          "dirty": true,
+          "events": [
+            {
+              "id": "weLEG1",
+              "date": "2026-10-10",
+              "start": "10:00",
+              "end": "12:00",
+              "title": "Encontro",
+              "note": "",
+              "createdBy": "722f7a70-78a3-46fe-adf2-8be002411578",
+              "createdAt": "2026-08-01T12:00:00.000Z"
+            }
+          ],
+          "tasks": [
+            {
+              "id": "tLEG1",
+              "title": "Tarefa v1",
+              "desc": "",
+              "assignee": "722f7a70-78a3-46fe-adf2-8be002411578",
+              "due": "2026-10-01",
+              "status": "aberta",
+              "comments": [
+                {
+                  "id": "cLEG1",
+                  "author": "mLEG02",
+                  "text": "comentário v1",
+                  "at": "2026-08-02T10:00:00.000Z"
+                }
+              ],
+              "createdBy": "722f7a70-78a3-46fe-adf2-8be002411578",
+              "createdAt": "2026-08-01T12:00:00.000Z"
+            }
+          ],
+          "files": [
+            {
+              "id": "fLEG1",
+              "name": "antigo.pdf",
+              "size": 1000,
+              "ext": "pdf",
+              "addedBy": "722f7a70-78a3-46fe-adf2-8be002411578",
+              "addedAt": "2026-08-01T12:00:00.000Z",
+              "aiStatus": "pendente",
+              "stored": false
+            }
+          ],
+          "comments": [
+            {
+              "id": "aLEG1",
+              "author": "722f7a70-78a3-46fe-adf2-8be002411578",
+              "text": "mural v1",
+              "at": "2026-08-01T12:00:00.000Z",
+              "parentId": null
+            }
+          ],
+          "ownerId": "722f7a70-78a3-46fe-adf2-8be002411578",
+          "description": "formato v1",
+          "inviteCode": "ESTUDY-OLD1"
+        }
+      ]
+    }
+  },
+  "estudy:memberships": {
+    "v": 1,
+    "at": "2026-09-30T13:47:37.843Z",
+    "data": {
+      "items": [
+        {
+          "id": "egam4jbu",
+          "workspaceId": "wLEG01",
+          "userId": "722f7a70-78a3-46fe-adf2-8be002411578",
+          "role": "owner",
+          "responsibility": "Coordenação",
+          "joinedAt": "2026-09-30T13:47:37.443Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": true,
+            "manageMembers": true,
+            "manageInvites": true,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": true
+          }
+        },
+        {
+          "id": "e90lr0on",
+          "workspaceId": "wLEG01",
+          "userId": "mLEG02",
+          "role": "member",
+          "responsibility": "Resumos",
+          "joinedAt": "2026-09-30T13:47:37.443Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        }
+      ]
+    }
+  },
+  "planner_aluno026_v1": {
+    "events": [
+      {
+        "id": "eLEG001",
+        "date": "2026-07-28",
+        "start": "07:00",
+        "end": "13:00",
+        "type": "CAMPO",
+        "title": "Egressos Neo",
+        "note": "",
+        "done": true,
+        "custom": false
+      },
+      {
+        "id": "eLEG002",
+        "date": "2026-07-29",
+        "start": "07:00",
+        "end": "13:00",
+        "type": "CAMPO",
+        "title": "Cardio Ped",
+        "note": "",
+        "done": false,
+        "custom": false
+      },
+      {
+        "id": "eLEG003",
+        "date": "2026-07-31",
+        "start": "13:00",
+        "end": "19:00",
+        "type": "PROVA",
+        "title": "Prova AVD",
+        "note": "",
+        "done": true,
+        "custom": false
+      },
+      {
+        "id": "eLEG004",
+        "date": "2026-08-02",
+        "start": "08:00",
+        "end": "09:00",
+        "type": "ACADEMIA",
+        "title": "Academia",
+        "note": "",
+        "done": false,
+        "custom": true
+      }
+    ]
+  },
+  "estudy:planner": {
+    "v": 2,
+    "at": "2026-09-30T13:47:37.842Z",
+    "data": {
+      "events": [
+        {
+          "id": "eLEG001",
+          "date": "2026-07-28",
+          "start": "07:00",
+          "end": "13:00",
+          "type": "CAMPO",
+          "title": "Egressos Neo",
+          "note": "",
+          "done": true,
+          "custom": false,
+          "status": "presente"
+        },
+        {
+          "id": "eLEG002",
+          "date": "2026-07-29",
+          "start": "07:00",
+          "end": "13:00",
+          "type": "CAMPO",
+          "title": "Cardio Ped",
+          "note": "",
+          "done": false,
+          "custom": false,
+          "status": "pendente"
+        },
+        {
+          "id": "eLEG003",
+          "date": "2026-07-31",
+          "start": "13:00",
+          "end": "19:00",
+          "type": "PROVA",
+          "title": "Prova AVD",
+          "note": "",
+          "done": true,
+          "custom": false,
+          "status": "presente"
+        },
+        {
+          "id": "eLEG004",
+          "date": "2026-08-02",
+          "start": "08:00",
+          "end": "09:00",
+          "type": "ACADEMIA",
+          "title": "Academia",
+          "note": "",
+          "done": false,
+          "custom": true,
+          "status": "pendente"
+        }
+      ],
+      "notes": {},
+      "goals": {
+        "gym": 4,
+        "study": 10
+      }
+    }
+  },
+  "estudy:invites": {
+    "v": 1,
+    "at": "2026-09-30T13:47:37.843Z",
+    "data": {
+      "items": [
+        {
+          "id": "e7i62x2o",
+          "workspaceId": "wLEG01",
+          "code": "ESTUDY-OLD1",
+          "createdBy": "722f7a70-78a3-46fe-adf2-8be002411578",
+          "createdAt": "2026-09-30T13:47:37.443Z",
+          "expiresAt": null,
+          "maxUses": null,
+          "currentUses": 0,
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "estudy_workspaces_v1": {
+    "workspaces": [
+      {
+        "id": "wLEG01",
+        "name": "Grupo antigo",
+        "desc": "formato v1",
+        "color": "var(--campo)",
+        "icon": "◆",
+        "createdBy": "u_me",
+        "invite": "ESTUDY-OLD1",
+        "createdAt": "2026-08-01T12:00:00.000Z",
+        "updatedAt": "2026-08-01T12:00:00.000Z",
+        "dirty": true,
+        "members": [
+          {
+            "id": "u_me",
+            "name": "Eu",
+            "role": "criador",
+            "duty": "Coordenação",
+            "photo": null
+          },
+          {
+            "id": "mLEG02",
+            "name": "Ana Souza",
+            "role": "membro",
+            "duty": "Resumos",
+            "photo": null
+          }
+        ],
+        "events": [
+          {
+            "id": "weLEG1",
+            "date": "2026-10-10",
+            "start": "10:00",
+            "end": "12:00",
+            "title": "Encontro",
+            "note": "",
+            "createdBy": "u_me",
+            "createdAt": "2026-08-01T12:00:00.000Z"
+          }
+        ],
+        "tasks": [
+          {
+            "id": "tLEG1",
+            "title": "Tarefa v1",
+            "desc": "",
+            "assignee": "u_me",
+            "due": "2026-10-01",
+            "status": "aberta",
+            "comments": [
+              {
+                "id": "cLEG1",
+                "author": "mLEG02",
+                "text": "comentário v1",
+                "at": "2026-08-02T10:00:00.000Z"
+              }
+            ],
+            "createdBy": "u_me",
+            "createdAt": "2026-08-01T12:00:00.000Z"
+          }
+        ],
+        "files": [
+          {
+            "id": "fLEG1",
+            "name": "antigo.pdf",
+            "size": 1000,
+            "ext": "pdf",
+            "addedBy": "u_me",
+            "addedAt": "2026-08-01T12:00:00.000Z",
+            "aiStatus": "pendente",
+            "stored": false
+          }
+        ],
+        "comments": [
+          {
+            "id": "aLEG1",
+            "author": "u_me",
+            "text": "mural v1",
+            "at": "2026-08-01T12:00:00.000Z",
+            "parentId": null
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "estudy-reference-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Servidor de referência do Estudy: contrato window.storage ↔ PostgreSQL (api.ns_get / api.ns_put)",
+  "scripts": {
+    "start": "node index.mjs",
+    "e2e": "node e2e.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

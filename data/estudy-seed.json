@@ -1,0 +1,1296 @@
+{
+  "extraidoDe": "planner_aluno026.html (versão validada em navegador, 2026-09-30)",
+  "aluno": {
+    "id": "ALUNO_026",
+    "curso": "Medicina",
+    "periodo": "Internato",
+    "ciclo": "2026.2"
+  },
+  "rodizios": [
+    {
+      "id": "Rod1",
+      "modulo": "SMI",
+      "nome": "Saúde da Mulher e da Criança",
+      "semanas": 10
+    },
+    {
+      "id": "Rod2",
+      "modulo": "SA",
+      "nome": "Saúde do Adulto",
+      "semanas": 10
+    }
+  ],
+  "weeks": [
+    {
+      "id": "S02",
+      "start": "2026-07-27",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S03",
+      "start": "2026-08-03",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S04",
+      "start": "2026-08-10",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S05",
+      "start": "2026-08-17",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S06",
+      "start": "2026-08-24",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S07",
+      "start": "2026-08-31",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S08",
+      "start": "2026-09-07",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S09",
+      "start": "2026-09-14",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S10",
+      "start": "2026-09-21",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S11",
+      "start": "2026-09-28",
+      "rod": "Rodízio 1",
+      "mod": "SMI"
+    },
+    {
+      "id": "S12",
+      "start": "2026-10-05",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S13",
+      "start": "2026-10-12",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S14",
+      "start": "2026-10-19",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S15",
+      "start": "2026-10-26",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S16",
+      "start": "2026-11-02",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S17",
+      "start": "2026-11-09",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S18",
+      "start": "2026-11-16",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S19",
+      "start": "2026-11-23",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S20",
+      "start": "2026-11-30",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    },
+    {
+      "id": "S21",
+      "start": "2026-12-07",
+      "rod": "Rodízio 2",
+      "mod": "SA"
+    }
+  ],
+  "activityTypes": [
+    "CAMPO",
+    "TEORIA",
+    "PROVA",
+    "SIMULACAO",
+    "MEDWAY",
+    "ACOLHIMENTO",
+    "ACADEMIA",
+    "ESTUDO",
+    "PESSOAL"
+  ],
+  "presenceStatus": [
+    "pendente",
+    "presente",
+    "falta",
+    "justificada"
+  ],
+  "taskStatus": [
+    "aberta",
+    "andamento",
+    "concluida"
+  ],
+  "roles": [
+    "owner",
+    "admin",
+    "editor",
+    "member",
+    "viewer"
+  ],
+  "events": [
+    {
+      "date": "2026-07-27",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "ACOLHIMENTO",
+      "title": "Acolhimento"
+    },
+    {
+      "date": "2026-07-27",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-07-28",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Egressos Neo"
+    },
+    {
+      "date": "2026-07-29",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardio Ped"
+    },
+    {
+      "date": "2026-07-29",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré/Pós GO Cirurgia (Dra Tayná)"
+    },
+    {
+      "date": "2026-07-29",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-07-30",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Radiologia"
+    },
+    {
+      "date": "2026-07-31",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "PROVA",
+      "title": "Prova AVD"
+    },
+    {
+      "date": "2026-08-01",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "MEDWAY",
+      "title": "Módulo Medway (online)"
+    },
+    {
+      "date": "2026-08-03",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "SIMULACAO",
+      "title": "Simulação CIPED — Tema 1"
+    },
+    {
+      "date": "2026-08-03",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-08-04",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "CAMPO",
+      "title": "Expresso Ped Geral"
+    },
+    {
+      "date": "2026-08-05",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria Ped Manhã"
+    },
+    {
+      "date": "2026-08-05",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Ped Geral"
+    },
+    {
+      "date": "2026-08-05",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-08-07",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Radiologia"
+    },
+    {
+      "date": "2026-08-10",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Ped Geral"
+    },
+    {
+      "date": "2026-08-10",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-08-11",
+      "start": "18:30",
+      "end": "21:30",
+      "type": "CAMPO",
+      "title": "Egressos Ped"
+    },
+    {
+      "date": "2026-08-12",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Otorrino Ped"
+    },
+    {
+      "date": "2026-08-12",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré/Pós GO Cirurgia (Dra Tayná)"
+    },
+    {
+      "date": "2026-08-12",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-08-13",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Imunoalergia Ped"
+    },
+    {
+      "date": "2026-08-14",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "PROVA",
+      "title": "Prova AV1"
+    },
+    {
+      "date": "2026-08-15",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "MEDWAY",
+      "title": "Módulo Medway (online)"
+    },
+    {
+      "date": "2026-08-17",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Ambulatório Pré-Operatório GO (Dra Eduarda)"
+    },
+    {
+      "date": "2026-08-17",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "GO Geral / Colposcopia"
+    },
+    {
+      "date": "2026-08-17",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-08-19",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Neuro Ped"
+    },
+    {
+      "date": "2026-08-19",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "GO Geral"
+    },
+    {
+      "date": "2026-08-19",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-08-20",
+      "start": "13:00",
+      "end": "17:00",
+      "type": "CAMPO",
+      "title": "CEAMMI Ped Geral"
+    },
+    {
+      "date": "2026-08-21",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Radiologia"
+    },
+    {
+      "date": "2026-08-24",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "CEAMMI GO Pré-Natal"
+    },
+    {
+      "date": "2026-08-24",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-08-26",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardio Ped"
+    },
+    {
+      "date": "2026-08-26",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "GO Geral"
+    },
+    {
+      "date": "2026-08-26",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-08-27",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Gastro Ped"
+    },
+    {
+      "date": "2026-08-27",
+      "start": "14:00",
+      "end": "18:00",
+      "type": "SIMULACAO",
+      "title": "Simulação Ped (Prof. Bruno) — Tema 1"
+    },
+    {
+      "date": "2026-08-31",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Egressos Neo"
+    },
+    {
+      "date": "2026-08-31",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Radiologia"
+    },
+    {
+      "date": "2026-08-31",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-09-01",
+      "start": "08:00",
+      "end": "13:20",
+      "type": "MEDWAY",
+      "title": "Módulo Medway presencial"
+    },
+    {
+      "date": "2026-09-02",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardio Ped"
+    },
+    {
+      "date": "2026-09-02",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-09-03",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Imunoalergia Ped"
+    },
+    {
+      "date": "2026-09-04",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "PROVA",
+      "title": "Prova AV2"
+    },
+    {
+      "date": "2026-09-05",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "MEDWAY",
+      "title": "Módulo Medway (online)"
+    },
+    {
+      "date": "2026-09-08",
+      "start": "08:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Pré/Pós Op GO"
+    },
+    {
+      "date": "2026-09-09",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Pré/Pós GO Cirurgia (Dra Tayná)"
+    },
+    {
+      "date": "2026-09-09",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-09-10",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria GO Manhã"
+    },
+    {
+      "date": "2026-09-12",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria GO Manhã"
+    },
+    {
+      "date": "2026-09-14",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "CEAMMI GO Pré-Natal"
+    },
+    {
+      "date": "2026-09-14",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Natal / Puerpério"
+    },
+    {
+      "date": "2026-09-14",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-09-16",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Otorrino Ped"
+    },
+    {
+      "date": "2026-09-16",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-09-17",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Gastro Ped"
+    },
+    {
+      "date": "2026-09-17",
+      "start": "14:00",
+      "end": "18:00",
+      "type": "SIMULACAO",
+      "title": "Simulação Ped (Prof. Bruno) — Tema 2"
+    },
+    {
+      "date": "2026-09-18",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "CAMPO",
+      "title": "Expresso Ped Geral"
+    },
+    {
+      "date": "2026-09-21",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Otorrino Ped"
+    },
+    {
+      "date": "2026-09-21",
+      "start": "13:00",
+      "end": "17:00",
+      "type": "CAMPO",
+      "title": "Expresso Ped Geral"
+    },
+    {
+      "date": "2026-09-21",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-09-23",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "SIMULACAO",
+      "title": "Simulação GO — Tema 1"
+    },
+    {
+      "date": "2026-09-23",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-09-24",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Radiologia"
+    },
+    {
+      "date": "2026-09-25",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria Ped Manhã"
+    },
+    {
+      "date": "2026-09-26",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Cardio Ped"
+    },
+    {
+      "date": "2026-09-28",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "SIMULACAO",
+      "title": "Simulação CIPED — Tema 2"
+    },
+    {
+      "date": "2026-09-28",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria GO"
+    },
+    {
+      "date": "2026-09-30",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "SIMULACAO",
+      "title": "Simulação GO — Tema 2"
+    },
+    {
+      "date": "2026-09-30",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria Ped"
+    },
+    {
+      "date": "2026-10-01",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "CEAMMI Ped Geral"
+    },
+    {
+      "date": "2026-10-02",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "GO Geral"
+    },
+    {
+      "date": "2026-10-03",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "MEDWAY",
+      "title": "Módulo Medway (online)"
+    },
+    {
+      "date": "2026-10-05",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria Clínica Médica"
+    },
+    {
+      "date": "2026-10-05",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "CR Aparelho Digestivo"
+    },
+    {
+      "date": "2026-10-05",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-10-06",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Reumatologia"
+    },
+    {
+      "date": "2026-10-06",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Reumatologia"
+    },
+    {
+      "date": "2026-10-06",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-10-07",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Vascular"
+    },
+    {
+      "date": "2026-10-08",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-10-13",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-10-13",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Oftalmologia HUSF"
+    },
+    {
+      "date": "2026-10-13",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-10-14",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Vascular"
+    },
+    {
+      "date": "2026-10-15",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Prática Laboratorial"
+    },
+    {
+      "date": "2026-10-16",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Urologia"
+    },
+    {
+      "date": "2026-10-16",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Cir Geral"
+    },
+    {
+      "date": "2026-10-18",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "PROVA",
+      "title": "Prova AV3"
+    },
+    {
+      "date": "2026-10-19",
+      "start": "08:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Expresso Saúde"
+    },
+    {
+      "date": "2026-10-19",
+      "start": "13:00",
+      "end": "17:00",
+      "type": "CAMPO",
+      "title": "Expresso Saúde"
+    },
+    {
+      "date": "2026-10-19",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-10-20",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-10-21",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Endoscopia"
+    },
+    {
+      "date": "2026-10-21",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-10-22",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-10-23",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-10-24",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Enfermaria Clínica Médica"
+    },
+    {
+      "date": "2026-10-26",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Nefrologia"
+    },
+    {
+      "date": "2026-10-26",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-10-27",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Pequenos Procedimentos HUSF"
+    },
+    {
+      "date": "2026-10-27",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Reumatologia"
+    },
+    {
+      "date": "2026-10-27",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-10-28",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Urologia"
+    },
+    {
+      "date": "2026-10-30",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Otorrino"
+    },
+    {
+      "date": "2026-10-30",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Cir Geral"
+    },
+    {
+      "date": "2026-11-03",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Gastro"
+    },
+    {
+      "date": "2026-11-03",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Gastro"
+    },
+    {
+      "date": "2026-11-03",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-11-04",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Prática Laboratorial"
+    },
+    {
+      "date": "2026-11-05",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-11-06",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Otorrino"
+    },
+    {
+      "date": "2026-11-06",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Prática Laboratorial"
+    },
+    {
+      "date": "2026-11-08",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "PROVA",
+      "title": "Prova AV4"
+    },
+    {
+      "date": "2026-11-09",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Endoscopia"
+    },
+    {
+      "date": "2026-11-09",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-11-10",
+      "start": "08:00",
+      "end": "12:00",
+      "type": "CAMPO",
+      "title": "Expresso Saúde"
+    },
+    {
+      "date": "2026-11-10",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-11-10",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-11-11",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardiologia"
+    },
+    {
+      "date": "2026-11-12",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Prática Laboratorial"
+    },
+    {
+      "date": "2026-11-12",
+      "start": "14:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pré-Op Anestesiologia"
+    },
+    {
+      "date": "2026-11-13",
+      "start": "16:00",
+      "end": "20:00",
+      "type": "CAMPO",
+      "title": "Pneumologia"
+    },
+    {
+      "date": "2026-11-16",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardiologia"
+    },
+    {
+      "date": "2026-11-16",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pequenos Procedimentos Policlínica"
+    },
+    {
+      "date": "2026-11-16",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-11-17",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Mastologia"
+    },
+    {
+      "date": "2026-11-17",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-11-18",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Cardiologia"
+    },
+    {
+      "date": "2026-11-19",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-11-19",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Gastro"
+    },
+    {
+      "date": "2026-11-23",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Pneumologia / Tabagismo"
+    },
+    {
+      "date": "2026-11-23",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-11-24",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Gastro"
+    },
+    {
+      "date": "2026-11-24",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Prática Laboratorial"
+    },
+    {
+      "date": "2026-11-24",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-11-26",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-11-27",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "CCIRAS"
+    },
+    {
+      "date": "2026-11-27",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Endocrinologia"
+    },
+    {
+      "date": "2026-11-30",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Neurologia"
+    },
+    {
+      "date": "2026-11-30",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-12-01",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Mastologia"
+    },
+    {
+      "date": "2026-12-01",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-12-03",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Proctologia"
+    },
+    {
+      "date": "2026-12-03",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Endoscopia"
+    },
+    {
+      "date": "2026-12-04",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Neurologia"
+    },
+    {
+      "date": "2026-12-04",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-12-07",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Ortopedia Policlínica"
+    },
+    {
+      "date": "2026-12-07",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CC"
+    },
+    {
+      "date": "2026-12-08",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Dermatologia"
+    },
+    {
+      "date": "2026-12-08",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Gastro"
+    },
+    {
+      "date": "2026-12-08",
+      "start": "19:00",
+      "end": "21:00",
+      "type": "TEORIA",
+      "title": "Teoria CM"
+    },
+    {
+      "date": "2026-12-09",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Cardiologia"
+    },
+    {
+      "date": "2026-12-09",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "CCIRAS"
+    },
+    {
+      "date": "2026-12-10",
+      "start": "13:00",
+      "end": "19:00",
+      "type": "CAMPO",
+      "title": "Pneumologia"
+    },
+    {
+      "date": "2026-12-11",
+      "start": "07:00",
+      "end": "13:00",
+      "type": "CAMPO",
+      "title": "Urologia"
+    }
+  ]
+}

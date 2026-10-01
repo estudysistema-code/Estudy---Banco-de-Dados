@@ -1,0 +1,3192 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planner de Internato · 2026.2</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#fcfcfb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#fcfcfb; --card:#ffffff; --ink:#1b1b1a; --ink-2:#5c5c58; --ink-3:#8d8d87;
+  --line:#eceae6; --line-2:#e2dfd9; --sel:#f4f3f0;
+  --teoria:#2f6fed;  --teoria-bg:#eef3ff;
+  --campo:#0f9d6e;   --campo-bg:#eafaf3;
+  --prova:#e0396b;   --prova-bg:#fdeef3;
+  --medway:#d99400;  --medway-bg:#fff6e3;
+  --simulacao:#7c4dea; --simulacao-bg:#f3eeff;
+  --acolhimento:#0aa5b5; --acolhimento-bg:#e6f9fb;
+  --academia:#e2621c; --academia-bg:#fff0e6;
+  --estudo:#4b52d4;  --estudo-bg:#eeeffd;
+  --pessoal:#6b7280; --pessoal-bg:#f3f4f6;
+  --radius:12px;
+  --shadow:0 1px 2px rgba(27,27,26,.05), 0 6px 20px -12px rgba(27,27,26,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-.02em; margin:0}
+button{font-family:inherit; font-size:inherit; cursor:pointer}
+input,select,textarea{font-family:inherit; font-size:inherit; color:var(--ink)}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums}
+
+/* ---------- shell ---------- */
+.app{display:flex; min-height:100vh}
+.sidebar{
+  width:236px; flex:0 0 236px; border-right:1px solid var(--line);
+  background:#faf9f7; padding:20px 12px; position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.brand{padding:6px 10px 16px}
+.brand .eyebrow{font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+.brand .name{font-size:18px; font-weight:700; margin-top:4px; line-height:1.15}
+.brand .sub{font-size:11.5px; color:var(--ink-3); margin-top:5px}
+.navgroup{margin-top:14px}
+.navlabel{font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); padding:0 10px 6px; font-weight:600}
+.navbtn{
+  display:flex; align-items:center; gap:9px; width:100%; text-align:left; border:0; background:none;
+  padding:7px 10px; border-radius:8px; color:var(--ink-2); font-weight:500; margin-bottom:1px;
+}
+.navbtn:hover{background:var(--sel); color:var(--ink)}
+.navbtn.active{background:#efeee9; color:var(--ink); font-weight:600}
+.navbtn .ic{width:18px; text-align:center; font-size:14px}
+.sidefoot{margin-top:18px; padding:12px 10px 0; border-top:1px solid var(--line); font-size:11px; color:var(--ink-3)}
+
+main{flex:1; min-width:0; padding:34px 40px 90px; max-width:1180px}
+.page-head{margin-bottom:22px}
+.page-head .kicker{font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+.page-head h1{font-size:34px; font-weight:700; margin-top:6px}
+.page-head p{color:var(--ink-2); margin:8px 0 0; max-width:70ch}
+
+/* ---------- generic ---------- */
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
+.pad{padding:16px 18px}
+.row{display:flex; gap:12px; flex-wrap:wrap}
+.grid{display:grid; gap:12px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.muted{color:var(--ink-3)}
+.small{font-size:12px}
+.sec-title{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:26px 0 10px}
+.btn{border:1px solid var(--line-2); background:#fff; padding:7px 12px; border-radius:8px; font-weight:500; color:var(--ink-2)}
+.btn:hover{background:var(--sel); color:var(--ink)}
+.btn.primary{background:var(--ink); color:#fff; border-color:var(--ink)}
+.btn.primary:hover{background:#000}
+.btn.danger{color:var(--prova); border-color:#f3d3de}
+.btn.danger:hover{background:var(--prova-bg)}
+.btn.sm{padding:4px 9px; font-size:12px; border-radius:7px}
+.field{display:flex; flex-direction:column; gap:5px; margin-bottom:12px}
+.field label{font-size:11.5px; font-weight:600; color:var(--ink-2)}
+.field input,.field select,.field textarea{
+  border:1px solid var(--line-2); border-radius:8px; padding:8px 10px; background:#fff; outline:none
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink-3); box-shadow:0 0 0 3px #efeee9}
+.chips{display:flex; gap:6px; flex-wrap:wrap}
+.chip{
+  border:1px solid var(--line-2); background:#fff; padding:5px 11px; border-radius:999px;
+  font-size:12.5px; font-weight:500; color:var(--ink-2)
+}
+.chip:hover{background:var(--sel)}
+.chip.on{background:var(--ink); border-color:var(--ink); color:#fff}
+.dot{width:8px; height:8px; border-radius:50%; display:inline-block}
+.tag{
+  display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; padding:2px 7px; border-radius:5px
+}
+.empty{border:1px dashed var(--line-2); border-radius:var(--radius); padding:26px; text-align:center; color:var(--ink-3)}
+
+/* ---------- stats ---------- */
+.stat{padding:15px 16px}
+.stat .n{font-family:'Space Grotesk'; font-size:27px; font-weight:700; line-height:1}
+.stat .l{font-size:11.5px; color:var(--ink-3); margin-top:5px}
+.bar{height:6px; border-radius:99px; background:var(--line); overflow:hidden; margin-top:10px}
+.bar > i{display:block; height:100%; background:var(--ink); border-radius:99px}
+
+/* ---------- events ---------- */
+.ev{
+  display:flex; align-items:flex-start; gap:10px; padding:9px 12px; border-radius:9px;
+  border:1px solid var(--line); border-left:3px solid var(--c); background:var(--bg); margin-bottom:6px;
+  cursor:pointer; transition:transform .08s ease
+}
+.ev:hover{transform:translateX(2px)}
+.ev.is-marked{opacity:.62}
+.ev .t{flex:1; min-width:0}
+.ev .time{font-size:11px; font-weight:600; color:var(--c); letter-spacing:.01em}
+.ev .title{font-weight:600; font-size:13.5px; margin-top:1px; overflow-wrap:anywhere}
+.ev .meta{font-size:11px; color:var(--ink-3); margin-top:2px}
+.chk{
+  width:18px; height:18px; border-radius:6px; border:1.5px solid var(--line-2); background:#fff;
+  flex:0 0 auto; margin-top:2px; display:grid; place-items:center; font-size:11px; font-weight:700; color:#fff
+}
+.chk.st-presente{background:var(--campo); border-color:var(--campo)}
+.chk.st-falta{background:var(--prova); border-color:var(--prova)}
+.chk.st-justificada{background:var(--medway); border-color:var(--medway)}
+
+/* ---------- check-in ---------- */
+.datenav{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:18px}
+.datenav .nowbox{
+  border:1px solid var(--line); background:var(--card); border-radius:11px; padding:9px 15px; box-shadow:var(--shadow)
+}
+.datenav .nowbox b{font-family:'Space Grotesk'; font-size:15px; display:block}
+.datenav .nowbox span{font-size:11px; color:var(--ink-3)}
+.ci{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--c);
+  border-radius:var(--radius); padding:13px 15px; margin-bottom:9px; box-shadow:var(--shadow)}
+.ci .top{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
+.ci .time{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:600; color:var(--c)}
+.ci .name{font-family:'Space Grotesk'; font-size:16px; font-weight:600; margin-top:2px}
+.ci .acts{display:flex; gap:6px; margin-top:11px; flex-wrap:wrap}
+.actbtn{border:1px solid var(--line-2); background:#fff; border-radius:8px; padding:6px 13px; font-size:12.5px; font-weight:600; color:var(--ink-2)}
+.actbtn:hover{background:var(--sel)}
+.actbtn.on{color:#fff; border-color:transparent}
+.actbtn.on.p{background:var(--campo)} .actbtn.on.f{background:var(--prova)} .actbtn.on.j{background:var(--medway)}
+
+/* ---------- gráficos ---------- */
+.stack{display:flex; height:9px; border-radius:99px; overflow:hidden; background:var(--line); margin-top:7px}
+.stack i{display:block; height:100%}
+.subrow{padding:11px 0; border-bottom:1px solid var(--line)}
+.subrow:last-child{border-bottom:0}
+.subrow .l1{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.subrow .nm{font-weight:600; font-size:13.5px}
+.subrow .pc{font-family:'JetBrains Mono',monospace; font-weight:600; font-size:14px}
+.cols{display:flex; align-items:flex-end; gap:5px; height:132px; padding-top:6px}
+.cols .col{flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:5px; height:100%}
+.cols .col > i{width:100%; border-radius:5px 5px 2px 2px; min-height:2px; display:block}
+.cols .col small{font-size:9.5px; color:var(--ink-3); font-family:'JetBrains Mono',monospace}
+.alert{border:1px solid #f4d5df; background:var(--prova-bg); border-radius:var(--radius); padding:13px 16px; margin-bottom:14px}
+
+/* ---------- week ---------- */
+.weekbar{display:flex; gap:5px; overflow-x:auto; padding:4px 2px 12px; scrollbar-width:thin}
+.wtab{
+  border:1px solid var(--line-2); background:#fff; border-radius:9px; padding:7px 11px; min-width:74px;
+  text-align:left; flex:0 0 auto
+}
+.wtab b{display:block; font-family:'Space Grotesk'; font-size:14px; font-weight:700}
+.wtab span{font-size:10.5px; color:var(--ink-3)}
+.wtab.on{background:var(--ink); border-color:var(--ink)}
+.wtab.on b, .wtab.on span{color:#fff}
+.wtab.now{border-color:var(--academia); box-shadow:0 0 0 2px var(--academia-bg)}
+
+.days{display:grid; grid-template-columns:repeat(auto-fill,minmax(232px,1fr)); gap:12px; margin-top:6px}
+.day{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:13px; box-shadow:var(--shadow)}
+.day.free{background:#fbfbf9; border-style:dashed}
+.day .dh{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:9px}
+.day .dh b{font-family:'Space Grotesk'; font-size:14px}
+.day .dh span{font-size:11px; color:var(--ink-3)}
+.addbtn{width:100%; border:1px dashed var(--line-2); background:none; color:var(--ink-3); border-radius:8px; padding:6px; font-size:12px}
+.addbtn:hover{background:var(--sel); color:var(--ink-2)}
+
+/* signature: ribbon */
+.ribbon{position:relative; height:26px; background:#f6f5f2; border-radius:7px; margin:4px 0 10px; overflow:hidden; border:1px solid var(--line)}
+.ribbon i{position:absolute; top:3px; bottom:3px; border-radius:4px; background:var(--c); opacity:.85}
+.ribbon .free-i{background:repeating-linear-gradient(45deg,#e8e6e0,#e8e6e0 3px,transparent 3px,transparent 6px); opacity:1}
+.ribbon .hr{position:absolute; top:0; bottom:0; width:1px; background:#e6e4de}
+.ribbon-legend{display:flex; justify-content:space-between; font-size:9.5px; color:var(--ink-3); margin-top:-6px; margin-bottom:8px}
+
+/* ---------- suggestion ---------- */
+.sug{border:1px solid var(--line); border-left:3px solid var(--c); background:var(--bg); border-radius:9px; padding:10px 12px; margin-bottom:7px}
+.sug .h{display:flex; justify-content:space-between; gap:10px; align-items:center}
+.sug .w{font-size:11.5px; color:var(--ink-2); margin-top:4px}
+
+/* ---------- table ---------- */
+table{width:100%; border-collapse:collapse; font-size:13px}
+th{text-align:left; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:600; padding:8px 10px; border-bottom:1px solid var(--line-2)}
+td{padding:8px 10px; border-bottom:1px solid var(--line)}
+tr:hover td{background:#fbfaf8}
+
+/* ---------- modal / toast ---------- */
+.backdrop{position:fixed; inset:0; background:rgba(27,27,26,.34); display:grid; place-items:center; padding:18px; z-index:60}
+.modal{background:#fff; border-radius:14px; width:min(460px,100%); max-height:88vh; overflow:auto; padding:20px; box-shadow:0 24px 60px -20px rgba(0,0,0,.35)}
+.modal h3{font-size:18px; margin-bottom:14px}
+.hidden{display:none!important}
+#toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:9px 16px; border-radius:9px; font-size:13px; z-index:80; box-shadow:var(--shadow)}
+
+/* ---------- workspaces ---------- */
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:12px}
+.wscard{background:var(--card); border:1px solid var(--line); border-top:3px solid var(--c); border-radius:var(--radius);
+  padding:16px; box-shadow:var(--shadow); cursor:pointer; text-align:left; transition:transform .1s ease}
+.wscard:hover{transform:translateY(-2px)}
+.wscard .ic{width:36px; height:36px; border-radius:10px; display:grid; place-items:center; font-size:17px; color:#fff; background:var(--c)}
+.wscard h4{font-family:'Space Grotesk'; font-size:16px; font-weight:600; margin:10px 0 3px}
+.wscard .ds{font-size:12.5px; color:var(--ink-2); min-height:34px}
+.wscard .ft{display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:10px; border-top:1px solid var(--line)}
+.wsnew{border:1.5px dashed var(--line-2); background:none; border-radius:var(--radius); padding:16px; color:var(--ink-3); min-height:150px; display:grid; place-items:center; text-align:center}
+.wsnew:hover{background:var(--sel); color:var(--ink-2)}
+.wshead{display:flex; gap:13px; align-items:flex-start; margin-bottom:16px}
+.wshead .ic{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:21px; color:#fff; background:var(--c); flex:0 0 auto}
+.wstabs{display:flex; gap:4px; overflow-x:auto; border-bottom:1px solid var(--line); margin-bottom:18px; padding-bottom:0}
+.wstab{border:0; background:none; padding:9px 13px; color:var(--ink-3); font-weight:600; font-size:13px; border-bottom:2px solid transparent; white-space:nowrap; margin-bottom:-1px}
+.wstab:hover{color:var(--ink-2)}
+.wstab.on{color:var(--ink); border-bottom-color:var(--ink)}
+.wstab .b{display:inline-block; min-width:17px; padding:0 5px; border-radius:99px; background:var(--sel); color:var(--ink-3); font-size:10.5px; margin-left:5px}
+.av{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font-size:12px; font-weight:700;
+  color:#fff; flex:0 0 auto; background-size:cover; background-position:center; position:relative}
+.av.sm{width:25px; height:25px; font-size:9.5px}
+.av.lg{width:52px; height:52px; font-size:17px}
+.av .on{position:absolute; right:-1px; bottom:-1px; width:10px; height:10px; border-radius:50%; border:2px solid var(--card); background:var(--ink-3)}
+.av .on.live{background:var(--campo)}
+.avstack{display:flex}
+.avstack .av{margin-left:-8px; border:2px solid var(--card)}
+.avstack .av:first-child{margin-left:0}
+.mcard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:15px; box-shadow:var(--shadow); text-align:center}
+.mcard .nm{font-family:'Space Grotesk'; font-weight:600; font-size:14.5px; margin-top:9px}
+.kan{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; align-items:start}
+.kcol{background:#faf9f7; border:1px solid var(--line); border-radius:var(--radius); padding:11px; min-height:120px}
+.kcol h5{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:0 0 10px; display:flex; justify-content:space-between}
+.tcard{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--c); border-radius:9px; padding:10px 12px; margin-bottom:7px; cursor:pointer; box-shadow:var(--shadow)}
+.tcard:hover{transform:translateX(2px)}
+.tcard .tt{font-weight:600; font-size:13px}
+.tcard .mt{display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:11px; color:var(--ink-3)}
+.cal{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
+.cal .wd{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); text-align:center; font-weight:600; padding-bottom:3px}
+.cell{min-height:78px; border:1px solid var(--line); border-radius:9px; padding:5px 6px; background:var(--card); cursor:pointer}
+.cell:hover{background:var(--sel)}
+.cell.off{background:#fafaf8; border-style:dashed; opacity:.6}
+.cell.now{border-color:var(--ink); box-shadow:0 0 0 1px var(--ink)}
+.cell .dn{font-size:11px; font-weight:600; color:var(--ink-2)}
+.cell .cev{font-size:10px; border-radius:4px; padding:2px 4px; margin-top:3px; background:var(--bg); color:var(--c); font-weight:600;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.cmt{display:flex; gap:10px; padding:12px 0; border-bottom:1px solid var(--line)}
+.cmt:last-child{border-bottom:0}
+.cmt .bd{flex:1; min-width:0}
+.cmt .hd{display:flex; gap:7px; align-items:baseline}
+.cmt .hd b{font-size:13px}
+.cmt .tx{font-size:13.5px; margin-top:3px; overflow-wrap:anywhere}
+.cmt .rp{margin-left:34px; border-left:2px solid var(--line); padding-left:12px}
+.wsinvite{display:flex; align-items:center; gap:8px; background:var(--sel); border-radius:9px; padding:8px 12px; font-family:'JetBrains Mono',monospace; font-weight:600; letter-spacing:.06em}
+
+/* ---------- onboarding ---------- */
+#onb{position:fixed; inset:0; z-index:100; background:var(--paper); overflow:auto; display:grid; place-items:center;
+  padding:24px calc(18px + env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left))}
+.onb-card{width:min(444px,100%)}
+.onb-kicker{font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+.onb-title{font-family:'Space Grotesk'; font-size:27px; font-weight:700; letter-spacing:-.02em; margin:6px 0 4px}
+.onb-sub{color:var(--ink-2); font-size:13px; margin-bottom:16px}
+.onb-dots{display:flex; gap:6px; margin-bottom:20px}
+.onb-dots i{height:4px; flex:1; border-radius:99px; background:var(--line-2)}
+.onb-dots i.on{background:var(--ink)}
+.obtn{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; border-radius:10px; padding:11px;
+  font-weight:600; border:1px solid var(--line-2); background:#fff; margin-bottom:8px}
+.obtn:hover{background:var(--sel)}
+.obtn.apple{background:#000; border-color:#000; color:#fff}
+.obtn.apple:hover{background:#1c1c1c}
+.osep{display:flex; align-items:center; gap:10px; color:var(--ink-3); font-size:11px; margin:13px 0}
+.osep::before,.osep::after{content:''; flex:1; height:1px; background:var(--line)}
+.pickgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+.pick{border:1px solid var(--line-2); background:#fff; border-radius:10px; padding:12px 13px; font-weight:600; text-align:left; color:var(--ink-2)}
+.pick:hover{background:var(--sel); color:var(--ink)}
+.pick.on{background:var(--ink); border-color:var(--ink); color:#fff}
+.drop{border:2px dashed var(--line-2); border-radius:14px; padding:32px 16px; text-align:center; color:var(--ink-2);
+  background:#fff; cursor:pointer; transition:border-color .12s, background .12s}
+.drop.over{border-color:var(--estudo); background:var(--estudo-bg)}
+.fi{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:9px; padding:8px 11px; margin-top:8px; background:#fff}
+.fi .fx{width:32px; height:32px; border-radius:7px; display:grid; place-items:center; font-size:9.5px; font-weight:700; color:#fff; flex:0 0 auto; text-transform:uppercase}
+.onb-err{color:var(--prova); font-size:12.5px; margin-top:8px; min-height:17px}
+.onb-foot{margin-top:14px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+.spin{display:inline-block; width:13px; height:13px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:sp 1s linear infinite; vertical-align:-2px; margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- variantes de dispositivo ---------- */
+html.dev-tablet .sidebar{width:198px; flex-basis:198px}
+html.dev-tablet main{padding:28px 24px 90px}
+html.dev-tablet .days{grid-template-columns:repeat(2,1fr)}
+html.dev-mobile .app{flex-direction:column}
+html.dev-mobile .sidebar{position:fixed; left:0; right:0; bottom:0; top:auto; width:auto; height:auto; display:flex; gap:2px;
+  overflow-x:auto; border-right:0; border-top:1px solid var(--line);
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom));
+  background:rgba(250,249,247,.97); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); z-index:50}
+html.dev-mobile .brand, html.dev-mobile .navlabel, html.dev-mobile .sidefoot{display:none}
+html.dev-mobile .navgroup{margin:0; display:flex; gap:2px}
+html.dev-mobile .navbtn{flex-direction:column; gap:3px; font-size:9.5px; padding:6px 9px; white-space:nowrap}
+html.dev-mobile .navbtn .ic{font-size:16px}
+html.dev-mobile main{padding:20px 14px calc(112px + env(safe-area-inset-bottom))}
+html.dev-mobile .page-head h1{font-size:24px}
+html.dev-mobile .days{grid-template-columns:1fr}
+html.dev-mobile .g4, html.dev-mobile .g3, html.dev-mobile .g2{grid-template-columns:repeat(2,1fr)}
+html.dev-mobile .actbtn{padding:9px 15px}
+html.dev-mobile .modal{width:100%}
+html.dev-mobile .kan{grid-template-columns:1fr}
+html.dev-mobile .wsgrid{grid-template-columns:1fr}
+html.dev-mobile .cell{min-height:60px}
+html.dev-tablet .kan{grid-template-columns:repeat(2,1fr)}
+
+@media (max-width:860px){
+  .app{flex-direction:column}
+  .sidebar{width:auto; flex:none; height:auto; position:static; display:flex; gap:6px; overflow-x:auto; padding:10px; border-right:0; border-bottom:1px solid var(--line)}
+  .brand,.navlabel,.sidefoot{display:none}
+  .navgroup{margin:0; display:flex; gap:6px}
+  .navbtn{width:auto; white-space:nowrap; padding:7px 12px}
+  main{padding:22px 16px 80px}
+  .page-head h1{font-size:26px}
+  .g4,.g3,.g2{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="onb" class="hidden"></div>
+<div class="app hidden" id="appRoot">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="eyebrow">Aluno_026 · 2026.2</div>
+      <div class="name">Estudy</div>
+      <div class="sub" id="brandSub">SMI · Rodízio 1 &nbsp;|&nbsp; SA · Rodízio 2</div>
+    </div>
+    <div class="navgroup">
+      <div class="navlabel">Comece por aqui</div>
+      <button class="navbtn" data-view="checkin"><span class="ic">◉</span>Check-in do dia</button>
+      <button class="navbtn" data-view="charts"><span class="ic">▦</span>Presença</button>
+    </div>
+    <div class="navgroup">
+      <div class="navlabel">Planner</div>
+      <button class="navbtn" data-view="overview"><span class="ic">◎</span>Visão geral</button>
+      <button class="navbtn" data-view="weeks"><span class="ic">▤</span>Semanas</button>
+      <button class="navbtn" data-view="search"><span class="ic">⌕</span>Buscar</button>
+    </div>
+    <div class="navgroup">
+      <div class="navlabel">Colaboração</div>
+      <button class="navbtn" data-view="workspaces"><span class="ic">⬡</span>Workspaces</button>
+    </div>
+    <div class="navgroup">
+      <div class="navlabel">Minha rotina</div>
+      <button class="navbtn" data-view="routine"><span class="ic">◈</span>Janelas livres</button>
+      <button class="navbtn" data-view="manage"><span class="ic">✎</span>Editar planner</button>
+    </div>
+    <div class="sidefoot" id="profileBox"></div>
+    <div class="sidefoot" style="border-top:0;padding-top:4px">
+      Tudo aqui é editável: clique em qualquer atividade para mudar horário, nome ou tipo.
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+
+<div id="modalWrap" class="backdrop hidden"><div class="modal" id="modal"></div></div>
+
+<script>
+/* MODO PRÉ-VISUALIZAÇÃO
+   true  = abre direto no planner, sem telas de conta (nada foi apagado do código)
+   false = volta o fluxo completo: cadastro → nome → curso → período → arquivos */
+const SKIP_AUTH = true;
+
+/* ============================================================
+   Adaptador de persistência standalone
+   O Store (abaixo) fala com window.storage — a API do ambiente
+   onde este planner foi criado. Num navegador comum ela não
+   existe, e sem este adaptador toda gravação falharia em
+   silêncio (o try/catch do io engoliria o TypeError). Aqui,
+   quando window.storage não existe, ela é implementada sobre
+   localStorage com o mesmo contrato ({ value } no get).
+============================================================ */
+if (!window.storage) {
+  window.storage = {
+    async get(k){ const v = localStorage.getItem(k); return v === null ? null : { value: v }; },
+    async set(k, v){ localStorage.setItem(k, String(v)); },
+  };
+}
+
+/* dispositivo: 'auto' detecta pela largura; as variantes fixam 'mobile' | 'tablet' | 'desktop' */
+const DEVICE = 'auto';
+document.documentElement.classList.add('dev-' + (DEVICE === 'auto'
+  ? (innerWidth < 700 ? 'mobile' : innerWidth < 1100 ? 'tablet' : 'desktop') : DEVICE));
+
+/* ============================================================
+   0. KERNEL — infraestrutura compartilhada
+   ------------------------------------------------------------
+   Nenhum domínio conhece outro. Todos conhecem o Kernel.
+   Camadas: KERNEL → DOMAIN SERVICES → APPLICATION → VIEWS
+   ============================================================ */
+
+/* ---------- 0.1 html: escape por padrão ---------- */
+const RAW = Symbol('raw');
+const escHTML = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const raw = v => ({[RAW]: String(v)});
+function interp(v){
+  if (v === null || v === undefined || v === false) return '';
+  if (Array.isArray(v)) return v.map(interp).join('');
+  if (typeof v === 'object' && v[RAW] !== undefined) return v[RAW];
+  return escHTML(v);
+}
+/* html`<p>${userInput}</p>` escapa sozinho; use raw(x) para injetar marcação confiável */
+function html(strings, ...vals){
+  let out = strings[0];
+  for (let i = 0; i < vals.length; i++) out += interp(vals[i]) + strings[i+1];
+  return raw(out);
+}
+/* Desempacota o resultado de html`` (raw) ou aceita HTML já montado pelas views
+   legadas. O escape acontece dentro de html`` — este ponto só desembrulha. */
+const toHTML = v => (v && typeof v === 'object' && v[RAW] !== undefined) ? v[RAW] : String(v ?? '');
+const esc = escHTML;                       // alias histórico, mesma função
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID()
+  : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random()*16|0; return (c === 'x' ? r : (r&0x3|0x8)).toString(16); }));
+
+/* ---------- 0.2 Store: namespaces, versão, migrações, debounce, onChange ---------- */
+const Store = (() => {
+  const DEBOUNCE = 400;
+  const spaces = new Map();
+  const io = {
+    async get(k){ try { const r = await window.storage.get(k); return r && r.value ? JSON.parse(r.value) : null; } catch(e){ return null; } },
+    async set(k, v){ try { await window.storage.set(k, JSON.stringify(v)); return true; } catch(e){ return false; } },
+    setSync(k, v){ try { window.storage.set(k, JSON.stringify(v)); } catch(e){} }
+  };
+
+  class Namespace {
+    constructor(name, opts){
+      this.name = name;
+      this.key = 'estudy:' + name;
+      this.schemaVersion = opts.schemaVersion || 1;
+      this.migrations = opts.migrations || {};       // { 2: fn, 3: fn } — leva da versão n-1 para n
+      this.legacyKey = opts.legacyKey || null;       // chave do formato antigo, adotada uma única vez
+      this.adopt = opts.adopt || (x => x);
+      this.data = null; this.dirty = false; this.saving = false; this.timer = null;
+      this.listeners = new Set();
+      this.loadedFrom = null;
+    }
+    async load(seed, ctx){
+      let env = await io.get(this.key);
+      if (!env && this.legacyKey){
+        const legacy = await io.get(this.legacyKey);
+        if (legacy){ env = {v:1, data:this.adopt(legacy)}; this.loadedFrom = 'legacy:' + this.legacyKey; }
+      }
+      if (!env || env.data === null || env.data === undefined){
+        this.data = typeof seed === 'function' ? seed() : (seed ?? null);
+        this.loadedFrom = this.loadedFrom || 'seed';
+        this.touch();
+      } else {
+        const from = env.v || 1;
+        this.data = this.migrate(from, env.data, ctx || {});
+        this.loadedFrom = this.loadedFrom || 'storage';
+        if (from !== this.schemaVersion) this.touch();       // grava já migrado
+      }
+      return this.data;
+    }
+    migrate(from, data, ctx){
+      for (let v = from + 1; v <= this.schemaVersion; v++){
+        const step = this.migrations[v];
+        if (typeof step === 'function'){
+          try { data = step(data, ctx) ?? data; }
+          catch(e){ console.error('[Store] migração', this.name, '→ v'+v, e); }
+        }
+      }
+      return data;
+    }
+    get(){ return this.data; }
+    set(d){ this.data = d; this.touch(); return d; }
+    touch(){
+      this.dirty = true;
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => this.flush(), DEBOUNCE);
+      this.listeners.forEach(fn => { try { fn(this.data, this.name); } catch(e){ console.error('[Store] onChange', e); } });
+    }
+    onChange(fn){ this.listeners.add(fn); return () => this.listeners.delete(fn); }
+    envelope(){ return {v:this.schemaVersion, at:new Date().toISOString(), data:this.data}; }
+    async flush(){
+      if (this.saving || !this.dirty) return;
+      this.saving = true; this.dirty = false;
+      await io.set(this.key, this.envelope());
+      this.saving = false;
+      if (this.dirty) this.flush();
+    }
+    flushSync(){ if (this.dirty) io.setSync(this.key, this.envelope()); }
+  }
+
+  return {
+    namespace(name, opts = {}){ if (!spaces.has(name)) spaces.set(name, new Namespace(name, opts)); return spaces.get(name); },
+    ns(name){ return spaces.get(name); },
+    list(){ return [...spaces.values()].map(s => ({name:s.name, key:s.key, v:s.schemaVersion, from:s.loadedFrom})); },
+    flushAll(){ spaces.forEach(s => s.flushSync()); }
+  };
+})();
+window.addEventListener('beforeunload', () => Store.flushAll());
+
+/* ---------- 0.3 Bus: eventos de domínio nomeados ---------- */
+const DOMAIN_EVENTS = Object.freeze([
+  'identity.session.started', 'identity.session.ended', 'identity.profile.updated',
+  'user.upserted',
+  'planner.event.created', 'planner.event.updated', 'planner.event.deleted',
+  'planner.attendance.recorded', 'planner.plan.imported',
+  'workspace.created', 'workspace.updated', 'workspace.deleted', 'workspace.opened',
+  'workspace.member.added', 'workspace.member.updated', 'workspace.member.removed',
+  'workspace.invite.created', 'workspace.invite.redeemed', 'workspace.invite.revoked',
+  'workspace.task.created', 'workspace.task.updated', 'workspace.task.deleted',
+  'workspace.event.created', 'workspace.event.updated', 'workspace.event.deleted',
+  'workspace.asset.uploaded', 'workspace.asset.removed',
+  'workspace.activity.created',
+  'asset.processed', 'ai.job.started', 'ai.job.completed', 'ai.job.failed',
+  'notification.created', 'sync.requested'
+]);
+const Bus = (() => {
+  const subs = new Map(); const trail = [];
+  return {
+    on(name, fn){
+      if (!subs.has(name)) subs.set(name, new Set());
+      subs.get(name).add(fn);
+      return () => subs.get(name).delete(fn);
+    },
+    emit(name, payload = {}){
+      if (!DOMAIN_EVENTS.includes(name)) console.warn('[Bus] evento não declarado em DOMAIN_EVENTS:', name);
+      trail.push({name, at:Date.now()});
+      if (trail.length > 200) trail.shift();
+      const set = subs.get(name);
+      if (set) set.forEach(fn => { try { fn(payload, name); } catch(e){ console.error('[Bus]', name, e); } });
+    },
+    catalog(){ return DOMAIN_EVENTS.slice(); },
+    trail(){ return trail.slice(); }
+  };
+})();
+
+/* ---------- 0.4 Actions: registry no lugar da cadeia de ifs ---------- */
+const Actions = (() => {
+  const map = new Map(), alias = new Map();
+  const api = {
+    register(name, fn){ map.set(name, fn); return api; },
+    /* ponte para a marcação existente: data-wsopen → 'workspace.open' */
+    bind(datasetKey, name){ alias.set(datasetKey, name); return api; },
+    has(name){ return map.has(name); },
+    names(){ return [...map.keys()].sort(); },
+    bindings(){ return [...alias.entries()]; },
+    run(name, payload, el, ev){
+      const fn = map.get(name);
+      if (!fn) return false;
+      try { const r = fn(payload || {}, el, ev); if (r && r.catch) r.catch(e => console.error('[Action]', name, e)); }
+      catch(e){ console.error('[Action]', name, e); }
+      return true;
+    },
+    dispatch(ev){
+      let el = ev.target && ev.target.nodeType === 1 ? ev.target : null;
+      while (el){
+        const ds = el.dataset;
+        if (ds){
+          if (ds.action && map.has(ds.action)) return api.run(ds.action, {value:ds.value, ...ds}, el, ev);
+          for (const k in ds){
+            const name = alias.get(k);
+            if (name && map.has(name)) return api.run(name, {value:ds[k], ...ds}, el, ev);
+          }
+        }
+        el = el.parentElement;
+      }
+      return false;
+    }
+  };
+  return api;
+})();
+
+/* ---------- 0.5 Regions: atualização parcial de tela ---------- */
+const Regions = (() => {
+  const defs = new Map();
+  return {
+    define(name, def){ defs.set(name, def); },                     // {render(ctx), after(el, ctx)}
+    mount(name, ctx){ const d = defs.get(name); return `<div data-region="${name}">${d ? toHTML(d.render(ctx)) : ''}</div>`; },
+    update(name, ctx){
+      const d = defs.get(name), el = document.querySelector('[data-region="' + name + '"]');
+      if (!d || !el) return false;
+      el.innerHTML = toHTML(d.render(ctx));
+      if (d.after) d.after(el, ctx);
+      return true;
+    },
+    list(){ return [...defs.keys()]; }
+  };
+})();
+
+/* ---------- 0.6 Router: hash routes ---------- */
+const Router = (() => {
+  let guard = false, build = () => '', apply = () => false;
+  return {
+    configure(builder, applier){ build = builder; apply = applier; },
+    path(){ return location.hash.replace(/^#/, ''); },
+    sync(){
+      const want = build();
+      if (!want || this.path() === want) return;
+      guard = true; location.hash = want;
+      setTimeout(() => { guard = false; }, 0);
+    },
+    go(path){ if (this.path() !== path) location.hash = path; },
+    start(onApplied){
+      window.addEventListener('hashchange', () => {
+        if (guard) return;
+        const p = this.path();
+        if (p && p !== build() && apply(p) && onApplied) onApplied();
+      });
+      const p = this.path();
+      if (p) apply(p);
+    }
+  };
+})();
+
+/* ---------- 0.7 Identity: única fonte de verdade do usuário ---------- */
+const Identity = (() => {
+  let rec = null, ns = null;
+  const blank = () => ({
+    userId: uuid(), username:'', email:'', passHash:null, provider:null,
+    name:'', course:'', institution:'', period:'', avatarUrl:null, onboarded:false, signedIn:false, files:[]
+  });
+  const api = {
+    async init(){
+      ns = Store.namespace('identity', {
+        schemaVersion: 2,
+        legacyKey: 'planner_profile_v1',
+        migrations: { 2: (d) => { if (d && !d.userId) d.userId = uuid(); return d; } }
+      });
+      rec = await ns.load(blank);
+      if (!rec.userId){ rec.userId = uuid(); ns.touch(); }
+      /* O UserRef existe desde o primeiro boot: é a identidade do aparelho.
+         A sessão é outra coisa e só é anunciada quando há login. */
+      Bus.emit('identity.profile.updated', {user: api.ref()});
+      if (rec.signedIn) Bus.emit('identity.session.started', {user: api.ref()});
+      return rec;
+    },
+    current(){ return rec; },
+    /* contrato público: nenhum domínio recebe o registro, só esta referência */
+    ref(){ return {id: rec.userId, displayName: rec.name || rec.username || 'Você', avatarUrl: rec.avatarUrl || null}; },
+    merge(patch, opts = {}){
+      Object.assign(rec, patch);
+      if (!rec.userId) rec.userId = uuid();
+      if (opts.persist !== false) ns.touch();
+      Bus.emit('identity.profile.updated', {user: api.ref()});
+      if (rec.signedIn) Bus.emit('identity.session.started', {user: api.ref()});
+      return rec;
+    },
+    commit(){ ns.touch(); },
+    signOut(){ rec.signedIn = false; ns.touch(); Bus.emit('identity.session.ended', {}); }
+  };
+  return api;
+})();
+
+/* ============================================================
+   1. ESTRUTURA DO SEMESTRE (ALUNO_026 — Agenda 9P 2026.2)
+   ============================================================ */
+const WEEKS = [
+  {id:'S02', start:'2026-07-27', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S03', start:'2026-08-03', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S04', start:'2026-08-10', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S05', start:'2026-08-17', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S06', start:'2026-08-24', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S07', start:'2026-08-31', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S08', start:'2026-09-07', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S09', start:'2026-09-14', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S10', start:'2026-09-21', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S11', start:'2026-09-28', rod:'Rodízio 1', mod:'SMI'},
+  {id:'S12', start:'2026-10-05', rod:'Rodízio 2', mod:'SA'},
+  {id:'S13', start:'2026-10-12', rod:'Rodízio 2', mod:'SA'},
+  {id:'S14', start:'2026-10-19', rod:'Rodízio 2', mod:'SA'},
+  {id:'S15', start:'2026-10-26', rod:'Rodízio 2', mod:'SA'},
+  {id:'S16', start:'2026-11-02', rod:'Rodízio 2', mod:'SA'},
+  {id:'S17', start:'2026-11-09', rod:'Rodízio 2', mod:'SA'},
+  {id:'S18', start:'2026-11-16', rod:'Rodízio 2', mod:'SA'},
+  {id:'S19', start:'2026-11-23', rod:'Rodízio 2', mod:'SA'},
+  {id:'S20', start:'2026-11-30', rod:'Rodízio 2', mod:'SA'},
+  {id:'S21', start:'2026-12-07', rod:'Rodízio 2', mod:'SA'}
+];
+const MOD_NAME = {SMI:'Saúde da Mulher e da Criança', SA:'Saúde do Adulto', GERAL:'Plano importado'};
+
+const TYPES = {
+  CAMPO:       {label:'Campo',       c:'var(--campo)',       bg:'var(--campo-bg)'},
+  TEORIA:      {label:'Teoria',      c:'var(--teoria)',      bg:'var(--teoria-bg)'},
+  PROVA:       {label:'Prova',       c:'var(--prova)',       bg:'var(--prova-bg)'},
+  SIMULACAO:   {label:'Simulação',   c:'var(--simulacao)',   bg:'var(--simulacao-bg)'},
+  MEDWAY:      {label:'Medway',      c:'var(--medway)',      bg:'var(--medway-bg)'},
+  ACOLHIMENTO: {label:'Acolhimento', c:'var(--acolhimento)', bg:'var(--acolhimento-bg)'},
+  ACADEMIA:    {label:'Academia',    c:'var(--academia)',    bg:'var(--academia-bg)'},
+  ESTUDO:      {label:'Estudo',      c:'var(--estudo)',      bg:'var(--estudo-bg)'},
+  PESSOAL:     {label:'Pessoal',     c:'var(--pessoal)',     bg:'var(--pessoal-bg)'}
+};
+
+/* status de presença — alimentado pelo check-in diário e lido pelos gráficos */
+const ST = {
+  pendente:    {label:'Pendente',    mark:'',  c:'var(--ink-3)'},
+  presente:    {label:'Presente',    mark:'✓', c:'var(--campo)'},
+  falta:       {label:'Falta',       mark:'✕', c:'var(--prova)'},
+  justificada: {label:'Justificada', mark:'!', c:'var(--medway)'}
+};
+const CYCLE = ['pendente','presente','falta','justificada'];
+const stOf = e => e.status || (e.done ? 'presente' : 'pendente');
+const setStatus = (e, s) => { e.status = s; e.done = (s === 'presente'); };
+const subjectOf = e => e.title.replace(/\s*\([^)]*\)/g,'').replace(/\s*—\s*Tema.*$/i,'').replace(/\s+/g,' ').trim();
+
+/* [data, início, fim, tipo, título] — extraído da agenda oficial, apenas ALUNO_026 */
+const SEED = [
+['2026-07-27','13:00','19:00','ACOLHIMENTO','Acolhimento'],
+['2026-07-27','19:00','21:00','TEORIA','Teoria GO'],
+['2026-07-28','07:00','13:00','CAMPO','Egressos Neo'],
+['2026-07-29','07:00','13:00','CAMPO','Cardio Ped'],
+['2026-07-29','13:00','19:00','CAMPO','Pré/Pós GO Cirurgia (Dra Tayná)'],
+['2026-07-29','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-07-30','07:00','13:00','CAMPO','Radiologia'],
+['2026-07-31','13:00','19:00','PROVA','Prova AVD'],
+['2026-08-01','13:00','19:00','MEDWAY','Módulo Medway (online)'],
+
+['2026-08-03','08:00','12:00','SIMULACAO','Simulação CIPED — Tema 1'],
+['2026-08-03','19:00','21:00','TEORIA','Teoria GO'],
+['2026-08-04','08:00','12:00','CAMPO','Expresso Ped Geral'],
+['2026-08-05','07:00','13:00','CAMPO','Enfermaria Ped Manhã'],
+['2026-08-05','13:00','19:00','CAMPO','Ped Geral'],
+['2026-08-05','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-08-07','13:00','19:00','CAMPO','Radiologia'],
+
+['2026-08-10','07:00','13:00','CAMPO','Ped Geral'],
+['2026-08-10','19:00','21:00','TEORIA','Teoria GO'],
+['2026-08-11','18:30','21:30','CAMPO','Egressos Ped'],
+['2026-08-12','07:00','13:00','CAMPO','Otorrino Ped'],
+['2026-08-12','13:00','19:00','CAMPO','Pré/Pós GO Cirurgia (Dra Tayná)'],
+['2026-08-12','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-08-13','13:00','19:00','CAMPO','Imunoalergia Ped'],
+['2026-08-14','13:00','19:00','PROVA','Prova AV1'],
+['2026-08-15','13:00','19:00','MEDWAY','Módulo Medway (online)'],
+
+['2026-08-17','07:00','13:00','CAMPO','Ambulatório Pré-Operatório GO (Dra Eduarda)'],
+['2026-08-17','13:00','19:00','CAMPO','GO Geral / Colposcopia'],
+['2026-08-17','19:00','21:00','TEORIA','Teoria GO'],
+['2026-08-19','07:00','13:00','CAMPO','Neuro Ped'],
+['2026-08-19','13:00','19:00','CAMPO','GO Geral'],
+['2026-08-19','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-08-20','13:00','17:00','CAMPO','CEAMMI Ped Geral'],
+['2026-08-21','07:00','13:00','CAMPO','Radiologia'],
+
+['2026-08-24','07:00','13:00','CAMPO','CEAMMI GO Pré-Natal'],
+['2026-08-24','19:00','21:00','TEORIA','Teoria GO'],
+['2026-08-26','07:00','13:00','CAMPO','Cardio Ped'],
+['2026-08-26','13:00','19:00','CAMPO','GO Geral'],
+['2026-08-26','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-08-27','07:00','13:00','CAMPO','Gastro Ped'],
+['2026-08-27','14:00','18:00','SIMULACAO','Simulação Ped (Prof. Bruno) — Tema 1'],
+
+['2026-08-31','07:00','13:00','CAMPO','Egressos Neo'],
+['2026-08-31','13:00','19:00','CAMPO','Radiologia'],
+['2026-08-31','19:00','21:00','TEORIA','Teoria GO'],
+['2026-09-01','08:00','13:20','MEDWAY','Módulo Medway presencial'],
+['2026-09-02','07:00','13:00','CAMPO','Cardio Ped'],
+['2026-09-02','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-09-03','13:00','19:00','CAMPO','Imunoalergia Ped'],
+['2026-09-04','13:00','19:00','PROVA','Prova AV2'],
+['2026-09-05','13:00','19:00','MEDWAY','Módulo Medway (online)'],
+
+['2026-09-08','08:00','13:00','CAMPO','Pré/Pós Op GO'],
+['2026-09-09','07:00','13:00','CAMPO','Pré/Pós GO Cirurgia (Dra Tayná)'],
+['2026-09-09','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-09-10','07:00','13:00','CAMPO','Enfermaria GO Manhã'],
+['2026-09-12','07:00','13:00','CAMPO','Enfermaria GO Manhã'],
+
+['2026-09-14','07:00','13:00','CAMPO','CEAMMI GO Pré-Natal'],
+['2026-09-14','13:00','19:00','CAMPO','Pré-Natal / Puerpério'],
+['2026-09-14','19:00','21:00','TEORIA','Teoria GO'],
+['2026-09-16','07:00','13:00','CAMPO','Otorrino Ped'],
+['2026-09-16','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-09-17','07:00','13:00','CAMPO','Gastro Ped'],
+['2026-09-17','14:00','18:00','SIMULACAO','Simulação Ped (Prof. Bruno) — Tema 2'],
+['2026-09-18','08:00','12:00','CAMPO','Expresso Ped Geral'],
+
+['2026-09-21','07:00','13:00','CAMPO','Otorrino Ped'],
+['2026-09-21','13:00','17:00','CAMPO','Expresso Ped Geral'],
+['2026-09-21','19:00','21:00','TEORIA','Teoria GO'],
+['2026-09-23','08:00','12:00','SIMULACAO','Simulação GO — Tema 1'],
+['2026-09-23','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-09-24','13:00','19:00','CAMPO','Radiologia'],
+['2026-09-25','07:00','13:00','CAMPO','Enfermaria Ped Manhã'],
+['2026-09-26','13:00','19:00','CAMPO','Cardio Ped'],
+
+['2026-09-28','08:00','12:00','SIMULACAO','Simulação CIPED — Tema 2'],
+['2026-09-28','19:00','21:00','TEORIA','Teoria GO'],
+['2026-09-30','08:00','12:00','SIMULACAO','Simulação GO — Tema 2'],
+['2026-09-30','19:00','21:00','TEORIA','Teoria Ped'],
+['2026-10-01','07:00','13:00','CAMPO','CEAMMI Ped Geral'],
+['2026-10-02','13:00','19:00','CAMPO','GO Geral'],
+['2026-10-03','13:00','19:00','MEDWAY','Módulo Medway (online)'],
+
+['2026-10-05','07:00','13:00','CAMPO','Enfermaria Clínica Médica'],
+['2026-10-05','13:00','19:00','CAMPO','CR Aparelho Digestivo'],
+['2026-10-05','19:00','21:00','TEORIA','Teoria CC'],
+['2026-10-06','07:00','13:00','CAMPO','Reumatologia'],
+['2026-10-06','13:00','19:00','CAMPO','Reumatologia'],
+['2026-10-06','19:00','21:00','TEORIA','Teoria CM'],
+['2026-10-07','13:00','19:00','CAMPO','Vascular'],
+['2026-10-08','13:00','19:00','CAMPO','Ortopedia Policlínica'],
+
+['2026-10-13','07:00','13:00','CAMPO','Ortopedia Policlínica'],
+['2026-10-13','13:00','19:00','CAMPO','Oftalmologia HUSF'],
+['2026-10-13','19:00','21:00','TEORIA','Teoria CM'],
+['2026-10-14','13:00','19:00','CAMPO','Vascular'],
+['2026-10-15','13:00','19:00','CAMPO','Prática Laboratorial'],
+['2026-10-16','07:00','13:00','CAMPO','Urologia'],
+['2026-10-16','13:00','19:00','CAMPO','Cir Geral'],
+['2026-10-18','13:00','19:00','PROVA','Prova AV3'],
+
+['2026-10-19','08:00','13:00','CAMPO','Expresso Saúde'],
+['2026-10-19','13:00','17:00','CAMPO','Expresso Saúde'],
+['2026-10-19','19:00','21:00','TEORIA','Teoria CC'],
+['2026-10-20','19:00','21:00','TEORIA','Teoria CM'],
+['2026-10-21','07:00','13:00','CAMPO','Endoscopia'],
+['2026-10-21','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-10-22','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-10-23','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-10-24','07:00','13:00','CAMPO','Enfermaria Clínica Médica'],
+
+['2026-10-26','13:00','19:00','CAMPO','Nefrologia'],
+['2026-10-26','19:00','21:00','TEORIA','Teoria CC'],
+['2026-10-27','07:00','13:00','CAMPO','Pequenos Procedimentos HUSF'],
+['2026-10-27','13:00','19:00','CAMPO','Reumatologia'],
+['2026-10-27','19:00','21:00','TEORIA','Teoria CM'],
+['2026-10-28','07:00','13:00','CAMPO','Urologia'],
+['2026-10-30','07:00','13:00','CAMPO','Otorrino'],
+['2026-10-30','13:00','19:00','CAMPO','Cir Geral'],
+
+['2026-11-03','07:00','13:00','CAMPO','Gastro'],
+['2026-11-03','13:00','19:00','CAMPO','Gastro'],
+['2026-11-03','19:00','21:00','TEORIA','Teoria CM'],
+['2026-11-04','07:00','13:00','CAMPO','Prática Laboratorial'],
+['2026-11-05','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-11-06','07:00','13:00','CAMPO','Otorrino'],
+['2026-11-06','13:00','19:00','CAMPO','Prática Laboratorial'],
+['2026-11-08','13:00','19:00','PROVA','Prova AV4'],
+
+['2026-11-09','13:00','19:00','CAMPO','Endoscopia'],
+['2026-11-09','19:00','21:00','TEORIA','Teoria CC'],
+['2026-11-10','08:00','12:00','CAMPO','Expresso Saúde'],
+['2026-11-10','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-11-10','19:00','21:00','TEORIA','Teoria CM'],
+['2026-11-11','07:00','13:00','CAMPO','Cardiologia'],
+['2026-11-12','07:00','13:00','CAMPO','Prática Laboratorial'],
+['2026-11-12','14:00','19:00','CAMPO','Pré-Op Anestesiologia'],
+['2026-11-13','16:00','20:00','CAMPO','Pneumologia'],
+
+['2026-11-16','07:00','13:00','CAMPO','Cardiologia'],
+['2026-11-16','13:00','19:00','CAMPO','Pequenos Procedimentos Policlínica'],
+['2026-11-16','19:00','21:00','TEORIA','Teoria CC'],
+['2026-11-17','13:00','19:00','CAMPO','Mastologia'],
+['2026-11-17','19:00','21:00','TEORIA','Teoria CM'],
+['2026-11-18','13:00','19:00','CAMPO','Cardiologia'],
+['2026-11-19','07:00','13:00','CAMPO','Ortopedia Policlínica'],
+['2026-11-19','13:00','19:00','CAMPO','Gastro'],
+
+['2026-11-23','07:00','13:00','CAMPO','Pneumologia / Tabagismo'],
+['2026-11-23','19:00','21:00','TEORIA','Teoria CC'],
+['2026-11-24','07:00','13:00','CAMPO','Gastro'],
+['2026-11-24','13:00','19:00','CAMPO','Prática Laboratorial'],
+['2026-11-24','19:00','21:00','TEORIA','Teoria CM'],
+['2026-11-26','13:00','19:00','CAMPO','Ortopedia Policlínica'],
+['2026-11-27','07:00','13:00','CAMPO','CCIRAS'],
+['2026-11-27','13:00','19:00','CAMPO','Endocrinologia'],
+
+['2026-11-30','13:00','19:00','CAMPO','Neurologia'],
+['2026-11-30','19:00','21:00','TEORIA','Teoria CC'],
+['2026-12-01','13:00','19:00','CAMPO','Mastologia'],
+['2026-12-01','19:00','21:00','TEORIA','Teoria CM'],
+['2026-12-03','07:00','13:00','CAMPO','Proctologia'],
+['2026-12-03','13:00','19:00','CAMPO','Endoscopia'],
+['2026-12-04','07:00','13:00','CAMPO','Neurologia'],
+['2026-12-04','13:00','19:00','CAMPO','Ortopedia Policlínica'],
+
+['2026-12-07','13:00','19:00','CAMPO','Ortopedia Policlínica'],
+['2026-12-07','19:00','21:00','TEORIA','Teoria CC'],
+['2026-12-08','07:00','13:00','CAMPO','Dermatologia'],
+['2026-12-08','13:00','19:00','CAMPO','Gastro'],
+['2026-12-08','19:00','21:00','TEORIA','Teoria CM'],
+['2026-12-09','07:00','13:00','CAMPO','Cardiologia'],
+['2026-12-09','13:00','19:00','CAMPO','CCIRAS'],
+['2026-12-10','13:00','19:00','CAMPO','Pneumologia'],
+['2026-12-11','07:00','13:00','CAMPO','Urologia']
+];
+
+/* ============================================================
+   2. UTILITÁRIOS
+   ============================================================ */
+const DOW = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const DOW_LONG = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const d = s => new Date(s + 'T00:00:00');
+const iso = dt => dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+const addDays = (s,n) => { const x = d(s); x.setDate(x.getDate()+n); return iso(x); };
+const dow = s => d(s).getDay();
+const fmtBR = s => { const x = d(s); return String(x.getDate()).padStart(2,'0')+'/'+String(x.getMonth()+1).padStart(2,'0'); };
+const fmtLong = s => { const x = d(s); return DOW_LONG[x.getDay()]+', '+x.getDate()+' de '+MONTHS[x.getMonth()].toLowerCase(); };
+const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
+const toHHMM = m => String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+const uid = () => 'e'+Math.random().toString(36).slice(2,9);
+/* esc: definido no Kernel (0.1) */
+const TODAY = iso(new Date());
+
+WEEKS.forEach(w => { w.end = addDays(w.start,6); });
+function weekOf(date){
+  const hit = _wk.get(date);
+  if (hit) return hit;
+  let id = date < WEEKS[0].start ? WEEKS[0].id : WEEKS[WEEKS.length-1].id;
+  for (const w of WEEKS) if (date >= w.start && date <= w.end){ id = w.id; break; }
+  _wk.set(date, id);
+  return id;
+}
+function weekMeta(id){ return WEEKS.find(w => w.id === id) || WEEKS[0]; }
+function currentWeekId(){
+  for (const w of WEEKS) if (TODAY <= w.end) return w.id;
+  return WEEKS[WEEKS.length-1].id;
+}
+
+/* ============================================================
+   3. ESTADO + PERSISTÊNCIA
+   ============================================================ */
+/* Namespace do domínio Planner. As migrações substituem os ifs de boot. */
+const PLANNER_NS = Store.namespace('planner', {
+  schemaVersion: 2,
+  legacyKey: 'planner_aluno026_v1',
+  migrations: {
+    2: (d) => {                                  // v1→v2: presença deixa de ser booleano
+      d.notes ||= {}; d.goals ||= {gym:4, study:10};
+      (d.events || []).forEach(e => { if (!e.status) e.status = e.done ? 'presente' : 'pendente'; });
+      return d;
+    }
+  }
+});
+let state = null;
+
+/* --- índices (evitam varrer os 160 eventos a cada consulta) --- */
+let _idx = null;
+const _wk = new Map();
+function invalidate(){ _idx = null; }
+function idx(){
+  if (!_idx){
+    _idx = new Map();
+    for (const e of state.events){
+      let a = _idx.get(e.date);
+      if (!a) _idx.set(e.date, a = []);
+      a.push(e);
+    }
+    for (const a of _idx.values()) a.sort((x,y) => toMin(x.start)-toMin(y.start) || x.title.localeCompare(y.title));
+  }
+  return _idx;
+}
+
+function seedState(){
+  return {
+    events: SEED.map(r => ({id:uid(), date:r[0], start:r[1], end:r[2], type:r[3], title:r[4], note:'', status:'pendente', done:false, custom:false})),
+    notes: {},
+    goals: {gym:4, study:10}
+  };
+}
+
+/* Gravação delegada ao Kernel: debounce, versão e envelope ficam no Store. */
+function save(){ invalidate(); PLANNER_NS.touch(); return Promise.resolve(); }
+function flush(){ return PLANNER_NS.flush(); }
+
+/* consultas */
+const evsOn = date => idx().get(date) || [];
+const evsInWeek = id => state.events.filter(e => weekOf(e.date) === id)
+  .sort((a,b) => a.date.localeCompare(b.date) || toMin(a.start) - toMin(b.start));
+const weekDays = id => { const w = weekMeta(id); return Array.from({length:7}, (_,i) => addDays(w.start,i)); };
+const isAcad = e => !['ACADEMIA','ESTUDO','PESSOAL'].includes(e.type);
+
+/* ============================================================
+   4. MOTOR DE JANELAS LIVRES / SUGESTÕES
+   ============================================================ */
+const DAY_OPEN = 5*60+30, DAY_CLOSE = 22*60+30;
+
+function busyOn(date, onlyAcademic){
+  return evsOn(date).filter(e => onlyAcademic ? isAcad(e) : true)
+    .map(e => [toMin(e.start), toMin(e.end)])
+    .sort((a,b) => a[0]-b[0])
+    .reduce((acc,iv) => {
+      const last = acc[acc.length-1];
+      if (last && iv[0] <= last[1]) last[1] = Math.max(last[1], iv[1]); else acc.push(iv.slice());
+      return acc;
+    }, []);
+}
+function gapsOn(date, onlyAcademic){
+  const busy = busyOn(date, onlyAcademic);
+  const gaps = []; let cur = DAY_OPEN;
+  for (const [s,e] of busy){ if (s - cur >= 45) gaps.push([cur, s]); cur = Math.max(cur, e); }
+  if (DAY_CLOSE - cur >= 45) gaps.push([cur, DAY_CLOSE]);
+  return gaps;
+}
+
+/* gera sugestões de academia/estudo para um dia */
+function suggestDay(date){
+  const busy = busyOn(date, true);
+  const gaps = gapsOn(date, true);
+  const out = [];
+  const wd = dow(date);
+  const already = evsOn(date).filter(e => !isAcad(e));
+  const has = kind => already.some(e => e.type === kind);
+
+  if (!busy.length){
+    // dia inteiro livre
+    if (!has('ACADEMIA')) out.push({s:8*60, e:9*60+15, kind:'ACADEMIA', why:'Dia sem atividade oficial — treino cedo mantém a rotina no lugar.'});
+    if (!has('ESTUDO')) out.push({s:9*60+45, e:11*60+45, kind:'ESTUDO', why:'Bloco longo de revisão: o melhor momento da semana para conteúdo pesado.'});
+    if (!has('ESTUDO')) out.push({s:14*60+30, e:16*60+30, kind:'ESTUDO', why:'Segundo bloco: questões comentadas ou banco de provas.'});
+    out.push({s:19*60, e:21*60, kind:'PESSOAL', why:'Descanso protegido. Dia livre também serve para não zerar a bateria.'});
+    return out;
+  }
+
+  const firstStart = busy[0][0], lastEnd = busy[busy.length-1][1];
+
+  // treino antes do campo
+  if (firstStart >= 7*60 && firstStart - DAY_OPEN >= 75 && !has('ACADEMIA'))
+    out.push({s:Math.max(DAY_OPEN, firstStart-85), e:Math.max(DAY_OPEN, firstStart-85)+60, kind:'ACADEMIA', why:'Treino antes do plantão: 60 min e ainda sobra tempo para o deslocamento.'});
+
+  // vãos internos
+  gaps.forEach(([gs,ge]) => {
+    const len = ge - gs;
+    if (gs < firstStart) return;                 // já tratado acima
+    if (len >= 100 && gs >= 9*60 && gs < 18*60)
+      out.push({s:gs+15, e:Math.min(gs+15+Math.min(len-30,120), ge-10), kind:'ESTUDO', why:'Vão entre atividades — revisar o caso que você acabou de ver rende o dobro.'});
+    else if (len >= 75 && gs >= 16*60 && gs < 20*60 && !has('ACADEMIA') && !out.some(o => o.kind==='ACADEMIA'))
+      out.push({s:gs+10, e:gs+80, kind:'ACADEMIA', why:'Janela do fim de tarde livre: encaixe o treino aqui.'});
+  });
+
+  // depois de tudo
+  if (lastEnd <= 19*60 && !out.some(o => o.kind==='ACADEMIA') && !has('ACADEMIA'))
+    out.push({s:lastEnd+45, e:lastEnd+45+70, kind:'ACADEMIA', why:'Dia termina cedo — treino logo após o campo, antes de perder o embalo.'});
+  if (lastEnd <= 21*60 && lastEnd >= 19*60 && !has('ESTUDO'))
+    out.push({s:21*60+15, e:22*60+15, kind:'ESTUDO', why:'Revisão curta do que caiu na teoria de hoje (Anki / resumo de 1 página).'});
+  else if (lastEnd < 19*60 && !has('ESTUDO'))
+    out.push({s:20*60, e:21*60+30, kind:'ESTUDO', why:'Noite livre: bloco fixo de estudo para não acumular conteúdo até a prova.'});
+
+  return out.filter(o => o.e <= DAY_CLOSE && o.e > o.s);
+}
+
+/* ---- estatísticas de presença (alimentadas pelo check-in) ---- */
+const MIN_PCT = 75; // limite de risco
+
+function stats(list){
+  const s = {presente:0, falta:0, justificada:0, pendente:0, total:list.length};
+  list.forEach(e => s[stOf(e)]++);
+  s.registrados = s.presente + s.falta + s.justificada;
+  s.pct = s.registrados ? Math.round((s.presente + s.justificada)/s.registrados*100) : null;
+  s.horasFalta = list.filter(e => stOf(e)==='falta').reduce((a,e)=>a+(toMin(e.end)-toMin(e.start))/60,0);
+  return s;
+}
+function bySubject(scope){
+  const map = new Map();
+  state.events.filter(isAcad).filter(e => scope==='all' || weekMeta(weekOf(e.date)).mod === scope)
+    .forEach(e => {
+      const k = subjectOf(e);
+      if (!map.has(k)) map.set(k, []);
+      map.get(k).push(e);
+    });
+  return [...map.entries()].map(([name, evs]) => ({name, type:evs[0].type, evs, ...stats(evs)}));
+}
+function pctColor(p){ return p === null ? 'var(--ink-3)' : p < MIN_PCT ? 'var(--prova)' : p < 90 ? 'var(--medway)' : 'var(--campo)'; }
+const pendingBefore = date => state.events.filter(isAcad)
+  .filter(e => e.date < date && stOf(e) === 'pendente')
+  .sort((a,b) => b.date.localeCompare(a.date) || toMin(a.start)-toMin(b.start));
+
+function nextExam(from){
+  return state.events.filter(e => e.type === 'PROVA' && e.date >= from)
+    .sort((a,b) => a.date.localeCompare(b.date))[0];
+}
+
+/* ============================================================
+   5. COMPONENTES DE RENDER
+   ============================================================ */
+function evHTML(e, showDate){
+  const t = TYPES[e.type] || TYPES.PESSOAL;
+  const s = stOf(e), st = ST[s];
+  return `<div class="ev${s!=='pendente'?' is-marked':''}" style="--c:${t.c};--bg:${t.bg}" data-ev="${e.id}">
+    <div class="chk st-${s}" data-cycle="${e.id}" title="${st.label} — clique para alternar">${st.mark}</div>
+    <div class="t">
+      <div class="time mono">${showDate ? DOW[dow(e.date)]+' '+fmtBR(e.date)+' · ' : ''}${e.start}–${e.end}</div>
+      <div class="title">${esc(e.title)}</div>
+      <div class="meta">${t.label}${s!=='pendente' ? ' · <b style="color:'+st.c+'">'+st.label+'</b>' : ''}${e.note ? ' · '+esc(e.note) : ''}${e.custom ? ' · adicionado por você' : ''}</div>
+    </div>
+  </div>`;
+}
+
+function ribbonHTML(date){
+  const span = DAY_CLOSE - DAY_OPEN;
+  const pct = m => ((m - DAY_OPEN)/span*100);
+  let bars = evsOn(date).map(e => {
+    const t = TYPES[e.type] || TYPES.PESSOAL;
+    const a = Math.max(DAY_OPEN, toMin(e.start)), b = Math.min(DAY_CLOSE, toMin(e.end));
+    if (b <= a) return '';
+    return `<i style="--c:${t.c};left:${pct(a)}%;width:${Math.max(pct(b)-pct(a),1.2)}%" title="${esc(e.title)}"></i>`;
+  }).join('');
+  const marks = [8,12,16,20].map(h => `<span class="hr" style="left:${pct(h*60)}%"></span>`).join('');
+  return `<div class="ribbon">${marks}${bars}</div>
+    <div class="ribbon-legend mono"><span>05:30</span><span>12:00</span><span>18:00</span><span>22:30</span></div>`;
+}
+
+function dayCard(date, opts={}){
+  const list = evsOn(date);
+  const free = list.length === 0;
+  return `<div class="day${free?' free':''}">
+    <div class="dh"><b>${DOW[dow(date)]} ${fmtBR(date)}</b>
+      <span>${free ? 'dia livre' : list.length+(list.length>1?' atividades':' atividade')}</span></div>
+    ${list.length ? ribbonHTML(date) : ''}
+    ${list.map(e => evHTML(e)).join('') || '<div class="small muted" style="padding:6px 0 10px">Nada marcado pela faculdade. Bom candidato a treino + bloco longo de estudo.</div>'}
+    ${opts.noAdd ? '' : `<button class="addbtn" data-add="${date}">+ Adicionar atividade</button>`}
+  </div>`;
+}
+
+function typeLegend(){
+  return `<div class="chips">${Object.entries(TYPES).map(([k,t]) =>
+    `<span class="chip" style="cursor:default"><span class="dot" style="background:${t.c}"></span> ${t.label}</span>`).join('')}</div>`;
+}
+
+/* ============================================================
+   6. VIEWS
+   ============================================================ */
+let view = 'checkin';
+let weekSel = currentWeekId();
+let searchQ = '', searchTypes = new Set();
+let ciDate = TODAY;
+let chartScope = 'all';
+
+const R = {};
+
+/* ---------- CHECK-IN DO DIA ---------- */
+R.checkin = () => {
+  const list = evsOn(ciDate);
+  const acad = list.filter(isAcad);
+  const s = stats(acad);
+  const allPend = pendingBefore(TODAY);
+  const pend = allPend.slice(0,12);
+  const geral = stats(state.events.filter(isAcad));
+  const nextWithEvents = state.events.filter(e => e.date > ciDate).sort((a,b)=>a.date.localeCompare(b.date))[0];
+
+  const btn = (e, st, cls, txt) =>
+    `<button class="actbtn ${cls}${stOf(e)===st?' on':''}" data-set="${e.id}|${st}">${txt}</button>`;
+
+  return `
+  <div class="page-head">
+    <div class="kicker">${ciDate === TODAY ? 'Hoje' : 'Registro retroativo'} · ${weekOf(ciDate)}</div>
+    <h1>Check-in do dia</h1>
+    <p>Marque cada atividade como presente, falta ou falta justificada. Tudo que você registrar aqui vai direto para a aba <b>Presença</b> e recalcula sua porcentagem por matéria.</p>
+  </div>
+
+  <div class="datenav">
+    <button class="btn" data-day="-1">←</button>
+    <div class="nowbox"><b>${fmtLong(ciDate)}</b><span>${weekOf(ciDate)} · ${MOD_NAME[weekMeta(weekOf(ciDate)).mod]}</span></div>
+    <button class="btn" data-day="1">→</button>
+    <button class="btn" data-day="today">Hoje</button>
+    <input type="date" id="ciPick" value="${ciDate}" style="border:1px solid var(--line-2);border-radius:8px;padding:7px 10px">
+    ${acad.length ? '<button class="btn primary" id="allPresent">Marcar tudo como presente</button>' : ''}
+  </div>
+
+  <div class="grid g3" style="margin-bottom:20px">
+    <div class="card stat"><div class="n" id="ciReg">${s.registrados}/${acad.length}</div><div class="l">registrados hoje</div>
+      <div class="bar" id="ciBar"><i style="width:${acad.length ? s.registrados/acad.length*100 : 0}%"></i></div></div>
+    <div class="card stat"><div class="n" id="ciPct" style="color:${pctColor(geral.pct)}">${geral.pct===null?'—':geral.pct+'%'}</div>
+      <div class="l">presença acumulada no semestre</div></div>
+    <div class="card stat"><div class="n" id="ciPend" style="color:${allPend.length?'var(--prova)':'var(--ink)'}">${allPend.length}</div>
+      <div class="l">dias anteriores sem registro</div></div>
+  </div>
+
+  ${acad.length ? list.map(e => {
+      const t = TYPES[e.type] || TYPES.PESSOAL, st = ST[stOf(e)];
+      return `<div class="ci" style="--c:${t.c}">
+        <div class="top">
+          <div>
+            <div class="time">${e.start}–${e.end}</div>
+            <div class="name">${esc(e.title)}</div>
+            <div class="small muted" style="margin-top:2px">${t.label}${e.note?' · '+esc(e.note):''}</div>
+          </div>
+          <span class="tag" style="background:${t.bg};color:${st.c}">${st.label}</span>
+        </div>
+        ${isAcad(e) ? `<div class="acts">
+          ${btn(e,'presente','p','Presente')}
+          ${btn(e,'falta','f','Falta')}
+          ${btn(e,'justificada','j','Justificada')}
+          <button class="actbtn" data-set="${e.id}|pendente">Limpar</button>
+          <button class="actbtn" data-ev="${e.id}">Editar</button>
+        </div>` : `<div class="acts">
+          ${btn(e,'presente','p','Fiz')}
+          ${btn(e,'falta','f','Não fiz')}
+          <button class="actbtn" data-ev="${e.id}">Editar</button>
+        </div>`}
+      </div>`;
+    }).join('')
+  : `<div class="empty">
+      <b style="font-size:15px">Dia sem atividade oficial</b>
+      <div style="margin-top:6px">Nada para registrar. ${nextWithEvents ? 'Próximo compromisso: '+DOW_LONG[dow(nextWithEvents.date)]+', '+fmtBR(nextWithEvents.date)+'.' : ''}</div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        ${nextWithEvents ? `<button class="btn" data-goday="${nextWithEvents.date}">Ir para esse dia</button>` : ''}
+        <button class="btn" data-add="${ciDate}">+ Adicionar atividade</button>
+      </div>
+    </div>`}
+
+  ${pend.length ? `
+    <div class="sec-title">Pendentes de registro (${allPend.length})</div>
+    <div class="card pad">
+      <div class="small muted" style="margin-bottom:10px">Atividades que já passaram e continuam sem check-in. Elas ficam fora do cálculo de presença até serem marcadas.</div>
+      ${pend.map(e => `<div class="row pendrow" data-pid="${e.id}" style="align-items:center;gap:8px;margin-bottom:6px">
+        <div style="flex:1;min-width:0">${evHTML(e, true)}</div>
+        <button class="btn sm" data-set="${e.id}|presente">Presente</button>
+        <button class="btn sm danger" data-set="${e.id}|falta">Falta</button>
+      </div>`).join('')}
+      ${allPend.length > 12 ? '<div class="small muted">Mostrando os 12 mais recentes.</div>' : ''}
+    </div>` : ''}`;
+};
+
+/* ---------- GRÁFICOS DE PRESENÇA ---------- */
+R.charts = () => {
+  const scoped = state.events.filter(isAcad)
+    .filter(e => chartScope==='all' || weekMeta(weekOf(e.date)).mod === chartScope);
+  const g = stats(scoped);
+  const subs = bySubject(chartScope).sort((a,b) => b.falta - a.falta || b.total - a.total || a.name.localeCompare(b.name));
+  const risco = subs.filter(x => x.pct !== null && x.pct < MIN_PCT);
+  const C = 2*Math.PI*52, p = (g.pct ?? 0)/100;
+
+  const byType = Object.keys(TYPES).filter(k => !['ACADEMIA','ESTUDO','PESSOAL'].includes(k))
+    .map(k => ({k, ...stats(scoped.filter(e => e.type === k))})).filter(x => x.total);
+
+  const weeksData = WEEKS.map(w => {
+    const evs = scoped.filter(e => weekOf(e.date) === w.id);
+    return {id:w.id, ...stats(evs)};
+  }).filter(x => x.total);
+
+  const stackHTML = x => `<div class="stack">
+      <i style="width:${x.presente/x.total*100}%;background:var(--campo)"></i>
+      <i style="width:${x.justificada/x.total*100}%;background:var(--medway)"></i>
+      <i style="width:${x.falta/x.total*100}%;background:var(--prova)"></i>
+      <i style="width:${x.pendente/x.total*100}%;background:var(--line-2)"></i>
+    </div>`;
+
+  return `
+  <div class="page-head">
+    <div class="kicker">Alimentado pelo check-in diário</div>
+    <h1>Presença por matéria</h1>
+    <p>Cada registro feito na aba Check-in entra nestes gráficos. A porcentagem considera apenas o que já foi registrado — faltas justificadas contam como presença, mas aparecem separadas.</p>
+  </div>
+
+  ${risco.length ? `<div class="alert">
+    <b style="color:var(--prova)">Atenção: ${risco.length} matéria${risco.length>1?'s':''} abaixo de ${MIN_PCT}%</b>
+    <div class="small" style="margin-top:5px">${risco.map(x => esc(x.name)+' ('+x.pct+'%)').join(' · ')}</div>
+  </div>` : ''}
+
+  <div class="chips" style="margin-bottom:18px">
+    <button class="chip${chartScope==='all'?' on':''}" data-scope="all">Semestre inteiro</button>
+    ${[...new Set(WEEKS.map(w=>w.mod))].map(m=>`<button class="chip${chartScope===m?' on':''}" data-scope="${m}">${MOD_NAME[m]||m}</button>`).join('')}
+  </div>
+
+  <div class="card pad" style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+    <svg viewBox="0 0 120 120" width="128" height="128" role="img" aria-label="Presença geral ${g.pct ?? 0}%">
+      <circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="13"/>
+      <circle cx="60" cy="60" r="52" fill="none" stroke="${pctColor(g.pct)}" stroke-width="13" stroke-linecap="round"
+        stroke-dasharray="${(p*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 60 60)"/>
+      <text x="60" y="58" text-anchor="middle" font-family="Space Grotesk" font-size="26" font-weight="700" fill="var(--ink)">${g.pct===null?'—':g.pct+'%'}</text>
+      <text x="60" y="75" text-anchor="middle" font-family="Inter" font-size="9" fill="var(--ink-3)">presença</text>
+    </svg>
+    <div style="flex:1;min-width:240px">
+      <div class="grid g4" style="gap:10px">
+        <div><div class="mono" style="font-size:21px;font-weight:600;color:var(--campo)">${g.presente}</div><div class="small muted">presenças</div></div>
+        <div><div class="mono" style="font-size:21px;font-weight:600;color:var(--prova)">${g.falta}</div><div class="small muted">faltas</div></div>
+        <div><div class="mono" style="font-size:21px;font-weight:600;color:var(--medway)">${g.justificada}</div><div class="small muted">justificadas</div></div>
+        <div><div class="mono" style="font-size:21px;font-weight:600;color:var(--ink-3)">${g.pendente}</div><div class="small muted">sem registro</div></div>
+      </div>
+      ${stackHTML(g)}
+      <div class="small muted" style="margin-top:8px">${g.horasFalta.toFixed(0)}h de atividade perdidas em faltas não justificadas · ${g.registrados} de ${g.total} atividades já registradas.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Presença por matéria (${subs.length})</div>
+  <div class="card pad">
+    ${subs.length ? subs.map(x => {
+      const t = TYPES[x.type] || TYPES.PESSOAL;
+      return `<div class="subrow">
+        <div class="l1">
+          <div class="nm"><span class="dot" style="background:${t.c}"></span> ${esc(x.name)}
+            <span class="small muted" style="font-weight:400">· ${x.total} aula${x.total>1?'s':''}</span></div>
+          <div class="pc" style="color:${pctColor(x.pct)}">${x.pct===null?'—':x.pct+'%'}</div>
+        </div>
+        ${stackHTML(x)}
+        <div class="small muted" style="margin-top:5px">
+          ${x.presente} presença${x.presente===1?'':'s'} · ${x.falta} falta${x.falta===1?'':'s'} · ${x.justificada} justificada${x.justificada===1?'':'s'} · ${x.pendente} sem registro
+        </div>
+      </div>`;
+    }).join('') : '<div class="muted small">Sem atividades neste recorte.</div>'}
+  </div>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div>
+      <div class="sec-title" style="margin-top:0">Por tipo de atividade</div>
+      <div class="card pad">
+        ${byType.map(x => `<div class="subrow">
+          <div class="l1"><div class="nm"><span class="dot" style="background:${TYPES[x.k].c}"></span> ${TYPES[x.k].label}</div>
+          <div class="pc" style="color:${pctColor(x.pct)}">${x.pct===null?'—':x.pct+'%'}</div></div>
+          ${stackHTML(x)}
+          <div class="small muted" style="margin-top:5px">${x.registrados}/${x.total} registradas · ${x.falta} falta${x.falta===1?'':'s'}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="sec-title" style="margin-top:0">Evolução semana a semana</div>
+      <div class="card pad">
+        <div class="cols">
+          ${weeksData.map(x => `<div class="col" title="${x.id}: ${x.pct===null?'sem registro':x.pct+'% · '+x.falta+' falta(s)'}">
+            <i style="height:${x.pct===null?4:Math.max(x.pct,4)}%;background:${x.pct===null?'var(--line-2)':pctColor(x.pct)}"></i>
+            <small>${x.id.slice(1)}</small></div>`).join('')}
+        </div>
+        <div class="small muted" style="margin-top:10px">Altura = % de presença registrada na semana. Cinza = semana ainda sem check-in.</div>
+      </div>
+      <div class="sec-title">Legenda</div>
+      <div class="card pad small">
+        <span class="dot" style="background:var(--campo)"></span> presença &nbsp;
+        <span class="dot" style="background:var(--medway)"></span> justificada &nbsp;
+        <span class="dot" style="background:var(--prova)"></span> falta &nbsp;
+        <span class="dot" style="background:var(--line-2)"></span> sem registro<br><br>
+        <span class="muted">Vermelho abaixo de ${MIN_PCT}%, amarelo entre ${MIN_PCT}% e 89%, verde de 90% para cima. Ajuste os registros a qualquer momento pela aba Check-in ou clicando na atividade em qualquer tela.</span>
+      </div>
+    </div>
+  </div>`;
+};
+
+R.overview = () => {
+  const all = state.events;
+  const acad = all.filter(isAcad);
+  const g = stats(acad);
+  const pct = acad.length ? Math.round(g.registrados/acad.length*100) : 0;
+  const upcoming = all.filter(e => e.date >= TODAY).sort((a,b) => a.date.localeCompare(b.date) || toMin(a.start)-toMin(b.start)).slice(0,7);
+  const ex = nextExam(TODAY);
+  const days = ex ? Math.round((d(ex.date) - d(TODAY))/86400000) : 0;
+  const byType = Object.keys(TYPES).map(k => [k, all.filter(e => e.type === k).length]).filter(x => x[1]);
+  const freeDays = WEEKS.flatMap(w => weekDays(w.id)).filter(dt => dt >= TODAY && !evsOn(dt).length).length;
+  const provas = all.filter(e => e.type === 'PROVA').sort((a,b) => a.date.localeCompare(b.date));
+
+  return `
+  <div class="page-head">
+    <div class="kicker">${WEEKS[0].id} → ${WEEKS[WEEKS.length-1].id} · ${fmtBR(WEEKS[0].start)} a ${fmtBR(WEEKS[WEEKS.length-1].end)}</div>
+    <h1>Visão geral</h1>
+    <p>20 semanas, dois rodízios. Marque o que já cumpriu, ajuste o que mudar e use as janelas livres para encaixar academia e estudo.</p>
+  </div>
+
+  <div class="grid g4">
+    <div class="card stat"><div class="n" style="color:${pctColor(g.pct)}">${g.pct===null?'—':g.pct+'%'}</div><div class="l">presença registrada</div>
+      <div class="bar"><i style="width:${pct}%"></i></div><div class="l">${g.registrados} de ${acad.length} atividades com check-in · ${g.falta} falta${g.falta===1?'':'s'}</div></div>
+    <div class="card stat"><div class="n">${ex ? days : '—'}</div><div class="l">${ex ? `dias até a ${esc(ex.title)} <span class="mono">(${fmtBR(ex.date)})</span>` : 'nenhuma prova pendente'}</div></div>
+    <div class="card stat"><div class="n">${freeDays}</div><div class="l">dias sem atividade oficial restantes</div></div>
+    <div class="card stat"><div class="n">${all.filter(e => !isAcad(e)).length}</div><div class="l">blocos pessoais no planner</div></div>
+  </div>
+
+  <div class="sec-title">Próximas atividades</div>
+  <div class="card pad">${upcoming.map(e => evHTML(e, true)).join('') || '<div class="muted small">Semestre concluído.</div>'}</div>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div>
+      <div class="sec-title" style="margin-top:0">Calendário de provas</div>
+      <div class="card pad">${provas.map(e => evHTML(e, true)).join('')}</div>
+    </div>
+    <div>
+      <div class="sec-title" style="margin-top:0">Composição do semestre</div>
+      <div class="card pad">
+        ${byType.map(([k,n]) => {
+          const t = TYPES[k], max = Math.max(...byType.map(x => x[1]));
+          return `<div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px">
+              <span><span class="dot" style="background:${t.c}"></span> ${t.label}</span><b class="mono">${n}</b></div>
+            <div class="bar"><i style="width:${n/max*100}%;background:${t.c}"></i></div></div>`;
+        }).join('')}
+      </div>
+      <div class="sec-title">Rodízios</div>
+      <div class="card pad small">
+        <b>Rodízio 1 — SMI</b> · S02 a S11 · 27/07 → 04/10<br>
+        <span class="muted">Teoria GO nas segundas e Teoria Ped nas quartas, 19:00–21:00.</span><br><br>
+        <b>Rodízio 2 — SA</b> · S12 a S21 · 05/10 → 13/12<br>
+        <span class="muted">Teoria CC nas segundas e Teoria CM nas terças, 19:00–21:00.</span>
+      </div>
+    </div>
+  </div>`;
+};
+
+R.weeks = () => {
+  const w = weekMeta(weekSel);
+  const days = weekDays(weekSel);
+  const list = evsInWeek(weekSel);
+  const freeDays = days.filter(dt => !evsOn(dt).length);
+  const horas = list.filter(isAcad).reduce((s,e) => s + (toMin(e.end)-toMin(e.start))/60, 0);
+  const note = state.notes[weekSel] || '';
+
+  return `
+  <div class="page-head">
+    <div class="kicker">${w.rod} · ${MOD_NAME[w.mod]}</div>
+    <h1>Semana ${w.id.slice(1)} <span class="muted" style="font-weight:400">· ${fmtBR(w.start)} a ${fmtBR(w.end)}</span></h1>
+  </div>
+
+  <div class="weekbar">${WEEKS.map(x => `<button class="wtab${x.id===weekSel?' on':''}${x.id===currentWeekId()?' now':''}" data-week="${x.id}">
+      <b>${x.id}</b><span>${fmtBR(x.start)}–${fmtBR(x.end)}</span></button>`).join('')}</div>
+
+  <div class="row" style="margin-bottom:14px">
+    <div class="card pad" style="flex:1;min-width:150px"><div class="small muted">Atividades</div><b class="mono" style="font-size:19px">${list.filter(isAcad).length}</b></div>
+    <div class="card pad" style="flex:1;min-width:150px"><div class="small muted">Carga horária</div><b class="mono" style="font-size:19px">${horas.toFixed(0)}h</b></div>
+    <div class="card pad" style="flex:2;min-width:220px"><div class="small muted">Dias sem evento</div>
+      <b style="font-size:15px">${freeDays.length ? freeDays.map(dt => DOW[dow(dt)]).join(', ') : 'nenhum'}</b>
+      <div class="small muted">${freeDays.length ? 'Livres para treino, estudo longo ou descanso.' : 'Semana cheia — use os vãos entre turnos.'}</div></div>
+  </div>
+
+  ${typeLegend()}
+
+  <div class="days">${days.map(dt => dayCard(dt)).join('')}</div>
+
+  <div class="sec-title">Anotações da semana</div>
+  <textarea id="weeknote" placeholder="Casos para revisar, pendências de prontuário, o que combinar com o preceptor…"
+    style="width:100%;min-height:96px;border:1px solid var(--line-2);border-radius:12px;padding:12px;resize:vertical">${esc(note)}</textarea>
+  <div class="small muted" style="margin-top:6px">Salvo automaticamente ao sair do campo.</div>`;
+};
+
+R.search = () => {
+  const q = searchQ.trim().toLowerCase();
+  let res = state.events.slice();
+  if (searchTypes.size) res = res.filter(e => searchTypes.has(e.type));
+  if (q) res = res.filter(e =>
+    e.title.toLowerCase().includes(q) || (e.note||'').toLowerCase().includes(q) ||
+    (TYPES[e.type]?.label.toLowerCase().includes(q)) || weekOf(e.date).toLowerCase() === q ||
+    fmtBR(e.date).includes(q) || DOW_LONG[dow(e.date)].toLowerCase().startsWith(q));
+  res.sort((a,b) => a.date.localeCompare(b.date) || toMin(a.start)-toMin(b.start));
+
+  const groups = {};
+  res.forEach(e => { (groups[weekOf(e.date)] ||= []).push(e); });
+
+  return `
+  <div class="page-head">
+    <div class="kicker">Busca</div>
+    <h1>Buscar no planner</h1>
+    <p>Procure por rotação (“cardiologia”), tipo (“prova”), semana (“S14”), dia da semana (“quinta”) ou data (“12/11”).</p>
+  </div>
+
+  <input id="q" value="${esc(searchQ)}" placeholder="Buscar atividade, semana, data…" autocomplete="off"
+    style="width:100%;border:1px solid var(--line-2);border-radius:11px;padding:13px 15px;font-size:15px;margin-bottom:12px">
+
+  <div class="chips" style="margin-bottom:16px">
+    ${Object.entries(TYPES).map(([k,t]) => `<button class="chip${searchTypes.has(k)?' on':''}" data-ftype="${k}">
+      <span class="dot" style="background:${searchTypes.has(k)?'#fff':t.c}"></span> ${t.label}</button>`).join('')}
+    ${searchTypes.size ? '<button class="chip" data-ftype="__clear">limpar filtros</button>' : ''}
+  </div>
+
+  <div class="small muted" style="margin-bottom:10px">${res.length} resultado${res.length===1?'':'s'}</div>
+
+  ${res.length ? Object.keys(groups).map(wk => {
+    const m = weekMeta(wk);
+    return `<div style="margin-bottom:18px">
+      <div class="sec-title" style="margin:0 0 8px">${wk} · ${fmtBR(m.start)}–${fmtBR(m.end)} · ${m.mod}</div>
+      <div class="card pad">${groups[wk].map(e => evHTML(e, true)).join('')}
+      <button class="btn sm" data-goweek="${wk}" style="margin-top:6px">Abrir semana ${wk}</button></div>
+    </div>`;
+  }).join('') : `<div class="empty">Nada encontrado. Tente “teoria”, “prova AV3”, “S09” ou “urologia”.</div>`}`;
+};
+
+R.routine = () => {
+  const w = weekMeta(weekSel);
+  const days = weekDays(weekSel);
+  const sug = days.map(dt => ({date:dt, items:suggestDay(dt)}));
+  const gym = state.events.filter(e => e.type === 'ACADEMIA' && weekOf(e.date) === weekSel).length;
+  const stu = state.events.filter(e => e.type === 'ESTUDO' && weekOf(e.date) === weekSel)
+    .reduce((s,e) => s + (toMin(e.end)-toMin(e.start))/60, 0);
+
+  return `
+  <div class="page-head">
+    <div class="kicker">Academia · estudo · descanso</div>
+    <h1>Janelas livres</h1>
+    <p>O planner lê a agenda da semana, encontra os buracos reais entre campo e teoria e propõe onde encaixar treino e estudo. Um clique adiciona o bloco ao seu planner — e ele passa a contar como atividade sua, editável como qualquer outra.</p>
+  </div>
+
+  <div class="weekbar">${WEEKS.map(x => `<button class="wtab${x.id===weekSel?' on':''}" data-week="${x.id}">
+      <b>${x.id}</b><span>${fmtBR(x.start)}–${fmtBR(x.end)}</span></button>`).join('')}</div>
+
+  <div class="row" style="margin-bottom:16px">
+    <div class="card pad" style="flex:1;min-width:180px">
+      <div class="small muted">Treinos marcados em ${weekSel}</div>
+      <b class="mono" style="font-size:19px">${gym} / ${state.goals.gym}</b>
+      <div class="bar"><i style="width:${Math.min(gym/state.goals.gym*100,100)}%;background:var(--academia)"></i></div>
+    </div>
+    <div class="card pad" style="flex:1;min-width:180px">
+      <div class="small muted">Horas de estudo em ${weekSel}</div>
+      <b class="mono" style="font-size:19px">${stu.toFixed(1)}h / ${state.goals.study}h</b>
+      <div class="bar"><i style="width:${Math.min(stu/state.goals.study*100,100)}%;background:var(--estudo)"></i></div>
+    </div>
+    <div class="card pad" style="flex:1.4;min-width:220px">
+      <div class="small muted">Meta semanal</div>
+      <div class="row" style="gap:8px;margin-top:6px">
+        <label class="small">Treinos <input id="goalGym" type="number" min="0" max="7" value="${state.goals.gym}" style="width:56px;border:1px solid var(--line-2);border-radius:7px;padding:3px 6px"></label>
+        <label class="small">Estudo (h) <input id="goalStudy" type="number" min="0" max="40" value="${state.goals.study}" style="width:56px;border:1px solid var(--line-2);border-radius:7px;padding:3px 6px"></label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn primary" id="applyAll" style="margin-bottom:18px">Aplicar todas as sugestões da semana</button>
+
+  <div class="days">
+    ${sug.map(({date,items}) => {
+      const busy = evsOn(date).filter(isAcad);
+      return `<div class="day">
+        <div class="dh"><b>${DOW[dow(date)]} ${fmtBR(date)}</b><span>${busy.length ? busy.length+' comprom.' : 'dia livre'}</span></div>
+        ${evsOn(date).length ? ribbonHTML(date) : ''}
+        ${items.length ? items.map(o => {
+          const t = TYPES[o.kind];
+          return `<div class="sug" style="--c:${t.c};--bg:${t.bg}">
+            <div class="h">
+              <div><div class="time mono small" style="color:${t.c};font-weight:600">${toHHMM(o.s)}–${toHHMM(o.e)}</div>
+              <b style="font-size:13.5px">${t.label}</b></div>
+              <button class="btn sm" data-sug="${date}|${o.s}|${o.e}|${o.kind}">Adicionar</button>
+            </div>
+            <div class="w">${o.why}</div>
+          </div>`;
+        }).join('') : '<div class="small muted">Dia cheio. Descanse — recuperação também é parte do plano.</div>'}
+      </div>`;
+    }).join('')}
+  </div>
+
+  <div class="sec-title">Regras que o planner usa</div>
+  <div class="card pad small">
+    <b>Treino</b> — 60–80 min, antes do campo quando a primeira atividade começa 07:00 ou mais tarde, ou no fim de tarde quando o dia termina antes das 19:00. Nunca colide com teoria (19:00–21:00).<br><br>
+    <b>Estudo</b> — blocos de 90–120 min nos vãos entre turnos e 60 min curtos depois da teoria, para revisar o conteúdo do mesmo dia.<br><br>
+    <b>Dias sem evento</b> — recebem treino de manhã, dois blocos de estudo e uma noite protegida de descanso.<br><br>
+    <b>Semanas de prova</b> — nas semanas com AV, priorize os blocos de estudo dos dois dias anteriores à data e mova o treino para 45 min.
+  </div>`;
+};
+
+R.manage = () => {
+  const list = state.events.slice().sort((a,b) => a.date.localeCompare(b.date) || toMin(a.start)-toMin(b.start));
+  const custom = list.filter(e => e.custom);
+  return `
+  <div class="page-head">
+    <div class="kicker">Central de edição</div>
+    <h1>Editar planner</h1>
+    <p>Toda mudança do semestre entra por aqui: trocou o preceptor, mudou o horário do campo, caiu uma aula, entrou um plantão extra. Clique numa linha para editar, ou adicione do zero.</p>
+  </div>
+
+  <div class="row" style="margin-bottom:18px">
+    <button class="btn primary" data-add="${TODAY}">+ Nova atividade</button>
+    <button class="btn" id="exportBtn">Exportar backup (.json)</button>
+    <button class="btn" id="importBtn">Importar backup</button>
+    <button class="btn" id="reonb">Montar planner de novos arquivos</button>
+    <button class="btn danger" id="resetBtn">Restaurar agenda original</button>
+    <input type="file" id="importFile" accept="application/json" class="hidden">
+  </div>
+
+  <div class="grid g3" style="margin-bottom:20px">
+    <div class="card pad"><b>Mudar um horário</b><div class="small muted" style="margin-top:4px">Clique na atividade (em qualquer aba) e ajuste data, início e fim. Ela migra sozinha para a semana certa.</div></div>
+    <div class="card pad"><b>Cancelar uma aula</b><div class="small muted" style="margin-top:4px">Abra a atividade e use “Excluir”. O dia volta a contar como livre nas sugestões.</div></div>
+    <div class="card pad"><b>Marcar presença</b><div class="small muted" style="margin-top:4px">O quadradinho à esquerda de cada atividade fecha o item e alimenta a barra de progresso.</div></div>
+  </div>
+
+  <div class="sec-title">Suas alterações (${custom.length})</div>
+  <div class="card pad">
+    ${custom.length ? custom.map(e => evHTML(e, true)).join('') : '<div class="small muted">Nada adicionado por você ainda. O que estiver aqui é o que difere da agenda oficial.</div>'}
+  </div>
+
+  <div class="sec-title">Todas as atividades (${list.length})</div>
+  <div class="card" style="overflow:hidden">
+    <div style="max-height:520px;overflow:auto">
+    <table>
+      <thead><tr><th>Sem.</th><th>Data</th><th>Horário</th><th>Tipo</th><th>Atividade</th><th></th></tr></thead>
+      <tbody>${list.map(e => {
+        const t = TYPES[e.type] || TYPES.PESSOAL;
+        return `<tr>
+          <td class="mono small muted">${weekOf(e.date)}</td>
+          <td class="mono small">${DOW[dow(e.date)]} ${fmtBR(e.date)}</td>
+          <td class="mono small">${e.start}–${e.end}</td>
+          <td><span class="tag" style="background:${t.bg};color:${t.c}">${t.label}</span></td>
+          <td>${esc(e.title)}</td>
+          <td style="text-align:right"><button class="btn sm" data-ev="${e.id}">Editar</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>
+  </div>`;
+};
+
+/* ============================================================
+   7. MODAL DE EDIÇÃO
+   ============================================================ */
+function openEditor(ev, presetDate){
+  const e = ev || {id:null, date:presetDate||TODAY, start:'07:00', end:'13:00', type:'CAMPO', title:'', note:'', done:false, custom:true};
+  document.getElementById('modal').innerHTML = `
+    <h3>${ev ? 'Editar atividade' : 'Nova atividade'}</h3>
+    <div class="field"><label>Nome</label><input id="f_title" value="${esc(e.title)}" placeholder="Ex.: Ambulatório de Cardiologia"></div>
+    <div class="row">
+      <div class="field" style="flex:1"><label>Data</label><input id="f_date" type="date" value="${e.date}" min="2026-07-20" max="2026-12-20"></div>
+      <div class="field" style="flex:1"><label>Tipo</label><select id="f_type">
+        ${Object.entries(TYPES).map(([k,t]) => `<option value="${k}"${k===e.type?' selected':''}>${t.label}</option>`).join('')}
+      </select></div>
+    </div>
+    <div class="row">
+      <div class="field" style="flex:1"><label>Início</label><input id="f_start" type="time" value="${e.start}"></div>
+      <div class="field" style="flex:1"><label>Fim</label><input id="f_end" type="time" value="${e.end}"></div>
+    </div>
+    <div class="row">
+      <div class="field" style="flex:1"><label>Presença</label><select id="f_status">
+        ${Object.entries(ST).map(([k,s]) => `<option value="${k}"${k===stOf(e)?' selected':''}>${s.label}</option>`).join('')}
+      </select></div>
+      <div class="field" style="flex:1"><label>Observação</label><input id="f_note" value="${esc(e.note||'')}" placeholder="Preceptor, local, motivo da falta…"></div>
+    </div>
+    <div id="conflict" class="small" style="color:var(--prova);margin-bottom:10px"></div>
+    <div class="row" style="justify-content:space-between;margin-top:6px">
+      <div>${ev ? '<button class="btn danger" id="f_del">Excluir</button>' : ''}</div>
+      <div class="row"><button class="btn" id="f_cancel">Cancelar</button><button class="btn primary" id="f_save">Salvar</button></div>
+    </div>`;
+  document.getElementById('modalWrap').classList.remove('hidden');
+
+  const checkConflict = () => {
+    const dt = document.getElementById('f_date').value;
+    const s = toMin(document.getElementById('f_start').value), en = toMin(document.getElementById('f_end').value);
+    const hits = evsOn(dt).filter(x => x.id !== e.id && toMin(x.start) < en && s < toMin(x.end));
+    document.getElementById('conflict').textContent = hits.length
+      ? 'Conflita com: ' + hits.map(h => h.title + ' (' + h.start + '–' + h.end + ')').join(', ')
+      : '';
+  };
+  ['f_date','f_start','f_end'].forEach(id => document.getElementById(id).addEventListener('change', checkConflict));
+  checkConflict();
+
+  document.getElementById('f_cancel').onclick = closeModal;
+  if (ev) document.getElementById('f_del').onclick = async () => {
+    state.events = state.events.filter(x => x.id !== ev.id);
+    await save(); closeModal(); render();
+    Bus.emit('planner.event.deleted', {eventId:ev.id});
+    toast('Atividade excluída');
+  };
+  document.getElementById('f_save').onclick = async () => {
+    const o = {
+      date: document.getElementById('f_date').value,
+      start: document.getElementById('f_start').value,
+      end: document.getElementById('f_end').value,
+      type: document.getElementById('f_type').value,
+      title: document.getElementById('f_title').value.trim() || 'Sem título',
+      note: document.getElementById('f_note').value.trim()
+    };
+    if (toMin(o.end) <= toMin(o.start)){ toast('O fim precisa ser depois do início'); return; }
+    const st = document.getElementById('f_status').value;
+    if (ev){ Object.assign(ev, o); setStatus(ev, st); }
+    else { const ne = {id:uid(), ...o, status:'pendente', done:false, custom:true}; setStatus(ne, st); state.events.push(ne); }
+    await save(); closeModal(); render();
+    Bus.emit(ev ? 'planner.event.updated' : 'planner.event.created', {eventId: ev ? ev.id : null});
+    toast(ev ? 'Atividade atualizada' : 'Atividade adicionada');
+  };
+  document.getElementById('f_title').focus();
+}
+function closeModal(){ document.getElementById('modalWrap').classList.add('hidden'); }
+let toastT;
+function toast(msg){
+  clearTimeout(toastT);
+  let el = document.getElementById('toast');
+  if (!el){ el = document.createElement('div'); el.id = 'toast'; document.body.appendChild(el); }
+  el.textContent = msg; el.style.display = 'block';
+  Bus.emit('notification.created', {text:msg, channel:'toast'});
+  toastT = setTimeout(() => { el.style.display = 'none'; }, 2200);
+}
+
+/* ============================================================
+   8. RENDER + EVENTOS
+   ============================================================ */
+/* Atualização imediata: mexe só nos elementos daquela atividade.
+   Nada de reconstruir a página inteira a cada clique. */
+let rafId = 0;
+function scheduleRender(){ cancelAnimationFrame(rafId); rafId = requestAnimationFrame(render); }
+
+function applyStatus(id, st){
+  const e = state.events.find(x => x.id === id);
+  if (!e) return;
+  setStatus(e, st);
+  save();
+  Bus.emit('planner.attendance.recorded', {eventId:e.id, status:st});
+
+  const s = stOf(e), meta = ST[s], t = TYPES[e.type] || TYPES.PESSOAL;
+
+  document.querySelectorAll('[data-cycle="'+id+'"]').forEach(el => {
+    el.className = 'chk st-'+s;
+    el.textContent = meta.mark;
+    el.title = meta.label + ' — clique para alternar';
+  });
+  document.querySelectorAll('.ev[data-ev="'+id+'"]').forEach(el => {
+    el.classList.toggle('is-marked', s !== 'pendente');
+    const m = el.querySelector('.meta');
+    if (m) m.innerHTML = t.label
+      + (s !== 'pendente' ? ' · <b style="color:'+meta.c+'">'+meta.label+'</b>' : '')
+      + (e.note ? ' · '+esc(e.note) : '')
+      + (e.custom ? ' · adicionado por você' : '');
+  });
+  document.querySelectorAll('[data-set^="'+id+'|"]').forEach(b => {
+    if (b.classList.contains('actbtn'))
+      b.classList.toggle('on', b.dataset.set.split('|')[1] === s && s !== 'pendente');
+    const card = b.closest('.ci');
+    if (card){
+      const tag = card.querySelector('.tag');
+      if (tag){ tag.textContent = meta.label; tag.style.color = meta.c; }
+    }
+  });
+  const prow = document.querySelector('.pendrow[data-pid="'+id+'"]');
+  if (prow && s !== 'pendente') prow.remove();
+
+  refreshCounters();
+}
+
+function refreshCounters(){
+  if (view === 'checkin'){
+    const acad = evsOn(ciDate).filter(isAcad);
+    const s = stats(acad), g = stats(state.events.filter(isAcad)), np = pendingBefore(TODAY).length;
+    const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+    set('ciReg', s.registrados+'/'+acad.length);
+    set('ciPct', g.pct === null ? '—' : g.pct+'%');
+    set('ciPend', np);
+    const bar = document.querySelector('#ciBar > i');
+    if (bar) bar.style.width = (acad.length ? s.registrados/acad.length*100 : 0)+'%';
+    const pctEl = document.getElementById('ciPct');
+    if (pctEl) pctEl.style.color = pctColor(g.pct);
+    const pendEl = document.getElementById('ciPend');
+    if (pendEl) pendEl.style.color = np ? 'var(--prova)' : 'var(--ink)';
+  } else if (view === 'overview' || view === 'charts'){
+    scheduleRender();
+  }
+}
+
+function render(){
+  document.querySelectorAll('.navbtn').forEach(b => b.classList.toggle('active',
+    b.dataset.view === view || (b.dataset.view === 'workspaces' && view === 'ws')));
+  const main = document.getElementById('main');
+  main.innerHTML = R[view]();
+  main.scrollTop = 0;
+
+  if (view === 'workspaces' || view === 'ws') wsAfterRender();
+  Router.sync();
+
+  const q = document.getElementById('q');
+  if (q){
+    q.focus(); q.setSelectionRange(q.value.length, q.value.length);
+    let qt;
+    q.oninput = () => {
+      searchQ = q.value;
+      clearTimeout(qt);
+      qt = setTimeout(() => {
+        const p = q.selectionStart;
+        render();
+        const n = document.getElementById('q');
+        if (n) n.setSelectionRange(p, p);
+      }, 130);
+    };
+  }
+
+  const ciPick = document.getElementById('ciPick');
+  if (ciPick) ciPick.onchange = () => { if (ciPick.value){ ciDate = ciPick.value; render(); } };
+
+  const allP = document.getElementById('allPresent');
+  if (allP) allP.onclick = async () => {
+    evsOn(ciDate).forEach(e => setStatus(e, 'presente'));
+    await save(); render(); toast('Dia registrado como presente');
+  };
+
+  const wn = document.getElementById('weeknote');
+  if (wn) wn.onchange = async () => { state.notes[weekSel] = wn.value; await save(); toast('Anotação salva'); };
+
+  const gg = document.getElementById('goalGym'), gs = document.getElementById('goalStudy');
+  if (gg) gg.onchange = async () => { state.goals.gym = +gg.value || 0; await save(); render(); };
+  if (gs) gs.onchange = async () => { state.goals.study = +gs.value || 0; await save(); render(); };
+
+  const ap = document.getElementById('applyAll');
+  if (ap) ap.onclick = async () => {
+    let n = 0;
+    weekDays(weekSel).forEach(dt => suggestDay(dt).forEach(o => {
+      state.events.push({id:uid(), date:dt, start:toHHMM(o.s), end:toHHMM(o.e), type:o.kind,
+        title: o.kind === 'ACADEMIA' ? 'Academia' : o.kind === 'ESTUDO' ? 'Bloco de estudo' : 'Descanso',
+        note:'sugestão automática', done:false, custom:true});
+      n++;
+    }));
+    await save(); render(); toast(n + ' blocos adicionados à ' + weekSel);
+  };
+
+  const eb = document.getElementById('exportBtn');
+  if (eb) eb.onclick = () => {
+    const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'planner_aluno026.json'; a.click();
+    toast('Backup exportado');
+  };
+  const ib = document.getElementById('importBtn'), inf = document.getElementById('importFile');
+  if (ib) ib.onclick = () => inf.click();
+  if (inf) inf.onchange = async () => {
+    const f = inf.files[0]; if (!f) return;
+    try {
+      const parsed = JSON.parse(await f.text());
+      if (!parsed.events) throw 0;
+      state = {notes:{}, goals:{gym:4,study:10}, ...parsed};
+      await save(); render(); toast('Backup importado');
+    } catch(e){ toast('Arquivo inválido — use um backup exportado aqui'); }
+  };
+  const ro = document.getElementById('reonb');
+  if (ro) ro.onclick = () => { onb.step = 'files'; onb.err = ''; onb.busy = false; showOnb(); };
+
+  const rb = document.getElementById('resetBtn');  if (rb) rb.onclick = async () => {
+    if (!confirm('Isto apaga suas edições e blocos pessoais, voltando à agenda original importada. Continuar?')) return;
+    const base = state.baseline, wks = state.weeks;
+    state = seedState();
+    if (base && base.length){
+      state.baseline = base; state.weeks = wks;
+      state.events = base.map(r => ({id:uid(), date:r[0], start:r[1], end:r[2], type:r[3], title:r[4], note:'', status:'pendente', done:false, custom:false}));
+    }
+    invalidate(); await save(); render(); toast('Agenda original restaurada');
+  };
+}
+
+/* ---------- APPLICATION: ações do domínio Planner ---------- */
+Actions
+  .register('app.navigate', ({value}) => { view = value; render(); })
+  .register('planner.week.select', ({value}) => { weekSel = value; render(); })
+  .register('planner.week.open',   ({value}) => { weekSel = value; view = 'weeks'; render(); })
+  .register('planner.search.filter', ({value}) => {
+    if (value === '__clear') searchTypes.clear();
+    else searchTypes.has(value) ? searchTypes.delete(value) : searchTypes.add(value);
+    render();
+  })
+  .register('planner.attendance.cycle', ({value}) => {
+    const e = state.events.find(x => x.id === value);
+    if (e) applyStatus(e.id, CYCLE[(CYCLE.indexOf(stOf(e))+1) % CYCLE.length]);
+  })
+  .register('planner.attendance.set', ({value}) => {
+    const [id, st] = value.split('|');
+    applyStatus(id, st);
+  })
+  .register('planner.checkin.shiftDay', ({value}) => {
+    ciDate = value === 'today' ? TODAY : addDays(ciDate, +value);
+    render();
+  })
+  .register('planner.checkin.openDay', ({value}) => { ciDate = value; view = 'checkin'; render(); })
+  .register('planner.charts.scope', ({value}) => { chartScope = value; render(); })
+  .register('planner.suggestion.accept', async ({value}) => {
+    const [date, s0, e0, kind] = value.split('|');
+    const ev = {id:uid(), date, start:toHHMM(+s0), end:toHHMM(+e0), type:kind,
+      title: kind === 'ACADEMIA' ? 'Academia' : kind === 'ESTUDO' ? 'Bloco de estudo' : 'Descanso',
+      note:'sugestão automática', status:'pendente', done:false, custom:true};
+    state.events.push(ev);
+    await save(); render();
+    Bus.emit('planner.event.created', {eventId:ev.id, source:'suggestion'});
+    toast('Bloco adicionado ao planner');
+  })
+  .register('planner.event.create', ({value}) => openEditor(null, value))
+  .register('planner.event.open',   ({value}) => {
+    const e = state.events.find(x => x.id === value);
+    if (e) openEditor(e);
+  });
+
+/* ponte com a marcação existente — tabela, não cadeia de ifs */
+Actions
+  .bind('view',    'app.navigate')
+  .bind('week',    'planner.week.select')
+  .bind('goweek',  'planner.week.open')
+  .bind('ftype',   'planner.search.filter')
+  .bind('cycle',   'planner.attendance.cycle')
+  .bind('set',     'planner.attendance.set')
+  .bind('day',     'planner.checkin.shiftDay')
+  .bind('goday',   'planner.checkin.openDay')
+  .bind('scope',   'planner.charts.scope')
+  .bind('sug',     'planner.suggestion.accept')
+  .bind('add',     'planner.event.create')
+  .bind('ev',      'planner.event.open');
+
+document.addEventListener('click', ev => {
+  if (Actions.dispatch(ev)) return;
+  if (ev.target.id === 'modalWrap') closeModal();
+});
+
+/* ---------- APPLICATION: rotas ---------- */
+function routePath(){
+  if (view === 'ws' && wsSel)  return '/workspace/' + wsSel + '/' + wsTab;
+  if (view === 'workspaces')   return '/workspaces';
+  if (view === 'weeks')        return '/planner/weeks/' + weekSel;
+  if (view === 'checkin')      return '/planner/checkin/' + ciDate;
+  return '/planner/' + view;
+}
+function routeApply(path){
+  const p = path.replace(/^\//,'').split('/');
+  if (p[0] === 'workspaces'){ view = 'workspaces'; return true; }
+  if (p[0] === 'workspace' && p[1]){
+    if (!wsStore || !wsStore.workspaces.some(w => w.id === p[1])) return false;
+    wsSel = p[1]; wsTab = p[2] || 'overview'; view = 'ws'; return true;
+  }
+  if (p[0] === 'planner' && p[1]){
+    if (!R[p[1]]) return false;
+    view = p[1];
+    if (p[1] === 'weeks' && p[2] && WEEKS.some(w => w.id === p[2])) weekSel = p[2];
+    if (p[1] === 'checkin' && p[2] && /^\d{4}-\d{2}-\d{2}$/.test(p[2])) ciDate = p[2];
+    return true;
+  }
+  return false;
+}
+Router.configure(routePath, routeApply);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); view = 'search'; render(); }
+});
+
+/* ============================================================
+   9. PARTICIPANTES — domínios User · Membership · Invite
+   ------------------------------------------------------------
+   Modelo oficial (Épico 2):
+     User        representa uma PESSOA (perfil), namespace 'users'
+     Membership  representa a RELAÇÃO usuário↔workspace, namespace 'memberships'
+     Invite      representa um CÓDIGO de entrada, namespace 'invites'
+
+   Nada de cargo, responsabilidade, permissão ou status dentro de User.
+   Um mesmo usuário participa de N workspaces com N Memberships distintas.
+   ============================================================ */
+
+/* ---------- 9.1 User — perfil da pessoa ---------- */
+const Users = (() => {
+  let ns;
+  const blankUser = (id) => ({id, displayName:'', avatarUrl:null, course:'', institution:'', createdAt:nowISO(), updatedAt:nowISO()});
+  return {
+    async init(){ ns = Store.namespace('users', {schemaVersion:1}); await ns.load(() => ({byId:{}})); return ns.data; },
+    upsert(patch){
+      if (!patch || !patch.id || !ns) return null;   // ainda não inicializado: ignora silenciosamente
+      const cur = ns.data.byId[patch.id] || blankUser(patch.id);
+      const next = {...cur, ...patch, id: patch.id, updatedAt: nowISO()};
+      ns.data.byId[patch.id] = next;
+      ns.touch();
+      Bus.emit('user.upserted', {userId: patch.id});
+      return next;
+    },
+    get(id){ return ns.data.byId[id] || null; },
+    /* contrato público: qualquer domínio pede um UserRef, nunca o registro inteiro */
+    ref(id){
+      const u = ns.data.byId[id];
+      return u ? {id:u.id, displayName:u.displayName || 'Aluno', avatarUrl:u.avatarUrl || null}
+                : {id, displayName:'Usuário', avatarUrl:null};
+    },
+    all(){ return Object.values(ns.data.byId); }
+  };
+})();
+
+/* ---------- 9.2 Membership — relação usuário↔workspace ---------- */
+const ROLES = ['owner','admin','editor','member','viewer'];
+const ROLE_LABEL = {owner:'Proprietário', admin:'Administrador', editor:'Editor', member:'Membro', viewer:'Visualizador'};
+/* Estrutura preparada para os cinco papéis. Hoje quase todos se comportam
+   igual — só o essencial é diferenciado — mas o contrato já existe por
+   inteiro para o dia em que precisar de mais granularidade. */
+const ROLE_PERMISSIONS = {
+  owner:  {manageWorkspace:true,  manageMembers:true,  manageInvites:true,  manageTasks:true, manageEvents:true, manageAssets:true, comment:true, view:true, deleteWorkspace:true},
+  admin:  {manageWorkspace:true,  manageMembers:true,  manageInvites:true,  manageTasks:true, manageEvents:true, manageAssets:true, comment:true, view:true, deleteWorkspace:false},
+  editor: {manageWorkspace:false, manageMembers:false, manageInvites:false, manageTasks:true, manageEvents:true, manageAssets:true, comment:true, view:true, deleteWorkspace:false},
+  member: {manageWorkspace:false, manageMembers:false, manageInvites:false, manageTasks:true, manageEvents:true, manageAssets:true, comment:true, view:true, deleteWorkspace:false},
+  viewer: {manageWorkspace:false, manageMembers:false, manageInvites:false, manageTasks:false, manageEvents:false, manageAssets:false, comment:true, view:true, deleteWorkspace:false}
+};
+const permissionsFor = role => ({...(ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.member)});
+
+const Memberships = (() => {
+  let ns;
+  return {
+    async init(){ ns = Store.namespace('memberships', {schemaVersion:1}); await ns.load(() => ({items:[]})); return ns.data; },
+    all(){ return ns.data.items; },
+    forWorkspace(wid){ return ns.data.items.filter(m => m.workspaceId === wid && m.status === 'active'); },
+    of(wid, uid){ return ns.data.items.find(m => m.workspaceId === wid && m.userId === uid && m.status === 'active') || null; },
+    isMember(wid, uid){ return !!Memberships.of(wid, uid); },
+    workspacesOf(uid){ return ns.data.items.filter(m => m.userId === uid && m.status === 'active').map(m => m.workspaceId); },
+    add({workspaceId, userId, role = 'member', responsibility = ''}){
+      const existing = Memberships.of(workspaceId, userId);
+      if (existing) return existing;                           // impede entrada duplicada
+      const rec = {id:uid(), workspaceId, userId, role, responsibility, joinedAt:nowISO(), status:'active', permissions:permissionsFor(role)};
+      ns.data.items.push(rec); ns.touch();
+      Bus.emit('workspace.member.added', {workspaceId, membershipId:rec.id, userId});
+      return rec;
+    },
+    setRole(id, role){
+      const m = ns.data.items.find(x => x.id === id); if (!m) return null;
+      m.role = role; m.permissions = permissionsFor(role); ns.touch();
+      Bus.emit('workspace.member.updated', {workspaceId:m.workspaceId, membershipId:id, field:'role', value:role});
+      return m;
+    },
+    setResponsibility(id, text){
+      const m = ns.data.items.find(x => x.id === id); if (!m) return null;
+      m.responsibility = text; ns.touch();
+      Bus.emit('workspace.member.updated', {workspaceId:m.workspaceId, membershipId:id, field:'responsibility'});
+      return m;
+    },
+    remove(id){
+      const m = ns.data.items.find(x => x.id === id); if (!m) return false;
+      m.status = 'removed'; ns.touch();
+      Bus.emit('workspace.member.removed', {workspaceId:m.workspaceId, membershipId:id, userId:m.userId});
+      return true;
+    },
+    countActive(wid){ return Memberships.forWorkspace(wid).length; }
+  };
+})();
+
+/* ---------- 9.3 Invite — código de entrada ---------- */
+const genInviteCode = () => 'ESTUDY-' + Math.random().toString(36).slice(2,6).toUpperCase();
+const Invites = (() => {
+  let ns;
+  return {
+    async init(){ ns = Store.namespace('invites', {schemaVersion:1}); await ns.load(() => ({items:[]})); return ns.data; },
+    create({workspaceId, createdBy, maxUses = null, expiresAt = null, code = null}){
+      const rec = {id:uid(), workspaceId, code: code || genInviteCode(), createdBy, createdAt:nowISO(),
+        expiresAt, maxUses, currentUses:0, status:'active'};
+      ns.data.items.push(rec); ns.touch();
+      Bus.emit('workspace.invite.created', {workspaceId, inviteId:rec.id});
+      return rec;
+    },
+    forWorkspace(wid){ return ns.data.items.filter(i => i.workspaceId === wid); },
+    primary(wid){ return Invites.forWorkspace(wid).find(i => i.status === 'active') || null; },
+    findByCode(code){ return ns.data.items.find(i => i.code.toUpperCase() === String(code || '').toUpperCase()); },
+    /* checagens preparadas: expiração e limite de usos, mesmo que hoje nasçam ilimitados */
+    validate(code){
+      const inv = Invites.findByCode(code);
+      if (!inv) return {ok:false, reason:'not_found'};
+      if (inv.status === 'exhausted') return {ok:false, reason:'exhausted', invite:inv};
+      if (inv.status === 'revoked')   return {ok:false, reason:'inactive', invite:inv};
+      if (inv.status !== 'active')    return {ok:false, reason:'inactive', invite:inv};
+      if (inv.expiresAt && inv.expiresAt < nowISO()) return {ok:false, reason:'expired', invite:inv};
+      if (inv.maxUses != null && inv.currentUses >= inv.maxUses) return {ok:false, reason:'exhausted', invite:inv};
+      return {ok:true, invite:inv};
+    },
+    redeem(code){
+      const v = Invites.validate(code);
+      if (!v.ok) return v;
+      v.invite.currentUses++;
+      if (v.invite.maxUses != null && v.invite.currentUses >= v.invite.maxUses) v.invite.status = 'exhausted';
+      ns.touch();
+      Bus.emit('workspace.invite.redeemed', {workspaceId:v.invite.workspaceId, inviteId:v.invite.id});
+      return v;
+    },
+    revoke(id){
+      const i = ns.data.items.find(x => x.id === id); if (!i) return false;
+      i.status = 'revoked'; ns.touch();
+      Bus.emit('workspace.invite.revoked', {workspaceId:i.workspaceId, inviteId:id});
+      return true;
+    }
+  };
+})();
+
+/* ============================================================
+   9.4 WORKSPACE — ambiente colaborativo (módulo isolado)
+   ------------------------------------------------------------
+   Store, chave de gravação e domínio próprios. Não toca em
+   `state`, `idx()` nem `weekOf()` — o planner continua pessoal.
+   Toda mutação passa por wsTouch() + wsSave(), deixando cada
+   registro marcado para a sincronização futura (wsSync).
+   ============================================================ */
+let wsStore = null;
+let wsSel = null, wsTab = 'overview', wsMonth = null;
+
+/* Viewer chega por contrato (UserRef) através do Bus. O domínio Workspace
+   nunca lê o registro do Identity nem a variável `profile`. */
+let viewer = {id:'anon', displayName:'Você', avatarUrl:null};
+Bus.on('identity.session.started', p => { viewer = p.user; });
+Bus.on('identity.profile.updated', p => {
+  viewer = p.user;
+  const rec = Identity.current();
+  Users.upsert({id:p.user.id, displayName:p.user.displayName, avatarUrl:p.user.avatarUrl,
+    course: rec.course || '', institution: rec.institution || ''});
+});
+
+/* ---- adaptador de sincronização (desligado; ponto único de integração) ---- */
+const wsSync = {
+  enabled: false,
+  async push(){ if (!this.enabled) return; /* futuro: PATCH /workspaces/:id */ },
+  async pull(){ if (!this.enabled) return; /* futuro: GET /workspaces + merge por updatedAt */ }
+};
+const nowISO = () => new Date().toISOString();
+function wsTouch(w){ if (w){ w.updatedAt = nowISO(); w.dirty = true; } }
+
+const WORKSPACE_NS = Store.namespace('workspace', {
+  schemaVersion: 3,
+  legacyKey: 'estudy_workspaces_v1',
+  adopt: legacy => ({workspaces: Array.isArray(legacy && legacy.workspaces) ? legacy.workspaces : []}),
+  migrations: {
+    2: (d, ctx) => {                              // v1→v2: 'u_me' literal vira o userId real
+      if (!ctx.userId) return d;
+      return JSON.parse(JSON.stringify(d).split('"u_me"').join('"' + ctx.userId + '"'));
+    },
+    3: (d, ctx) => {
+      /* v2→v3: Épico 2. `members[]` embutido em cada workspace deixa de existir.
+         Vira User (perfil) + Membership (papel/responsabilidade) + Invite (código),
+         cada um no seu próprio namespace. Roda uma única vez, só em instalações
+         que ainda tinham o formato antigo — instalações novas nunca passam aqui. */
+      if (!ctx.usersNs || !ctx.membershipsNs || !ctx.invitesNs) return d;
+      (d.workspaces || []).forEach(w => {
+        const legacyMembers = Array.isArray(w.members) ? w.members : [];
+        legacyMembers.forEach(m => {
+          if (!ctx.usersNs.data.byId[m.id]){
+            ctx.usersNs.data.byId[m.id] = {id:m.id, displayName:m.name || 'Aluno', avatarUrl:m.photo || null,
+              course:'', institution:'', createdAt:nowISO(), updatedAt:nowISO()};
+          }
+          const already = ctx.membershipsNs.data.items.some(x => x.workspaceId === w.id && x.userId === m.id);
+          if (!already){
+            const role = m.role === 'criador' ? 'owner' : 'member';
+            ctx.membershipsNs.data.items.push({id:uid(), workspaceId:w.id, userId:m.id, role,
+              responsibility:m.duty || '', joinedAt:nowISO(), status:'active', permissions:permissionsFor(role)});
+          }
+        });
+        if (w.invite && !ctx.invitesNs.data.items.some(i => i.workspaceId === w.id)){
+          ctx.invitesNs.data.items.push({id:uid(), workspaceId:w.id, code:w.invite, createdBy:w.createdBy || ctx.userId,
+            createdAt:nowISO(), expiresAt:null, maxUses:null, currentUses:0, status:'active'});
+        }
+        w.ownerId = w.createdBy || (legacyMembers.find(m => m.role === 'criador') || {}).id || ctx.userId;
+        w.description = w.desc ?? w.description ?? '';
+        w.inviteCode = w.invite || w.inviteCode || genInviteCode();
+        delete w.members; delete w.invite; delete w.desc; delete w.createdBy;
+      });
+      ctx.usersNs.touch(); ctx.membershipsNs.touch(); ctx.invitesNs.touch();
+      return d;
+    }
+  }
+});
+
+/* ---- identidade visual (independe de User/Membership; é só apresentação) ---- */
+const AVC = ['#2f6fed','#0f9d6e','#e0396b','#7c4dea','#d99400','#0aa5b5','#e2621c','#4b52d4'];
+const avColor = id => AVC[[...String(id)].reduce((a,c) => a + c.charCodeAt(0), 0) % AVC.length];
+const initials = nm => (nm || '?').trim().split(/\s+/).slice(0,2).map(x => x[0]).join('').toUpperCase();
+/* indicador online: mock determinístico, nunca persistido — Épico 8 troca por presença real */
+const isOnline = id => id === viewer.id || [...String(id)].reduce((a,c) => a + c.charCodeAt(0), 0) % 3 === 0;
+function avatar(ref, cls){
+  const nm = ref.id === viewer.id ? viewer.displayName : ref.displayName;
+  return `<div class="av ${cls||''}" style="background-color:${avColor(ref.id)}${ref.avatarUrl?`;background-image:url(${ref.avatarUrl})`:''}"
+    title="${esc(nm)}">${ref.avatarUrl ? '' : esc(initials(nm))}<span class="on${isOnline(ref.id)?' live':''}"></span></div>`;
+}
+const wsCur = () => (wsStore.workspaces || []).find(w => w.id === wsSel);
+/* join Membership + User — é assim que o resto do módulo "vê" um participante */
+const participantsOf = w => Memberships.forWorkspace(w.id).map(m => ({membership:m, user:Users.ref(m.userId)}));
+const membershipOf = (w, uid_) => Memberships.of(w.id, uid_);
+const displayNameOf = uid_ => Users.ref(uid_).displayName;
+const canOn = (w, perm) => { const m = membershipOf(w, viewer.id); return !!(m && m.permissions[perm]); };
+
+const TSTATUS = {aberta:{l:'Aberta', c:'var(--ink-3)'}, andamento:{l:'Em andamento', c:'var(--medway)'}, concluida:{l:'Concluída', c:'var(--campo)'}};
+const WSCOLORS = ['var(--estudo)','var(--campo)','var(--prova)','var(--simulacao)','var(--medway)','var(--acolhimento)','var(--academia)','var(--teoria)'];
+const WSICONS = ['◍','◆','●','▲','■','✦','⬢','◈'];
+const relDate = ds => { const n = Math.round((d(ds) - d(TODAY))/86400000);
+  return n === 0 ? 'hoje' : n === 1 ? 'amanhã' : n === -1 ? 'ontem' : n > 0 ? 'em ' + n + ' dias' : Math.abs(n) + ' dias atrás'; };
+const fmtWhen = t => { const x = new Date(t); return String(x.getDate()).padStart(2,'0')+'/'+String(x.getMonth()+1).padStart(2,'0')+' '+String(x.getHours()).padStart(2,'0')+':'+String(x.getMinutes()).padStart(2,'0'); };
+
+/* ---- persistência: mesma infraestrutura do Kernel, namespace próprio ---- */
+function wsSave(){ WORKSPACE_NS.touch(); wsSync.push(); }
+async function wsLoad(){
+  wsStore = await WORKSPACE_NS.load(wsSeed, {
+    userId: viewer.id, usersNs: Store.ns('users'), membershipsNs: Store.ns('memberships'), invitesNs: Store.ns('invites')
+  });
+  if (WORKSPACE_NS.loadedFrom === 'seed') seedParticipants();  // só popula participantes em instalação nova
+  return wsStore;
+}
+
+/* ---- dados de exemplo (mock; substituíveis pelo backend) ---- */
+function wsSeed(){
+  const mk = (o) => ({id:uid(), createdAt:nowISO(), updatedAt:nowISO(), dirty:false, ...o});
+  return {workspaces:[
+    mk({
+      name:'Grupo de Estudos — Clínica Médica', description:'Revisão semanal antes das AVs, divisão de resumos e banco de questões.',
+      color:WSCOLORS[0], icon:'◍', ownerId:viewer.id, inviteCode:genInviteCode(),
+      events:[
+        {id:uid(), date:addDays(TODAY,2), start:'19:00', end:'21:00', title:'Reunião semanal do grupo', note:'Sala 4 / online', createdBy:viewer.id, createdAt:nowISO()},
+        {id:uid(), date:addDays(TODAY,6), start:'14:00', end:'17:00', title:'Revisão geral pré-AV', note:'Cardio + Nefro', createdBy:'demo_marina', createdAt:nowISO()},
+        {id:uid(), date:addDays(TODAY,13), start:'19:00', end:'20:30', title:'Discussão de caso: ICC descompensada', note:'', createdBy:'demo_julia', createdAt:nowISO()}
+      ],
+      tasks:[
+        {id:uid(), title:'Resumo de arritmias', desc:'Uma página, com fluxograma de conduta.', assignee:'demo_marina', due:addDays(TODAY,4), status:'andamento', comments:[{id:uid(), author:viewer.id, text:'Se conseguir incluir os critérios de instabilidade, ajuda muito.', at:nowISO()}], createdBy:viewer.id, createdAt:nowISO()},
+        {id:uid(), title:'Separar 40 questões de nefrologia', desc:'Provas dos últimos 3 anos.', assignee:'demo_rafael', due:addDays(TODAY,7), status:'aberta', comments:[], createdBy:viewer.id, createdAt:nowISO()},
+        {id:uid(), title:'Montar cronograma até a AV3', desc:'Dividir os temas por semana entre os quatro.', assignee:viewer.id, due:addDays(TODAY,1), status:'andamento', comments:[], createdBy:viewer.id, createdAt:nowISO()},
+        {id:uid(), title:'Reservar a sala de estudos', desc:'', assignee:'demo_julia', due:addDays(TODAY,-2), status:'concluida', comments:[], createdBy:'demo_julia', createdAt:nowISO()}
+      ],
+      files:[
+        {id:uid(), name:'Resumo_ICC.pdf', size:842000, ext:'pdf', addedBy:'demo_marina', addedAt:nowISO(), aiStatus:'pendente', stored:false},
+        {id:uid(), name:'Casos_Nefrologia.docx', size:126000, ext:'docx', addedBy:'demo_julia', addedAt:nowISO(), aiStatus:'pendente', stored:false},
+        {id:uid(), name:'Slides_ECG.png', size:1450000, ext:'png', addedBy:'demo_rafael', addedAt:nowISO(), aiStatus:'pendente', stored:false}
+      ],
+      comments:[
+        {id:uid(), author:'demo_marina', text:'Subi o resumo de ICC. Faltou a parte de dispositivos, alguém pega?', at:nowISO(), parentId:null},
+        {id:uid(), author:viewer.id, text:'Pego eu, junto com o cronograma.', at:nowISO(), parentId:null},
+        {id:uid(), author:'demo_rafael', text:'Consegui as provas de 2024. Subo até quinta.', at:nowISO(), parentId:null}
+      ]
+    }),
+    mk({
+      name:'TCC — Pneumologia e Tabagismo', description:'Coleta de dados no ambulatório, análise estatística e escrita do artigo.',
+      color:WSCOLORS[1], icon:'◆', ownerId:'demo_helena', inviteCode:genInviteCode(),
+      events:[
+        {id:uid(), date:addDays(TODAY,5), start:'10:00', end:'11:00', title:'Orientação quinzenal', note:'Sala da profa. Helena', createdBy:'demo_helena', createdAt:nowISO()},
+        {id:uid(), date:addDays(TODAY,20), start:'23:59', end:'23:59', title:'Prazo: entrega do capítulo de métodos', note:'', createdBy:'demo_helena', createdAt:nowISO()}
+      ],
+      tasks:[
+        {id:uid(), title:'Coletar 20 questionários no ambulatório', desc:'Pacientes do grupo de tabagismo, às quintas.', assignee:viewer.id, due:addDays(TODAY,9), status:'andamento', comments:[], createdBy:'demo_helena', createdAt:nowISO()},
+        {id:uid(), title:'Rodar análise descritiva', desc:'Depois de 20 questionários.', assignee:'demo_bruno', due:addDays(TODAY,16), status:'aberta', comments:[], createdBy:'demo_helena', createdAt:nowISO()},
+        {id:uid(), title:'Revisão de literatura — 15 artigos', desc:'', assignee:viewer.id, due:addDays(TODAY,-5), status:'concluida', comments:[], createdBy:viewer.id, createdAt:nowISO()}
+      ],
+      files:[
+        {id:uid(), name:'Projeto_TCC_v3.docx', size:98000, ext:'docx', addedBy:'demo_helena', addedAt:nowISO(), aiStatus:'pendente', stored:false},
+        {id:uid(), name:'Questionario_Fagerstrom.pdf', size:310000, ext:'pdf', addedBy:viewer.id, addedAt:nowISO(), aiStatus:'pendente', stored:false}
+      ],
+      comments:[
+        {id:uid(), author:'demo_helena', text:'Lembrem de anexar o parecer do comitê de ética assim que sair.', at:nowISO(), parentId:null},
+        {id:uid(), author:'demo_bruno', text:'Combinado. Já deixei a planilha modelo pronta.', at:nowISO(), parentId:null}
+      ]
+    })
+  ]};
+}
+function seedParticipants(){
+  const others = [
+    {id:'demo_marina', displayName:'Marina Alves', course:'Medicina', institution:''},
+    {id:'demo_rafael', displayName:'Rafael Lima', course:'Medicina', institution:''},
+    {id:'demo_julia',  displayName:'Júlia Prado', course:'Medicina', institution:''},
+    {id:'demo_helena', displayName:'Profa. Helena Braga', course:'Medicina', institution:'Docente'},
+    {id:'demo_bruno',  displayName:'Bruno Costa', course:'Medicina', institution:''}
+  ];
+  others.forEach(u => Users.upsert(u));
+  const [wsA, wsB] = wsStore.workspaces;
+  Memberships.add({workspaceId:wsA.id, userId:viewer.id,   role:'owner',  responsibility:'Cronograma e revisões'});
+  Memberships.add({workspaceId:wsA.id, userId:'demo_marina', role:'member', responsibility:'Resumos de cardiologia'});
+  Memberships.add({workspaceId:wsA.id, userId:'demo_rafael', role:'member', responsibility:'Banco de questões'});
+  Memberships.add({workspaceId:wsA.id, userId:'demo_julia',  role:'member', responsibility:'Casos clínicos'});
+  Invites.create({workspaceId:wsA.id, createdBy:viewer.id, code:wsA.inviteCode});
+
+  Memberships.add({workspaceId:wsB.id, userId:'demo_helena', role:'owner',  responsibility:'Orientação'});
+  Memberships.add({workspaceId:wsB.id, userId:viewer.id,     role:'member', responsibility:'Coleta de dados'});
+  Memberships.add({workspaceId:wsB.id, userId:'demo_bruno',  role:'editor', responsibility:'Análise estatística'});
+  Invites.create({workspaceId:wsB.id, createdBy:'demo_helena', code:wsB.inviteCode});
+}
+
+/* ============================ VIEWS ============================ */
+R.workspaces = () => {
+  const list = wsStore.workspaces || [];
+  return `
+  <div class="page-head">
+    <div class="kicker">Colaboração · opcional</div>
+    <h1>Workspaces</h1>
+    <p>Espaços de trabalho em grupo, separados do seu planner. O que acontece aqui — tarefas, arquivos, calendário — é do grupo; seu planner pessoal continua só seu.</p>
+  </div>
+
+  <div class="row" style="margin-bottom:18px">
+    <button class="btn primary" data-wsnew="1">+ Criar workspace</button>
+    <button class="btn" data-wsjoin="1">Entrar com código</button>
+  </div>
+
+  <div class="wsgrid">
+    ${list.map(w => {
+      const parts = participantsOf(w);
+      const abertas = w.tasks.filter(t => t.status !== 'concluida').length;
+      const prox = w.events.filter(e => e.date >= TODAY).sort((a,b) => a.date.localeCompare(b.date))[0];
+      return `<button class="wscard" style="--c:${w.color}" data-wsopen="${w.id}">
+        <div class="ic">${w.icon}</div>
+        <h4>${esc(w.name)}</h4>
+        <div class="ds">${esc(w.description || '')}</div>
+        <div class="ft">
+          <div class="avstack">${parts.slice(0,4).map(p => avatar(p.user,'sm')).join('')}
+            ${parts.length > 4 ? `<span class="small muted" style="margin-left:6px;align-self:center">+${parts.length-4}</span>` : ''}</div>
+          <div class="small muted">${abertas} tarefa${abertas===1?'':'s'}${prox ? ' · ' + relDate(prox.date) : ''}</div>
+        </div>
+      </button>`;
+    }).join('')}
+    <button class="wsnew" data-wsnew="1"><div><div style="font-size:22px">＋</div>
+      <div style="margin-top:6px;font-weight:600">Novo workspace</div>
+      <div class="small">Trabalho em grupo, monitoria, TCC…</div></div></button>
+  </div>`;
+};
+
+R.ws = () => {
+  const w = wsCur();
+  if (!w) return R.workspaces();
+  const abertas = w.tasks.filter(t => t.status !== 'concluida').length;
+  const parts = participantsOf(w);
+  const TABS = [['overview','Visão geral',''], ['calendar','Calendário', w.events.length], ['files','Arquivos', w.files.length],
+    ['tasks','Tarefas', abertas], ['members','Participantes', parts.length], ['comments','Comentários', w.comments.length]];
+  return `
+  <button class="btn sm" data-wsback="1" style="margin-bottom:14px">← Todos os workspaces</button>
+  <div class="wshead" style="--c:${w.color}">
+    <div class="ic">${w.icon}</div>
+    <div style="flex:1;min-width:0">
+      <h1 style="font-size:26px">${esc(w.name)}</h1>
+      <div class="small muted" style="margin-top:3px">${esc(w.description || '')}</div>
+    </div>
+    ${canOn(w,'manageWorkspace') ? `<button class="btn sm" data-wsedit="${w.id}">Editar</button>` : ''}
+  </div>
+  <div class="wstabs">
+    ${TABS.map(([k,l,b]) => `<button class="wstab${wsTab===k?' on':''}" data-wstab="${k}">${l}${b ? `<span class="b">${b}</span>` : ''}</button>`).join('')}
+  </div>
+  ${Regions.mount('workspace.tab', w)}`;
+};
+
+function wsTabView(w){
+  if (wsTab === 'calendar') return wsCalendar(w);
+  if (wsTab === 'files')    return wsFiles(w);
+  if (wsTab === 'tasks')    return wsTasks(w);
+  if (wsTab === 'members')  return wsMembers(w);
+  if (wsTab === 'comments') return wsComments(w);
+  return wsOverview(w);
+}
+
+function wsOverview(w){
+  const prox = w.events.filter(e => e.date >= TODAY).sort((a,b) => a.date.localeCompare(b.date)).slice(0,3);
+  const abertas = w.tasks.filter(t => t.status !== 'concluida');
+  const minhas = abertas.filter(t => t.assignee === viewer.id);
+  const atrasadas = abertas.filter(t => t.due && t.due < TODAY);
+  const ult = w.comments.slice(-3).reverse();
+  const parts = participantsOf(w);
+  return `
+  <div class="grid g4" style="margin-bottom:20px">
+    <div class="card stat"><div class="n">${minhas.length}</div><div class="l">tarefas suas em aberto</div></div>
+    <div class="card stat"><div class="n" style="color:${atrasadas.length?'var(--prova)':'var(--ink)'}">${atrasadas.length}</div><div class="l">tarefas atrasadas no grupo</div></div>
+    <div class="card stat"><div class="n">${parts.length}</div><div class="l">participantes</div></div>
+    <div class="card stat"><div class="n">${w.files.length}</div><div class="l">arquivos compartilhados</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div>
+      <div class="sec-title" style="margin-top:0">Próximos encontros</div>
+      <div class="card pad">${prox.length ? prox.map(e => `<div class="ev" style="--c:${w.color};--bg:var(--sel)" data-wsev="${e.id}">
+          <div class="t"><div class="time mono">${DOW[dow(e.date)]} ${fmtBR(e.date)} · ${e.start}–${e.end} <span class="muted">(${relDate(e.date)})</span></div>
+          <div class="title">${esc(e.title)}</div>
+          <div class="meta">criado por ${esc(displayNameOf(e.createdBy))}${e.note ? ' · ' + esc(e.note) : ''}</div></div>
+        </div>`).join('') : '<div class="small muted">Nenhum encontro marcado. Use a aba Calendário.</div>'}</div>
+
+      <div class="sec-title">Código de convite</div>
+      <div class="card pad">
+        <div class="wsinvite">${w.inviteCode}<button class="btn sm" data-wscopy="${w.inviteCode}" style="margin-left:auto">Copiar</button></div>
+        <div class="small muted" style="margin-top:8px">Quem tiver este código entra pelo botão “Entrar com código”.</div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title" style="margin-top:0">Tarefas em aberto</div>
+      <div class="card pad">${abertas.length ? abertas.slice(0,5).map(t => wsTaskRow(w,t)).join('') : '<div class="small muted">Nada pendente.</div>'}</div>
+
+      <div class="sec-title">Conversa recente</div>
+      <div class="card pad">${ult.length ? ult.map(c => wsCommentHTML(w,c,true)).join('') : '<div class="small muted">Sem comentários ainda.</div>'}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- calendário próprio do workspace ---------- */
+function wsCalendar(w){
+  const base = wsMonth || TODAY.slice(0,7);
+  const [Y,M] = base.split('-').map(Number);
+  const first = new Date(Y, M-1, 1), lead = (first.getDay()+6) % 7;
+  const cells = [];
+  for (let i = 0; i < 42; i++){
+    const dt = new Date(Y, M-1, 1 - lead + i);
+    cells.push({ds:iso(dt), off:dt.getMonth() !== M-1});
+  }
+  const evOn = ds => w.events.filter(e => e.date === ds).sort((a,b) => a.start.localeCompare(b.start));
+  const mesEvs = w.events.filter(e => e.date.startsWith(base)).sort((a,b) => a.date.localeCompare(b.date) || a.start.localeCompare(b.start));
+  return `
+  <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div class="row" style="align-items:center;gap:8px">
+      <button class="btn sm" data-wsmonth="-1">←</button>
+      <b style="font-family:'Space Grotesk';font-size:17px">${MONTHS[M-1]} ${Y}</b>
+      <button class="btn sm" data-wsmonth="1">→</button>
+      <button class="btn sm" data-wsmonth="0">Hoje</button>
+    </div>
+    ${canOn(w,'manageEvents') ? `<button class="btn primary" data-wsevnew="${iso(new Date(Y,M-1,Math.min(new Date().getDate(),28)))}">+ Novo evento</button>` : ''}
+  </div>
+  <div class="card pad" style="margin-bottom:18px">
+    <div class="cal">
+      ${['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(x => `<div class="wd">${x}</div>`).join('')}
+      ${cells.map(c => {
+        const evs = evOn(c.ds);
+        return `<div class="cell${c.off?' off':''}${c.ds===TODAY?' now':''}" data-wsday="${c.ds}">
+          <div class="dn">${d(c.ds).getDate()}</div>
+          ${evs.slice(0,2).map(e => `<div class="cev" style="--c:${w.color};--bg:var(--sel)">${e.start} ${esc(e.title)}</div>`).join('')}
+          ${evs.length > 2 ? `<div class="small muted" style="font-size:9.5px;margin-top:2px">+${evs.length-2}</div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>
+  </div>
+  <div class="sec-title" style="margin-top:0">Eventos de ${MONTHS[M-1].toLowerCase()}</div>
+  <div class="card pad">${mesEvs.length ? mesEvs.map(e => `<div class="ev" style="--c:${w.color};--bg:var(--sel)" data-wsev="${e.id}">
+      <div class="t"><div class="time mono">${DOW[dow(e.date)]} ${fmtBR(e.date)} · ${e.start}–${e.end}</div>
+      <div class="title">${esc(e.title)}</div>
+      <div class="meta">${esc(displayNameOf(e.createdBy))}${e.note ? ' · ' + esc(e.note) : ''}</div></div>
+    </div>`).join('') : '<div class="small muted">Nenhum evento neste mês.</div>'}</div>
+  <div class="small muted" style="margin-top:10px">Este calendário é do grupo e não entra no seu planner pessoal nem no cálculo de presença.</div>`;
+}
+
+/* ---------- arquivos ---------- */
+function wsFiles(w){
+  const canManage = canOn(w,'manageAssets');
+  return `
+  ${canManage ? `<div class="drop" id="wsdrop" style="margin-bottom:14px"><b>Solte arquivos aqui</b><br>
+    <span class="small muted">ou toque para escolher · PDF, DOCX, JPEG e PNG</span></div>
+  <input type="file" id="wsfiles" class="hidden" multiple accept=".pdf,.docx,.jpg,.jpeg,.png">` : ''}
+  <div class="card pad">
+    ${w.files.length ? w.files.map(f => `<div class="fi" style="margin-top:0;margin-bottom:7px">
+      <span class="fx" style="background:${OKEXT[f.ext]||'#8d8d87'}">${f.ext}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(f.name)}</div>
+        <div class="small muted">${fsize(f.size)} · ${esc(displayNameOf(f.addedBy))} · ${fmtWhen(f.addedAt)}</div>
+      </div>
+      <span class="tag" style="background:var(--sel);color:var(--ink-3)">IA: ${f.aiStatus}</span>
+      ${canManage ? `<button class="btn sm" data-wsfilerm="${f.id}">✕</button>` : ''}
+    </div>`).join('') : '<div class="small muted">Nenhum arquivo ainda.</div>'}
+  </div>
+  <div class="small muted" style="margin-top:10px">Os arquivos ficam registrados no workspace (nome, tamanho, quem enviou) e marcados como “IA: pendente”. O envio para análise entra quando houver servidor — a estrutura já está pronta.</div>`;
+}
+
+/* ---------- tarefas ---------- */
+function wsTaskRow(w, t){
+  const atras = t.due && t.due < TODAY && t.status !== 'concluida';
+  return `<div class="ev" style="--c:${TSTATUS[t.status].c};--bg:var(--sel)" data-wstask="${t.id}">
+    <div class="t"><div class="time mono">${TSTATUS[t.status].l}${t.due ? ' · ' + fmtBR(t.due) : ''}${atras ? ' · atrasada' : ''}</div>
+    <div class="title">${esc(t.title)}</div>
+    <div class="meta">${t.assignee ? esc(displayNameOf(t.assignee)) : 'sem responsável'}${t.comments.length ? ' · ' + t.comments.length + ' comentário' + (t.comments.length===1?'':'s') : ''}</div></div>
+  </div>`;
+}
+function wsTasks(w){
+  const col = st => w.tasks.filter(t => t.status === st);
+  const canManage = canOn(w,'manageTasks');
+  return `
+  <div class="row" style="justify-content:space-between;margin-bottom:14px">
+    <div class="small muted">${canManage ? 'Arraste não: toque na tarefa para mudar status, responsável ou prazo.' : 'Você tem acesso de leitura nesta área.'}</div>
+    ${canManage ? `<button class="btn primary" data-wstasknew="1">+ Nova tarefa</button>` : ''}
+  </div>
+  <div class="kan">
+    ${['aberta','andamento','concluida'].map(st => `<div class="kcol">
+      <h5>${TSTATUS[st].l}<span>${col(st).length}</span></h5>
+      ${col(st).map(t => {
+        const atras = t.due && t.due < TODAY && st !== 'concluida';
+        const ref = t.assignee ? Users.ref(t.assignee) : null;
+        return `<div class="tcard" style="--c:${TSTATUS[st].c}" data-wstask="${t.id}">
+          <div class="tt">${esc(t.title)}</div>
+          ${t.desc ? `<div class="small muted" style="margin-top:3px">${esc(t.desc.slice(0,90))}</div>` : ''}
+          <div class="mt">
+            <span>${ref ? avatar(ref,'sm') : '<span class="small muted">sem responsável</span>'}</span>
+            <span style="color:${atras?'var(--prova)':'var(--ink-3)'}">${t.due ? fmtBR(t.due) : '—'}${t.comments.length ? ' · ' + t.comments.length + ' com.' : ''}</span>
+          </div>
+        </div>`;
+      }).join('') || '<div class="small muted">Vazio</div>'}
+    </div>`).join('')}
+  </div>`;
+}
+
+/* ---------- participantes ---------- */
+function wsMembers(w){
+  const parts = participantsOf(w);
+  const canManage = canOn(w,'manageMembers');
+  return `
+  <div class="row" style="justify-content:space-between;margin-bottom:16px">
+    <div class="wsinvite">${w.inviteCode}<button class="btn sm" data-wscopy="${w.inviteCode}" style="margin-left:8px">Copiar convite</button></div>
+    ${canManage ? `<button class="btn primary" data-wsmembernew="1">+ Adicionar participante</button>` : ''}
+  </div>
+  <div class="wsgrid">
+    ${parts.map(({membership:m, user:u}) => `<div class="mcard">
+      <div style="display:flex;justify-content:center">${avatar(u,'lg')}</div>
+      <div class="nm">${esc(u.id === viewer.id ? viewer.displayName : u.displayName)}${u.id === viewer.id ? ' <span class="small muted">(você)</span>' : ''}</div>
+      <div class="small muted" style="margin-top:2px">${esc(m.responsibility || 'sem responsabilidade definida')}</div>
+      <div style="margin-top:10px">
+        <span class="tag" style="background:${m.role==='owner'?'var(--medway-bg)':'var(--sel)'};color:${m.role==='owner'?'var(--medway)':'var(--ink-3)'}">${ROLE_LABEL[m.role]}</span>
+        <span class="tag" style="background:var(--sel);color:${isOnline(u.id)?'var(--campo)':'var(--ink-3)'}">${isOnline(u.id)?'online':'offline'}</span>
+      </div>
+      ${canManage || u.id === viewer.id ? `<button class="btn sm" data-wsmember="${m.id}" style="margin-top:11px">Editar</button>` : ''}
+    </div>`).join('')}
+  </div>`;
+}
+
+/* ---------- comentários ---------- */
+function wsCommentHTML(w, c, compact){
+  const replies = w.comments.filter(x => x.parentId === c.id);
+  const u = Users.ref(c.author);
+  return `<div class="cmt">
+    ${avatar(u)}
+    <div class="bd">
+      <div class="hd"><b>${esc(c.author === viewer.id ? viewer.displayName : u.displayName)}</b><span class="small muted">${fmtWhen(c.at)}</span></div>
+      <div class="tx">${esc(c.text)}</div>
+      ${compact ? '' : `<button class="btn sm" data-wsreply="${c.id}" style="margin-top:7px">Responder</button>`}
+      ${replies.map(r => {
+        const ru = Users.ref(r.author);
+        return `<div class="rp" style="margin-top:10px"><div class="hd">
+          <b>${esc(r.author === viewer.id ? viewer.displayName : ru.displayName)}</b><span class="small muted">${fmtWhen(r.at)}</span></div>
+          <div class="tx">${esc(r.text)}</div></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+function wsComments(w){
+  const roots = w.comments.filter(c => !c.parentId);
+  return `
+  <div class="card pad" style="margin-bottom:16px">
+    <div class="field" style="margin-bottom:8px"><textarea id="wscmt" placeholder="Escreva um comentário para o grupo…"
+      style="border:1px solid var(--line-2);border-radius:9px;padding:10px;min-height:70px;resize:vertical"></textarea></div>
+    <button class="btn primary" id="wscmtsend">Comentar</button>
+  </div>
+  <div class="card pad">${roots.length ? roots.map(c => wsCommentHTML(w,c)).join('') : '<div class="small muted">Ninguém comentou ainda.</div>'}</div>`;
+}
+
+/* ============================ AÇÕES ============================ */
+function openSheet(title, body, wire){          // modal genérico, reutiliza #modalWrap
+  document.getElementById('modal').innerHTML = `<h3>${title}</h3>${body}`;
+  document.getElementById('modalWrap').classList.remove('hidden');
+  if (wire) wire();
+}
+const gv = id => (document.getElementById(id) || {}).value;
+
+function wsRerender(){ wsSave(); render(); }
+
+function wsOpenWorkspaceForm(w){
+  openSheet(w ? 'Editar workspace' : 'Novo workspace', `
+    <div class="field"><label>Nome</label><input id="w_name" value="${esc(w?w.name:'')}" placeholder="Ex.: Grupo de Estudos — Clínica Médica"></div>
+    <div class="field"><label>Descrição</label><input id="w_desc" value="${esc(w?w.description:'')}" placeholder="Para que serve este espaço"></div>
+    <div class="field"><label>Cor</label><div class="chips" id="w_colors">
+      ${WSCOLORS.map((c,i) => `<button class="chip" data-pickcolor="${i}" style="background:${c};border-color:${c};width:32px;height:28px"></button>`).join('')}</div></div>
+    <div class="field"><label>Ícone</label><div class="chips" id="w_icons">
+      ${WSICONS.map((ic,i) => `<button class="chip" data-pickicon="${i}" style="font-size:15px">${ic}</button>`).join('')}</div></div>
+    <div class="onb-err" id="w_err"></div>
+    <div class="row" style="justify-content:space-between">
+      <div>${w && membershipOf(w, viewer.id)?.permissions.deleteWorkspace ? '<button class="btn danger" id="w_del">Excluir workspace</button>' : ''}</div>
+      <div class="row"><button class="btn" id="w_cancel">Cancelar</button><button class="btn primary" id="w_save">Salvar</button></div>
+    </div>`, () => {
+    let color = w ? w.color : WSCOLORS[0], icon = w ? w.icon : WSICONS[0];
+    const mark = () => {
+      document.querySelectorAll('[data-pickcolor]').forEach(b => b.style.outline = WSCOLORS[+b.dataset.pickcolor] === color ? '2px solid var(--ink)' : 'none');
+      document.querySelectorAll('[data-pickicon]').forEach(b => b.classList.toggle('on', WSICONS[+b.dataset.pickicon] === icon));
+    };
+    document.querySelectorAll('[data-pickcolor]').forEach(b => b.onclick = () => { color = WSCOLORS[+b.dataset.pickcolor]; mark(); });
+    document.querySelectorAll('[data-pickicon]').forEach(b => b.onclick = () => { icon = WSICONS[+b.dataset.pickicon]; mark(); });
+    mark();
+    document.getElementById('w_cancel').onclick = closeModal;
+    const delBtn = document.getElementById('w_del');
+    if (delBtn) delBtn.onclick = () => {
+      if (!confirm('Excluir “' + w.name + '” e tudo que está dentro dele?')) return;
+      wsStore.workspaces = wsStore.workspaces.filter(x => x.id !== w.id);
+      wsSel = null; view = 'workspaces'; closeModal(); wsRerender(); toast('Workspace excluído');
+      Bus.emit('workspace.deleted', {workspaceId:w.id});
+    };
+    document.getElementById('w_save').onclick = () => {
+      const name = gv('w_name').trim();
+      if (!name){ document.getElementById('w_err').textContent = 'Dê um nome ao workspace.'; return; }
+      if (w){ Object.assign(w, {name, description:gv('w_desc').trim(), color, icon}); wsTouch(w); Bus.emit('workspace.updated', {workspaceId:w.id}); }
+      else {
+        const nw = {id:uid(), name, description:gv('w_desc').trim(), color, icon, ownerId:viewer.id, inviteCode:genInviteCode(),
+          createdAt:nowISO(), updatedAt:nowISO(), dirty:true, events:[], tasks:[], files:[], comments:[]};
+        wsStore.workspaces.push(nw);
+        Memberships.add({workspaceId:nw.id, userId:viewer.id, role:'owner', responsibility:''});
+        Invites.create({workspaceId:nw.id, createdBy:viewer.id, code:nw.inviteCode});
+        wsSel = nw.id; wsTab = 'overview'; view = 'ws';
+        Bus.emit('workspace.created', {workspaceId:nw.id, name:nw.name});
+      }
+      closeModal(); wsRerender(); toast(w ? 'Workspace atualizado' : 'Workspace criado');
+    };
+  });
+}
+
+function wsOpenJoin(){
+  openSheet('Entrar com código', `
+    <div class="field"><label>Código de convite</label><input id="j_code" placeholder="ESTUDY-XXXX" style="text-transform:uppercase"></div>
+    <div class="onb-err" id="j_err"></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn" id="j_cancel">Cancelar</button><button class="btn primary" id="j_go">Entrar</button></div>
+    <div class="small muted" style="margin-top:12px">Sem servidor, o código só encontra workspaces deste aparelho. A validação remota entra junto com a sincronização.</div>`, () => {
+    document.getElementById('j_cancel').onclick = closeModal;
+    document.getElementById('j_go').onclick = () => {
+      const code = (gv('j_code')||'').trim().toUpperCase();
+      const check = Invites.validate(code);
+      const REASON = {not_found:'Código não encontrado neste aparelho.', inactive:'Este convite não está mais ativo.',
+        expired:'Este convite expirou.', exhausted:'Este convite atingiu o limite de participantes.'};
+      if (!check.ok){ document.getElementById('j_err').textContent = REASON[check.reason] || 'Não foi possível entrar com este código.'; return; }
+      const w = wsStore.workspaces.find(x => x.id === check.invite.workspaceId);
+      if (!w){ document.getElementById('j_err').textContent = 'Workspace deste convite não foi encontrado.'; return; }
+      if (Memberships.isMember(w.id, viewer.id)){
+        wsSel = w.id; wsTab = 'overview'; view = 'ws'; closeModal(); render();
+        toast('Você já participa de ' + w.name); return;
+      }
+      Invites.redeem(code);
+      Memberships.add({workspaceId:w.id, userId:viewer.id, role:'member', responsibility:''});
+      wsSel = w.id; wsTab = 'overview'; view = 'ws'; closeModal(); render();
+      toast('Você entrou em ' + w.name);
+    };
+  });
+}
+
+function wsOpenEventForm(w, ev, presetDate){
+  const e = ev || {id:null, date:presetDate||TODAY, start:'19:00', end:'21:00', title:'', note:''};
+  openSheet(ev ? 'Editar evento do grupo' : 'Novo evento do grupo', `
+    <div class="field"><label>Título</label><input id="e_title" value="${esc(e.title)}" placeholder="Ex.: Reunião semanal"></div>
+    <div class="field"><label>Data</label><input id="e_date" type="date" value="${e.date}"></div>
+    <div class="row"><div class="field" style="flex:1"><label>Início</label><input id="e_start" type="time" value="${e.start}"></div>
+      <div class="field" style="flex:1"><label>Fim</label><input id="e_end" type="time" value="${e.end}"></div></div>
+    <div class="field"><label>Observação</label><input id="e_note" value="${esc(e.note||'')}" placeholder="Local, link, pauta"></div>
+    <div class="row" style="justify-content:space-between">
+      <div>${ev ? '<button class="btn danger" id="e_del">Excluir</button>' : ''}</div>
+      <div class="row"><button class="btn" id="e_cancel">Cancelar</button><button class="btn primary" id="e_save">Salvar</button></div>
+    </div>`, () => {
+    document.getElementById('e_cancel').onclick = closeModal;
+    if (ev) document.getElementById('e_del').onclick = () => {
+      w.events = w.events.filter(x => x.id !== ev.id); wsTouch(w); closeModal(); wsRerender();
+      Bus.emit('workspace.event.deleted', {workspaceId:w.id, eventId:ev.id});
+      toast('Evento removido');
+    };
+    document.getElementById('e_save').onclick = () => {
+      const o = {date:gv('e_date'), start:gv('e_start'), end:gv('e_end'), title:gv('e_title').trim() || 'Sem título', note:gv('e_note').trim()};
+      if (toMin(o.end) < toMin(o.start)){ toast('O fim precisa ser depois do início'); return; }
+      if (ev){ Object.assign(ev, o); Bus.emit('workspace.event.updated', {workspaceId:w.id, eventId:ev.id}); }
+      else { const ne = {id:uid(), ...o, createdBy:viewer.id, createdAt:nowISO()}; w.events.push(ne);
+        Bus.emit('workspace.event.created', {workspaceId:w.id, eventId:ne.id}); }
+      wsTouch(w); closeModal(); wsRerender(); toast(ev ? 'Evento atualizado' : 'Evento criado');
+    };
+  });
+}
+
+function wsOpenTaskForm(w, t){
+  const x = t || {id:null, title:'', desc:'', assignee:viewer.id, due:addDays(TODAY,3), status:'aberta', comments:[]};
+  const parts = participantsOf(w);
+  openSheet(t ? 'Tarefa' : 'Nova tarefa', `
+    <div class="field"><label>Título</label><input id="t_title" value="${esc(x.title)}" placeholder="O que precisa ser feito"></div>
+    <div class="field"><label>Descrição</label><textarea id="t_desc" style="border:1px solid var(--line-2);border-radius:8px;padding:9px;min-height:64px;resize:vertical">${esc(x.desc)}</textarea></div>
+    <div class="row">
+      <div class="field" style="flex:1"><label>Responsável</label><select id="t_ass">
+        <option value="">Sem responsável</option>
+        ${parts.map(({user:u}) => `<option value="${u.id}"${u.id===x.assignee?' selected':''}>${esc(u.id===viewer.id?viewer.displayName:u.displayName)}</option>`).join('')}
+      </select></div>
+      <div class="field" style="flex:1"><label>Prazo</label><input id="t_due" type="date" value="${x.due||''}"></div>
+    </div>
+    <div class="field"><label>Status</label><select id="t_st">
+      ${Object.entries(TSTATUS).map(([k,v]) => `<option value="${k}"${k===x.status?' selected':''}>${v.l}</option>`).join('')}</select></div>
+    ${t ? `<div class="sec-title" style="margin:14px 0 6px">Comentários da tarefa</div>
+      <div style="max-height:170px;overflow:auto">${x.comments.length ? x.comments.map(c => `<div class="cmt" style="padding:8px 0">
+        ${avatar(Users.ref(c.author),'sm')}
+        <div class="bd"><div class="hd"><b>${esc(c.author===viewer.id?viewer.displayName:Users.ref(c.author).displayName)}</b>
+        <span class="small muted">${fmtWhen(c.at)}</span></div><div class="tx" style="font-size:12.5px">${esc(c.text)}</div></div></div>`).join('')
+        : '<div class="small muted">Sem comentários.</div>'}</div>
+      <div class="row" style="margin:8px 0 4px"><input id="t_cmt" placeholder="Comentar nesta tarefa" style="flex:1;border:1px solid var(--line-2);border-radius:8px;padding:8px 10px">
+      <button class="btn" id="t_cmtadd">Enviar</button></div>` : ''}
+    <div class="row" style="justify-content:space-between;margin-top:10px">
+      <div>${t ? '<button class="btn danger" id="t_del">Excluir</button>' : ''}</div>
+      <div class="row"><button class="btn" id="t_cancel">Cancelar</button><button class="btn primary" id="t_save">Salvar</button></div>
+    </div>`, () => {
+    document.getElementById('t_cancel').onclick = closeModal;
+    const add = document.getElementById('t_cmtadd');
+    if (add) add.onclick = () => {
+      const v = (gv('t_cmt')||'').trim(); if (!v) return;
+      t.comments.push({id:uid(), author:viewer.id, text:v, at:nowISO()});
+      wsTouch(w); wsSave(); wsOpenTaskForm(w, t);
+    };
+    if (t) document.getElementById('t_del').onclick = () => {
+      w.tasks = w.tasks.filter(y => y.id !== t.id); wsTouch(w); closeModal(); wsRerender();
+      Bus.emit('workspace.task.deleted', {workspaceId:w.id, taskId:t.id});
+      toast('Tarefa excluída');
+    };
+    document.getElementById('t_save').onclick = () => {
+      const o = {title:gv('t_title').trim() || 'Sem título', desc:gv('t_desc').trim(), assignee:gv('t_ass') || null, due:gv('t_due') || null, status:gv('t_st')};
+      if (t){ Object.assign(t, o); Bus.emit('workspace.task.updated', {workspaceId:w.id, taskId:t.id}); }
+      else { const nt = {id:uid(), ...o, comments:[], createdBy:viewer.id, createdAt:nowISO()}; w.tasks.push(nt);
+        Bus.emit('workspace.task.created', {workspaceId:w.id, taskId:nt.id, assignee:nt.assignee}); }
+      wsTouch(w); closeModal(); wsRerender(); toast(t ? 'Tarefa atualizada' : 'Tarefa criada');
+    };
+  });
+}
+
+function wsOpenMemberForm(w, membership){
+  const isSelf = membership && membership.userId === viewer.id;
+  const u = membership ? Users.ref(membership.userId) : null;
+  const canManage = canOn(w,'manageMembers');
+  openSheet(membership ? 'Participante' : 'Adicionar participante', `
+    ${membership ? `<div class="field"><label>Nome</label><input id="m_name" value="${esc(isSelf?viewer.displayName:u.displayName)}" ${isSelf||!canManage?'disabled':''}></div>`
+      : `<div class="field"><label>Nome</label><input id="m_name" placeholder="Nome do participante"></div>`}
+    <div class="field"><label>Responsabilidade</label><input id="m_duty" value="${esc(membership?membership.responsibility:'')}" placeholder="Ex.: Resumos de cardiologia" ${!canManage && !isSelf ? 'disabled' : ''}></div>
+    ${membership && membership.role !== 'owner' && canManage ? `<div class="field"><label>Papel</label><select id="m_role">
+        ${ROLES.filter(r=>r!=='owner').map(r => `<option value="${r}"${r===membership.role?' selected':''}>${ROLE_LABEL[r]}</option>`).join('')}
+      </select></div>` : membership ? `<div class="field"><label>Papel</label><input value="${ROLE_LABEL[membership.role]}" disabled></div>` : ''}
+    ${!membership ? `<div class="field"><label>Foto (opcional)</label><input id="m_photo" type="file" accept=".jpg,.jpeg,.png"></div>` : ''}
+    <div class="row" style="justify-content:space-between;margin-top:8px">
+      <div>${membership && !isSelf && membership.role !== 'owner' && canManage ? '<button class="btn danger" id="m_del">Remover do grupo</button>' : ''}</div>
+      <div class="row"><button class="btn" id="m_cancel">Cancelar</button><button class="btn primary" id="m_save">Salvar</button></div>
+    </div>
+    ${membership && membership.role === 'owner' ? '<div class="small muted" style="margin-top:10px">O proprietário não pode ser removido nem rebaixado por aqui.</div>' : ''}`, () => {
+    let photo = null;
+    const photoInput = document.getElementById('m_photo');
+    if (photoInput) photoInput.onchange = async e2 => {
+      const f = e2.target.files[0]; if (!f) return;
+      photo = 'data:' + f.type + ';base64,' + await b64(f);
+      toast('Foto carregada');
+    };
+    document.getElementById('m_cancel').onclick = closeModal;
+    const del = document.getElementById('m_del');
+    if (del) del.onclick = () => {
+      Memberships.remove(membership.id); wsRerender(); closeModal(); toast('Participante removido');
+    };
+    document.getElementById('m_save').onclick = () => {
+      const duty = gv('m_duty').trim();
+      if (membership){
+        Memberships.setResponsibility(membership.id, duty);
+        const roleSel = document.getElementById('m_role');
+        if (roleSel && roleSel.value !== membership.role) Memberships.setRole(membership.id, roleSel.value);
+        if (isSelf) Users.upsert({id:viewer.id, displayName: gv('m_name').trim() || viewer.displayName});
+        else if (canManage) Users.upsert({id:membership.userId, displayName: gv('m_name').trim() || u.displayName});
+      } else {
+        const nm = gv('m_name').trim();
+        if (!nm){ toast('Digite o nome'); return; }
+        const newUser = Users.upsert({id:uid(), displayName:nm, avatarUrl:photo, course:'', institution:''});
+        Memberships.add({workspaceId:w.id, userId:newUser.id, role:'member', responsibility:duty});
+      }
+      closeModal(); wsRerender(); toast(membership ? 'Participante atualizado' : 'Participante adicionado');
+    };
+  });
+}
+
+function wsAddFiles(w, list){
+  if (!canOn(w,'manageAssets')){ toast('Você não tem permissão para enviar arquivos aqui.'); return; }
+  let skip = 0;
+  for (const f of list){
+    const x = extOf(f.name);
+    if (!OKEXT[x]){ skip++; continue; }
+    const as = {id:uid(), name:f.name, size:f.size, ext:x, addedBy:viewer.id, addedAt:nowISO(), aiStatus:'pendente', stored:false};
+    w.files.push(as);
+    Bus.emit('workspace.asset.uploaded', {workspaceId:w.id, assetId:as.id, ext:x, size:f.size});
+  }
+  wsTouch(w); wsRerender();
+  toast(skip ? 'Alguns arquivos foram ignorados (só PDF, DOCX, JPEG e PNG)' : 'Arquivos anexados ao workspace');
+}
+
+/* ---- ligação pós-render (drop zone e caixa de comentário) ---- */
+function wsAfterRender(){
+  const w = wsCur(); if (!w) return;
+  const drop = document.getElementById('wsdrop'), inp = document.getElementById('wsfiles');
+  if (drop){
+    drop.onclick = () => inp.click();
+    drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
+    drop.ondragleave = () => drop.classList.remove('over');
+    drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); wsAddFiles(w, e.dataTransfer.files); };
+    inp.onchange = () => wsAddFiles(w, inp.files);
+  }
+  const send = document.getElementById('wscmtsend');
+  if (send) send.onclick = () => {
+    const box = document.getElementById('wscmt'), v = box.value.trim();
+    if (!v) return;
+    const a = {id:uid(), author:viewer.id, text:v, at:nowISO(), parentId:null};
+    w.comments.push(a);
+    wsTouch(w); wsRerender();
+    Bus.emit('workspace.activity.created', {workspaceId:w.id, activityId:a.id, type:'comment', parentId:null});
+  };
+}
+
+/* ---- ações do domínio Workspace (registry, sem cadeia de ifs) ---- */
+Actions
+  .register('workspace.open', ({value}) => {
+    wsSel = value; wsTab = 'overview'; wsMonth = null; view = 'ws'; render();
+    Bus.emit('workspace.opened', {workspaceId: value});
+  })
+  .register('workspace.list',       () => { view = 'workspaces'; render(); })
+  .register('workspace.tab.select', ({value}) => {
+    wsTab = value;
+    if (Regions.update('workspace.tab', wsCur())) Router.sync();
+    else render();
+  })
+  .register('workspace.create', () => wsOpenWorkspaceForm(null))
+  .register('workspace.edit',   () => {
+    const w = wsCur(); if (!w) return;
+    if (!canOn(w,'manageWorkspace')){ toast('Só quem administra o workspace pode editá-lo.'); return; }
+    wsOpenWorkspaceForm(w);
+  })
+  .register('workspace.join',   () => wsOpenJoin())
+  .register('workspace.invite.copy', ({value}) => {
+    (navigator.clipboard ? navigator.clipboard.writeText(value) : Promise.reject())
+      .then(() => toast('Código copiado: ' + value)).catch(() => toast('Código: ' + value));
+  })
+  .register('workspace.calendar.month', ({value}) => {
+    const base = wsMonth || TODAY.slice(0,7);
+    if (value === '0') wsMonth = TODAY.slice(0,7);
+    else { const [Y,M] = base.split('-').map(Number); wsMonth = iso(new Date(Y, M-1 + (+value), 1)).slice(0,7); }
+    if (!Regions.update('workspace.tab', wsCur())) render();
+  })
+  .register('workspace.event.create', ({value}) => {
+    const w = wsCur(); if (!w) return;
+    if (!canOn(w,'manageEvents')){ toast('Você não tem permissão para criar eventos aqui.'); return; }
+    wsOpenEventForm(w, null, value);
+  })
+  .register('workspace.event.open',   ({value}) => {
+    const w = wsCur(); if (!w) return;
+    wsOpenEventForm(w, w.events.find(x => x.id === value));
+  })
+  .register('workspace.task.create', () => {
+    const w = wsCur(); if (!w) return;
+    if (!canOn(w,'manageTasks')){ toast('Você não tem permissão para criar tarefas aqui.'); return; }
+    wsOpenTaskForm(w, null);
+  })
+  .register('workspace.task.open',   ({value}) => {
+    const w = wsCur(); if (!w) return;
+    wsOpenTaskForm(w, w.tasks.find(x => x.id === value));
+  })
+  .register('workspace.member.add',  () => {
+    const w = wsCur(); if (!w) return;
+    if (!canOn(w,'manageMembers')){ toast('Só quem administra pode adicionar participantes.'); return; }
+    wsOpenMemberForm(w, null);
+  })
+  .register('workspace.member.open', ({value}) => {
+    const w = wsCur(); if (!w) return;
+    wsOpenMemberForm(w, w && Memberships.all().find(m => m.id === value));
+  })
+  .register('workspace.asset.remove', ({value}) => {
+    const w = wsCur(); if (!w) return;
+    if (!canOn(w,'manageAssets')){ toast('Você não tem permissão para remover arquivos aqui.'); return; }
+    w.files = w.files.filter(f => f.id !== value);
+    wsTouch(w); wsRerender();
+    Bus.emit('workspace.asset.removed', {workspaceId:w.id, assetId:value});
+  })
+  .register('workspace.activity.reply', ({value}) => {
+    const w = wsCur(); if (!w) return;
+    openSheet('Responder', `<div class="field"><textarea id="r_tx" placeholder="Sua resposta"
+      style="border:1px solid var(--line-2);border-radius:9px;padding:10px;min-height:80px;resize:vertical"></textarea></div>
+      <div class="row" style="justify-content:flex-end"><button class="btn" id="r_cancel">Cancelar</button><button class="btn primary" id="r_go">Responder</button></div>`, () => {
+      document.getElementById('r_cancel').onclick = closeModal;
+      document.getElementById('r_go').onclick = () => {
+        const v = (gv('r_tx')||'').trim(); if (!v) return;
+        const a = {id:uid(), author:viewer.id, text:v, at:nowISO(), parentId:value};
+        w.comments.push(a);
+        wsTouch(w); closeModal(); wsRerender();
+        Bus.emit('workspace.activity.created', {workspaceId:w.id, activityId:a.id, type:'comment', parentId:value});
+      };
+    });
+  });
+
+Actions
+  .bind('wsopen',      'workspace.open')
+  .bind('wsback',      'workspace.list')
+  .bind('wstab',       'workspace.tab.select')
+  .bind('wsnew',       'workspace.create')
+  .bind('wsedit',      'workspace.edit')
+  .bind('wsjoin',      'workspace.join')
+  .bind('wscopy',      'workspace.invite.copy')
+  .bind('wsmonth',     'workspace.calendar.month')
+  .bind('wsday',       'workspace.event.create')
+  .bind('wsevnew',     'workspace.event.create')
+  .bind('wsev',        'workspace.event.open')
+  .bind('wstasknew',   'workspace.task.create')
+  .bind('wstask',      'workspace.task.open')
+  .bind('wsmembernew', 'workspace.member.add')
+  .bind('wsmember',    'workspace.member.open')
+  .bind('wsfilerm',    'workspace.asset.remove')
+  .bind('wsreply',     'workspace.activity.reply');
+
+/* região atualizável: conteúdo da aba do workspace */
+Regions.define('workspace.tab', {
+  render: w => w ? wsTabView(w) : '',
+  after:  () => wsAfterRender()
+});
+
+/* ============================================================
+   10. CADASTRO + ONBOARDING
+   ============================================================ */
+/* Persistência de Identity vive no Kernel (Store ns 'identity'). */
+const COURSES = ['Medicina','Enfermagem','Odontologia','Farmácia','Fisioterapia','Nutrição','Psicologia','Biomedicina','Medicina Veterinária','Educação Física','Direito','Engenharia','Arquitetura','Administração','Contabilidade','Computação / TI','Outro'];
+const PERIODS = ['1º','2º','3º','4º','5º','6º','7º','8º','9º','10º','11º','12º','Internato'];
+let profile = null;
+let onb = {step:'auth', mode:'signup', files:[], busy:false, err:'', hint:'ALUNO_026', tmp:{}};
+
+const loadProfile = () => Identity.current();
+const saveProfile = () => Identity.commit();
+async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join(''); }
+const fsize = n => n > 1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1, Math.round(n/1024))+' KB';
+const extOf = nm => nm.toLowerCase().split('.').pop();
+const OKEXT = {pdf:'#e0396b', docx:'#2f6fed', jpg:'#0f9d6e', jpeg:'#0f9d6e', png:'#7c4dea'};
+const b64 = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result.split(',')[1]); r.onerror = rej; r.readAsDataURL(f); });
+const STEPS = ['auth','name','course','period','files'];
+const dots = () => '<div class="onb-dots">' + STEPS.map((x,j) => '<i class="'+(j <= STEPS.indexOf(onb.step) ? 'on':'')+'"></i>').join('') + '</div>';
+const errBox = () => '<div class="onb-err">' + esc(onb.err) + '</div>';
+
+function onbView(){
+  if (onb.step === 'auth'){
+    const su = onb.mode === 'signup';
+    return `<div class="onb-card">
+      <div class="onb-kicker">Planner de Internato</div>
+      <div class="onb-title">${su ? 'Criar sua conta' : 'Entrar'}</div>
+      <div class="onb-sub">${su ? 'Seu planner pessoal, montado a partir dos seus próprios arquivos.' : 'Bem-vindo de volta.'}</div>
+      ${dots()}
+      <button class="obtn apple" data-oauth="apple"> Continuar com Apple</button>
+      <button class="obtn" data-oauth="google"><b style="color:#4285F4">G</b> Continuar com Google</button>
+      <div class="osep">ou com e-mail</div>
+      ${su ? `<div class="field"><label>Nome de usuário</label><input id="o_user" value="${esc(onb.tmp.user||'')}" placeholder="ex.: aluno026" autocomplete="username"></div>` : ''}
+      <div class="field"><label>E-mail</label><input id="o_email" type="email" value="${esc(onb.tmp.email||'')}" placeholder="voce@exemplo.com" autocomplete="email"></div>
+      <div class="field"><label>Senha</label><input id="o_pass" type="password" placeholder="mínimo 6 caracteres" autocomplete="${su?'new-password':'current-password'}"></div>
+      ${errBox()}
+      <button class="btn primary" id="o_go" style="width:100%;padding:11px">${su ? 'Criar conta' : 'Entrar'}</button>
+      <div class="onb-foot"><span class="small muted">${su ? 'Já tem conta?' : 'Novo por aqui?'}</span>
+        <button class="btn sm" id="o_switch">${su ? 'Entrar' : 'Criar conta'}</button></div>
+      <div class="small muted" style="margin-top:14px">Conta local: seus dados ficam salvos neste aplicativo, no seu aparelho. Apple e Google entram sem senha.</div>
+      ${SKIP_AUTH ? '<button class="btn sm" id="o_back" style="width:100%;margin-top:10px">← Voltar ao planner</button>' : ''}
+    </div>`;
+  }
+  if (onb.step === 'name'){
+    return `<div class="onb-card">
+      <div class="onb-kicker">Quase lá</div>
+      <div class="onb-title">Qual o seu nome?</div>
+      <div class="onb-sub">É assim que o planner vai te chamar.</div>
+      ${dots()}
+      <div class="field"><input id="o_name" value="${esc(onb.tmp.name||'')}" placeholder="Seu nome" style="font-size:16px;padding:12px" autocomplete="name"></div>
+      ${errBox()}
+      <button class="btn primary" id="o_go" style="width:100%;padding:11px">Continuar</button>
+    </div>`;
+  }
+  if (onb.step === 'course'){
+    return `<div class="onb-card">
+      <div class="onb-kicker">Sobre você${onb.tmp.name ? ', '+esc(onb.tmp.name.split(' ')[0]) : ''}</div>
+      <div class="onb-title">Qual curso você faz?</div>
+      <div class="onb-sub">Isso ajusta o vocabulário e as sugestões do planner.</div>
+      ${dots()}
+      <div class="pickgrid">${COURSES.map(c => `<button class="pick${onb.tmp.course===c?' on':''}" data-course="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+      ${onb.tmp.course === 'Outro' ? `<div class="field" style="margin-top:10px"><input id="o_course_other" placeholder="Escreva o nome do curso" value="${esc(onb.tmp.courseOther||'')}"></div>
+        <button class="btn primary" id="o_go" style="width:100%;padding:11px">Continuar</button>` : ''}
+      ${errBox()}
+    </div>`;
+  }
+  if (onb.step === 'period'){
+    return `<div class="onb-card">
+      <div class="onb-kicker">${esc(onb.tmp.course||'')}</div>
+      <div class="onb-title">Qual o seu período?</div>
+      <div class="onb-sub">Toque para escolher.</div>
+      ${dots()}
+      <div class="pickgrid" style="grid-template-columns:repeat(4,1fr)">
+        ${PERIODS.map(pd => `<button class="pick" data-period="${pd}" style="text-align:center${pd==='Internato'?';grid-column:span 2':''}">${pd}</button>`).join('')}
+      </div>
+      ${errBox()}
+    </div>`;
+  }
+  /* files */
+  return `<div class="onb-card">
+    <div class="onb-kicker">Último passo</div>
+    <div class="onb-title">Anexe seus arquivos</div>
+    <div class="onb-sub">Arraste e solte a agenda do seu curso — o planner é montado a partir dela, do mesmo jeito que foi feito com o PDF e as imagens do internato. Aceita <b>PDF, DOCX, JPEG e PNG</b>.</div>
+    ${dots()}
+    <div class="drop" id="drop"><b>Solte os arquivos aqui</b><br><span class="small muted">ou toque para escolher no aparelho</span></div>
+    <input type="file" id="o_files" class="hidden" multiple accept=".pdf,.docx,.jpg,.jpeg,.png">
+    <div id="flist">${onb.files.map((f,i) => `<div class="fi">
+      <span class="fx" style="background:${OKEXT[extOf(f.name)]||'#8d8d87'}">${extOf(f.name)}</span>
+      <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(f.name)}</span>
+      <span class="small muted mono">${fsize(f.size)}</span>
+      <button class="btn sm" data-rm="${i}">✕</button></div>`).join('')}</div>
+    <div class="field" style="margin-top:12px"><label>Filtrar por aluno / turma (opcional)</label>
+      <input id="o_hint" value="${esc(onb.hint)}" placeholder='ex.: "ALUNO_026"'></div>
+    ${errBox()}
+    <button class="btn primary" id="o_build" style="width:100%;padding:11px" ${onb.busy||!onb.files.length ? 'disabled style="width:100%;padding:11px;opacity:.55"' : ''}>
+      ${onb.busy ? '<span class="spin"></span>Lendo seus arquivos…' : 'Analisar arquivos e montar meu planner'}</button>
+    <button class="btn" id="o_skip" style="width:100%;margin-top:8px" ${onb.busy?'disabled':''}>Usar agenda de exemplo (ALUNO_026 · 2026.2)</button>
+  </div>`;
+}
+
+function renderOnb(){
+  document.getElementById('onb').innerHTML = onbView();
+  const g = id => document.getElementById(id);
+  const err = m => { onb.err = m; renderOnb(); };
+
+  document.querySelectorAll('[data-oauth]').forEach(b => b.onclick = async () => {
+    const prov = b.dataset.oauth;
+    onb.tmp = {...onb.tmp, provider:prov, user:onb.tmp.user || (prov==='apple'?'usuario.apple':'usuario.google'), email:onb.tmp.email || ''};
+    onb.err = ''; onb.step = 'name'; renderOnb();
+  });
+  const back = g('o_back');
+  if (back) back.onclick = () => finishBoot();
+
+  const sw = g('o_switch');
+  if (sw) sw.onclick = () => { onb.mode = onb.mode==='signup' ? 'signin' : 'signup'; onb.err=''; renderOnb(); };
+
+  const go = g('o_go');
+  if (go && onb.step === 'auth') go.onclick = async () => {
+    const email = g('o_email').value.trim(), pass = g('o_pass').value;
+    if (onb.mode === 'signup'){
+      const user = g('o_user').value.trim();
+      onb.tmp.user = user; onb.tmp.email = email;
+      if (user.length < 3) return err('Escolha um nome de usuário com pelo menos 3 caracteres.');
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return err('Digite um e-mail válido.');
+      if (pass.length < 6) return err('A senha precisa de pelo menos 6 caracteres.');
+      onb.tmp.passHash = await sha256(pass); onb.tmp.provider = 'email';
+      onb.err = ''; onb.step = 'name'; renderOnb();
+    } else {
+      if (!profile) return err('Nenhuma conta encontrada neste aparelho. Crie uma conta primeiro.');
+      if (profile.provider !== 'email') return err('Esta conta entra com ' + (profile.provider==='apple'?'Apple':'Google') + ' — use o botão acima.');
+      if (email.toLowerCase() !== (profile.email||'').toLowerCase()) return err('E-mail não confere com a conta deste aparelho.');
+      if (await sha256(pass) !== profile.passHash) return err('Senha incorreta.');
+      Identity.merge({signedIn:true});
+      profile.onboarded ? finishBoot() : (onb.step = 'name', renderOnb());
+    }
+  };
+
+  const nm = g('o_name');
+  if (nm){
+    const adv = () => {
+      onb.tmp.name = nm.value.trim();
+      if (!onb.tmp.name) return err('Digite seu nome para continuar.');
+      onb.err = ''; onb.step = 'course'; renderOnb();
+    };
+    g('o_go').onclick = adv;
+    nm.onkeydown = e => { if (e.key === 'Enter') adv(); };
+    nm.focus();
+  }
+
+  document.querySelectorAll('[data-course]').forEach(b => b.onclick = () => {
+    onb.tmp.course = b.dataset.course; onb.err = '';
+    if (onb.tmp.course === 'Outro') renderOnb();
+    else { onb.step = 'period'; renderOnb(); }
+  });
+  const co = g('o_course_other');
+  if (co && g('o_go')) g('o_go').onclick = () => {
+    const v = co.value.trim();
+    if (!v) return err('Escreva o nome do curso.');
+    onb.tmp.course = v; onb.err = ''; onb.step = 'period'; renderOnb();
+  };
+
+  document.querySelectorAll('[data-period]').forEach(b => b.onclick = () => {
+    onb.tmp.period = b.dataset.period; onb.err = ''; onb.step = 'files'; renderOnb();
+  });
+
+  const drop = g('drop'), inp = g('o_files');
+  if (drop){
+    drop.onclick = () => inp.click();
+    drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
+    drop.ondragleave = () => drop.classList.remove('over');
+    drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+    inp.onchange = () => addFiles(inp.files);
+    document.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { onb.files.splice(+b.dataset.rm,1); renderOnb(); });
+    const hint = g('o_hint'); if (hint) hint.onchange = () => { onb.hint = hint.value.trim(); };
+    g('o_skip').onclick = async () => { onb.hint = g('o_hint').value.trim(); await completeOnboarding(false); };
+    g('o_build').onclick = async () => {
+      if (!onb.files.length || onb.busy) return;
+      onb.hint = g('o_hint').value.trim(); onb.busy = true; onb.err = ''; renderOnb();
+      try {
+        const rows = await extractFromFiles(onb.files, onb.hint);
+        if (!rows) throw new Error('vazio');
+        applyImportedPlan(rows);
+        Bus.emit('planner.plan.imported', {events:rows.length});
+        Bus.emit('ai.job.completed', {kind:'extract', items:rows.length});
+        await completeOnboarding(true, rows.length);
+      } catch(e){
+        onb.busy = false;
+        err('Não consegui montar o planner a partir destes arquivos (a análise precisa de conexão e de arquivos legíveis). Tente outros arquivos ou use a agenda de exemplo abaixo.');
+      }
+    };
+  }
+}
+
+function addFiles(list){
+  const cur = onb.files.reduce((a,f) => a+f.size, 0);
+  let add = 0, skip = 0;
+  for (const f of list){
+    if (!OKEXT[extOf(f.name)]){ skip++; continue; }
+    if (cur + add + f.size > 22*1048576){ skip++; continue; }
+    onb.files.push(f); add += f.size;
+  }
+  onb.err = skip ? 'Alguns arquivos foram ignorados: só aceito PDF, DOCX, JPEG e PNG até 22 MB no total.' : '';
+  renderOnb();
+}
+
+async function docxText(f){
+  if (!window.mammoth) await new Promise((res,rej) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';
+    sc.onload = res; sc.onerror = rej; document.head.appendChild(sc);
+  });
+  const r = await mammoth.extractRawText({arrayBuffer: await f.arrayBuffer()});
+  return r.value || '';
+}
+
+async function extractFromFiles(files, hint){
+  const content = [];
+  for (const f of files){
+    const x = extOf(f.name);
+    if (x === 'pdf') content.push({type:'document', source:{type:'base64', media_type:'application/pdf', data: await b64(f)}});
+    else if (x === 'png' || x === 'jpg' || x === 'jpeg')
+      content.push({type:'image', source:{type:'base64', media_type: x==='png' ? 'image/png' : 'image/jpeg', data: await b64(f)}});
+    else if (x === 'docx') content.push({type:'text', text:'Arquivo '+f.name+':\n'+(await docxText(f)).slice(0,14000)});
+  }
+  content.push({type:'text', text:
+    'Extraia TODOS os eventos de agenda acadêmica destes arquivos (data, horário de início e fim, tipo, nome).'
+    + (hint ? ' Considere APENAS as linhas do aluno/turma "'+hint+'".' : '')
+    + ' Responda SOMENTE com JSON válido, sem markdown e sem texto extra, no formato'
+    + ' {"events":[["AAAA-MM-DD","HH:MM","HH:MM","TIPO","Título curto"],...]}.'
+    + ' TIPO deve ser um de: CAMPO, TEORIA, PROVA, SIMULACAO, MEDWAY, ACOLHIMENTO (use CAMPO na dúvida).'
+    + ' Máxima compactação, sem espaços desnecessários.'});
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages:[{role:'user', content}]})
+  });
+  const data = await resp.json();
+  const text = (data.content||[]).map(i => i.type === 'text' ? i.text : '').join('\n');
+  return parseRows(text);
+}
+
+function parseRows(text){
+  let t = (text||'').replace(/```json|```/g,'').trim();
+  const tryP = x => { try { const o = JSON.parse(x); return Array.isArray(o.events) ? o.events : null; } catch(e){ return null; } };
+  let rows = tryP(t);
+  if (!rows){ const i = t.lastIndexOf('],'); if (i > 0) rows = tryP(t.slice(0, i+1) + ']}'); }
+  if (!rows) return null;
+  const dre = /^\d{4}-\d{2}-\d{2}$/, tre = /^\d{2}:\d{2}$/;
+  rows = rows.filter(r => Array.isArray(r) && r.length >= 5 && dre.test(r[0]) && tre.test(r[1]) && tre.test(r[2]) && r[4])
+    .map(r => [r[0], r[1], r[2], TYPES[r[3]] ? r[3] : 'CAMPO', String(r[4]).slice(0,90)]);
+  return rows.length ? rows : null;
+}
+
+function applyImportedPlan(rows){
+  rows.sort((a,b) => a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]));
+  const st = d(rows[0][0]); st.setDate(st.getDate() - ((st.getDay()+6) % 7));
+  const last = rows[rows.length-1][0];
+  WEEKS.length = 0; _wk.clear();
+  let cur = iso(st), i = 1;
+  while (cur <= last && i <= 60){
+    WEEKS.push({id:'S'+String(i).padStart(2,'0'), start:cur, end:addDays(cur,6), rod:'Plano importado', mod:'GERAL'});
+    cur = addDays(cur,7); i++;
+  }
+  state.events = rows.map(r => ({id:uid(), date:r[0], start:r[1], end:r[2], type:r[3], title:r[4], note:'', status:'pendente', done:false, custom:false}));
+  state.baseline = rows; state.weeks = WEEKS.map(w => ({...w})); state.notes = {};
+  invalidate();
+}
+
+async function completeOnboarding(imported, n){
+  const prev = Identity.current() || {};
+  profile = Identity.merge({
+    username: onb.tmp.user || prev.username || '', email: onb.tmp.email || prev.email || '',
+    passHash: onb.tmp.passHash || prev.passHash || null,
+    provider: onb.tmp.provider || prev.provider || 'email',
+    name: onb.tmp.name || prev.name || '', course: onb.tmp.course || prev.course || '',
+    period: onb.tmp.period || prev.period || '', onboarded: true, signedIn: true,
+    files: onb.files.length ? onb.files.map(f => ({name:f.name, size:f.size})) : (prev.files || [])
+  });
+  await save(); flush();
+  finishBoot();
+  toast(imported ? n + ' atividades importadas dos seus arquivos' : 'Planner iniciado com a agenda de exemplo');
+}
+
+function fillProfileBox(){
+  const b = document.getElementById('profileBox');
+  if (b && profile){
+    const per = profile.period === 'Internato' ? 'Internato' : (profile.period ? profile.period + ' período' : '');
+    b.innerHTML = '<b>' + esc(profile.name || profile.username || 'Aluno') + '</b><br>'
+      + '<span>' + esc(profile.course || '') + (per ? ' · ' + per : '') + '</span><br>'
+      + '<button class="btn sm" id="logoutBtn" style="margin-top:8px">' + (SKIP_AUTH ? 'Ver telas de cadastro' : 'Sair da conta') + '</button>';
+    document.getElementById('logoutBtn').onclick = async () => {
+      if (SKIP_AUTH){ onb.mode = 'signup'; onb.step = 'auth'; onb.err = ''; showOnb(); return; }
+      Identity.signOut();
+      onb.mode = 'signin'; onb.step = 'auth'; onb.err = ''; showOnb();
+    };
+  }
+  const bs = document.getElementById('brandSub');
+  if (bs && profile && profile.course){
+    const per = profile.period === 'Internato' ? 'Internato' : (profile.period ? profile.period + ' período' : '');
+    bs.textContent = profile.course + (per ? ' · ' + per : '');
+  }
+}
+
+function showOnb(){
+  document.getElementById('appRoot').classList.add('hidden');
+  document.getElementById('onb').classList.remove('hidden');
+  renderOnb();
+}
+function finishBoot(){
+  if (state.weeks && state.weeks.length){
+    WEEKS.length = 0; state.weeks.forEach(w => WEEKS.push({...w})); _wk.clear(); invalidate();
+  }
+  weekSel = currentWeekId(); ciDate = TODAY;
+  document.getElementById('onb').classList.add('hidden');
+  document.getElementById('appRoot').classList.remove('hidden');
+  fillProfileBox(); render();
+}
+
+/* ============================================================
+   11. BOOT
+   ============================================================ */
+(async () => {
+  /* Ordem obrigatória: Users/Memberships/Invites precisam existir ANTES de
+     Identity.init(), porque Identity emite identity.profile.updated assim
+     que carrega — e é esse evento que popula o diretório de Users. Depois
+     vem o Planner (independente) e por último o Workspace, que depende do
+     UserRef e dos três domínios acima para montar participantes. */
+  await Users.init();
+  await Memberships.init();
+  await Invites.init();
+
+  await Identity.init();
+  profile = Identity.current();
+
+  state = await PLANNER_NS.load(seedState);
+  if (!state.events || !state.events.length) state = PLANNER_NS.set(seedState());
+  invalidate();
+
+  if (SKIP_AUTH){
+    profile = Identity.merge({
+      name: profile.name || 'Aluno_026', course: profile.course || 'Medicina',
+      period: profile.period || 'Internato', onboarded:true, signedIn:true
+    }, {persist:false});                       // visualização: não grava sessão falsa
+  }
+
+  await wsLoad();                               // só agora: viewer/UserRef já está correto
+
+  if (SKIP_AUTH || (profile.onboarded && profile.signedIn)) finishBoot();
+  else { if (profile.onboarded) onb.mode = 'signin'; showOnb(); }
+
+  Router.start(() => render());
+  console.info('[Estudy] namespaces:', Store.list());
+})();
+</script>

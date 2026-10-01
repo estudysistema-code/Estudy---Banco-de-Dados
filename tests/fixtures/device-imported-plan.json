@@ -1,0 +1,706 @@
+{
+  "estudy:identity": {
+    "v": 2,
+    "at": "2026-09-30T13:47:34.842Z",
+    "data": {
+      "userId": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+      "username": "usuario.google",
+      "email": "",
+      "passHash": null,
+      "provider": "google",
+      "name": "Aluna Importação",
+      "course": "Medicina",
+      "institution": "",
+      "period": "10º",
+      "avatarUrl": null,
+      "onboarded": true,
+      "signedIn": true,
+      "files": [
+        {
+          "name": "agenda_2027-1.pdf",
+          "size": 9
+        }
+      ]
+    }
+  },
+  "estudy:users": {
+    "v": 1,
+    "at": "2026-09-30T13:47:34.842Z",
+    "data": {
+      "byId": {
+        "6c098be3-1d0c-40b3-9a0e-bcc177818b9e": {
+          "id": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+          "displayName": "Aluna Importação",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:33.054Z",
+          "updatedAt": "2026-09-30T13:47:34.442Z"
+        },
+        "demo_marina": {
+          "id": "demo_marina",
+          "displayName": "Marina Alves",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z"
+        },
+        "demo_rafael": {
+          "id": "demo_rafael",
+          "displayName": "Rafael Lima",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z"
+        },
+        "demo_julia": {
+          "id": "demo_julia",
+          "displayName": "Júlia Prado",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z"
+        },
+        "demo_helena": {
+          "id": "demo_helena",
+          "displayName": "Profa. Helena Braga",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "Docente",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z"
+        },
+        "demo_bruno": {
+          "id": "demo_bruno",
+          "displayName": "Bruno Costa",
+          "avatarUrl": null,
+          "course": "Medicina",
+          "institution": "",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z"
+        }
+      }
+    }
+  },
+  "estudy:workspace": {
+    "v": 3,
+    "at": "2026-09-30T13:47:33.456Z",
+    "data": {
+      "workspaces": [
+        {
+          "id": "et4pecye",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z",
+          "dirty": false,
+          "name": "Grupo de Estudos — Clínica Médica",
+          "description": "Revisão semanal antes das AVs, divisão de resumos e banco de questões.",
+          "color": "var(--estudo)",
+          "icon": "◍",
+          "ownerId": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+          "inviteCode": "ESTUDY-ZSIP",
+          "events": [
+            {
+              "id": "ej99t7kl",
+              "date": "2026-10-02",
+              "start": "19:00",
+              "end": "21:00",
+              "title": "Reunião semanal do grupo",
+              "note": "Sala 4 / online",
+              "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "e95cl9h4",
+              "date": "2026-10-06",
+              "start": "14:00",
+              "end": "17:00",
+              "title": "Revisão geral pré-AV",
+              "note": "Cardio + Nefro",
+              "createdBy": "demo_marina",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "e0babuvh",
+              "date": "2026-10-13",
+              "start": "19:00",
+              "end": "20:30",
+              "title": "Discussão de caso: ICC descompensada",
+              "note": "",
+              "createdBy": "demo_julia",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            }
+          ],
+          "tasks": [
+            {
+              "id": "e9ex5etf",
+              "title": "Resumo de arritmias",
+              "desc": "Uma página, com fluxograma de conduta.",
+              "assignee": "demo_marina",
+              "due": "2026-10-04",
+              "status": "andamento",
+              "comments": [
+                {
+                  "id": "efwdcw1c",
+                  "author": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+                  "text": "Se conseguir incluir os critérios de instabilidade, ajuda muito.",
+                  "at": "2026-09-30T13:47:33.055Z"
+                }
+              ],
+              "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "ezm4z3kp",
+              "title": "Separar 40 questões de nefrologia",
+              "desc": "Provas dos últimos 3 anos.",
+              "assignee": "demo_rafael",
+              "due": "2026-10-07",
+              "status": "aberta",
+              "comments": [],
+              "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "etekr0v8",
+              "title": "Montar cronograma até a AV3",
+              "desc": "Dividir os temas por semana entre os quatro.",
+              "assignee": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "due": "2026-10-01",
+              "status": "andamento",
+              "comments": [],
+              "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "e0tnns73",
+              "title": "Reservar a sala de estudos",
+              "desc": "",
+              "assignee": "demo_julia",
+              "due": "2026-09-28",
+              "status": "concluida",
+              "comments": [],
+              "createdBy": "demo_julia",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            }
+          ],
+          "files": [
+            {
+              "id": "eyf16crl",
+              "name": "Resumo_ICC.pdf",
+              "size": 842000,
+              "ext": "pdf",
+              "addedBy": "demo_marina",
+              "addedAt": "2026-09-30T13:47:33.055Z",
+              "aiStatus": "pendente",
+              "stored": false
+            },
+            {
+              "id": "ehfk7mrw",
+              "name": "Casos_Nefrologia.docx",
+              "size": 126000,
+              "ext": "docx",
+              "addedBy": "demo_julia",
+              "addedAt": "2026-09-30T13:47:33.055Z",
+              "aiStatus": "pendente",
+              "stored": false
+            },
+            {
+              "id": "eup5qb4g",
+              "name": "Slides_ECG.png",
+              "size": 1450000,
+              "ext": "png",
+              "addedBy": "demo_rafael",
+              "addedAt": "2026-09-30T13:47:33.055Z",
+              "aiStatus": "pendente",
+              "stored": false
+            }
+          ],
+          "comments": [
+            {
+              "id": "e668ccmb",
+              "author": "demo_marina",
+              "text": "Subi o resumo de ICC. Faltou a parte de dispositivos, alguém pega?",
+              "at": "2026-09-30T13:47:33.055Z",
+              "parentId": null
+            },
+            {
+              "id": "ez3kbztj",
+              "author": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "text": "Pego eu, junto com o cronograma.",
+              "at": "2026-09-30T13:47:33.055Z",
+              "parentId": null
+            },
+            {
+              "id": "e3j2s40a",
+              "author": "demo_rafael",
+              "text": "Consegui as provas de 2024. Subo até quinta.",
+              "at": "2026-09-30T13:47:33.055Z",
+              "parentId": null
+            }
+          ]
+        },
+        {
+          "id": "e5my7y1n",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "updatedAt": "2026-09-30T13:47:33.055Z",
+          "dirty": false,
+          "name": "TCC — Pneumologia e Tabagismo",
+          "description": "Coleta de dados no ambulatório, análise estatística e escrita do artigo.",
+          "color": "var(--campo)",
+          "icon": "◆",
+          "ownerId": "demo_helena",
+          "inviteCode": "ESTUDY-9S0I",
+          "events": [
+            {
+              "id": "empugwi8",
+              "date": "2026-10-05",
+              "start": "10:00",
+              "end": "11:00",
+              "title": "Orientação quinzenal",
+              "note": "Sala da profa. Helena",
+              "createdBy": "demo_helena",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "ekk7uw1z",
+              "date": "2026-10-20",
+              "start": "23:59",
+              "end": "23:59",
+              "title": "Prazo: entrega do capítulo de métodos",
+              "note": "",
+              "createdBy": "demo_helena",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            }
+          ],
+          "tasks": [
+            {
+              "id": "emhvqymp",
+              "title": "Coletar 20 questionários no ambulatório",
+              "desc": "Pacientes do grupo de tabagismo, às quintas.",
+              "assignee": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "due": "2026-10-09",
+              "status": "andamento",
+              "comments": [],
+              "createdBy": "demo_helena",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "emxfxic2",
+              "title": "Rodar análise descritiva",
+              "desc": "Depois de 20 questionários.",
+              "assignee": "demo_bruno",
+              "due": "2026-10-16",
+              "status": "aberta",
+              "comments": [],
+              "createdBy": "demo_helena",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            },
+            {
+              "id": "ejppdj7x",
+              "title": "Revisão de literatura — 15 artigos",
+              "desc": "",
+              "assignee": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "due": "2026-09-25",
+              "status": "concluida",
+              "comments": [],
+              "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "createdAt": "2026-09-30T13:47:33.055Z"
+            }
+          ],
+          "files": [
+            {
+              "id": "ev7ldz8x",
+              "name": "Projeto_TCC_v3.docx",
+              "size": 98000,
+              "ext": "docx",
+              "addedBy": "demo_helena",
+              "addedAt": "2026-09-30T13:47:33.055Z",
+              "aiStatus": "pendente",
+              "stored": false
+            },
+            {
+              "id": "e3fjv98v",
+              "name": "Questionario_Fagerstrom.pdf",
+              "size": 310000,
+              "ext": "pdf",
+              "addedBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+              "addedAt": "2026-09-30T13:47:33.055Z",
+              "aiStatus": "pendente",
+              "stored": false
+            }
+          ],
+          "comments": [
+            {
+              "id": "e3xwfzod",
+              "author": "demo_helena",
+              "text": "Lembrem de anexar o parecer do comitê de ética assim que sair.",
+              "at": "2026-09-30T13:47:33.055Z",
+              "parentId": null
+            },
+            {
+              "id": "ecutyeq6",
+              "author": "demo_bruno",
+              "text": "Combinado. Já deixei a planilha modelo pronta.",
+              "at": "2026-09-30T13:47:33.055Z",
+              "parentId": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "estudy:planner": {
+    "v": 2,
+    "at": "2026-09-30T13:47:36.245Z",
+    "data": {
+      "events": [
+        {
+          "id": "eus61njs",
+          "date": "2027-02-01",
+          "start": "07:00",
+          "end": "13:00",
+          "type": "CAMPO",
+          "title": "Ambulatório Cardiologia",
+          "note": "",
+          "status": "presente",
+          "done": true,
+          "custom": false
+        },
+        {
+          "id": "e7ngto5y",
+          "date": "2027-02-01",
+          "start": "19:00",
+          "end": "21:00",
+          "type": "TEORIA",
+          "title": "Teoria CM",
+          "note": "",
+          "status": "falta",
+          "done": false,
+          "custom": false
+        },
+        {
+          "id": "euca228h",
+          "date": "2027-02-03",
+          "start": "13:00",
+          "end": "19:00",
+          "type": "CAMPO",
+          "title": "Enfermaria Clínica",
+          "note": "",
+          "status": "pendente",
+          "done": false,
+          "custom": false
+        },
+        {
+          "id": "elg57k6g",
+          "date": "2027-02-05",
+          "start": "08:00",
+          "end": "12:00",
+          "type": "PROVA",
+          "title": "Prova AV1",
+          "note": "",
+          "status": "pendente",
+          "done": false,
+          "custom": false
+        },
+        {
+          "id": "e40o4j81",
+          "date": "2027-02-09",
+          "start": "07:00",
+          "end": "13:00",
+          "type": "CAMPO",
+          "title": "UTI",
+          "note": "",
+          "status": "pendente",
+          "done": false,
+          "custom": false
+        },
+        {
+          "id": "esrt6j3g",
+          "date": "2027-02-10",
+          "start": "19:00",
+          "end": "21:00",
+          "type": "CAMPO",
+          "title": "Tipo inválido vira CAMPO",
+          "note": "",
+          "status": "pendente",
+          "done": false,
+          "custom": false
+        },
+        {
+          "id": "e1q00edy",
+          "date": "2027-02-17",
+          "start": "13:00",
+          "end": "19:00",
+          "type": "SIMULACAO",
+          "title": "Simulação Emergência",
+          "note": "",
+          "status": "pendente",
+          "done": false,
+          "custom": false
+        }
+      ],
+      "notes": {
+        "S01": "Nota em semana de plano importado"
+      },
+      "goals": {
+        "gym": 4,
+        "study": 10
+      },
+      "baseline": [
+        [
+          "2027-02-01",
+          "07:00",
+          "13:00",
+          "CAMPO",
+          "Ambulatório Cardiologia"
+        ],
+        [
+          "2027-02-01",
+          "19:00",
+          "21:00",
+          "TEORIA",
+          "Teoria CM"
+        ],
+        [
+          "2027-02-03",
+          "13:00",
+          "19:00",
+          "CAMPO",
+          "Enfermaria Clínica"
+        ],
+        [
+          "2027-02-05",
+          "08:00",
+          "12:00",
+          "PROVA",
+          "Prova AV1"
+        ],
+        [
+          "2027-02-09",
+          "07:00",
+          "13:00",
+          "CAMPO",
+          "UTI"
+        ],
+        [
+          "2027-02-10",
+          "19:00",
+          "21:00",
+          "CAMPO",
+          "Tipo inválido vira CAMPO"
+        ],
+        [
+          "2027-02-17",
+          "13:00",
+          "19:00",
+          "SIMULACAO",
+          "Simulação Emergência"
+        ]
+      ],
+      "weeks": [
+        {
+          "id": "S01",
+          "start": "2027-02-01",
+          "end": "2027-02-07",
+          "rod": "Plano importado",
+          "mod": "GERAL"
+        },
+        {
+          "id": "S02",
+          "start": "2027-02-08",
+          "end": "2027-02-14",
+          "rod": "Plano importado",
+          "mod": "GERAL"
+        },
+        {
+          "id": "S03",
+          "start": "2027-02-15",
+          "end": "2027-02-21",
+          "rod": "Plano importado",
+          "mod": "GERAL"
+        }
+      ]
+    }
+  },
+  "estudy:invites": {
+    "v": 1,
+    "at": "2026-09-30T13:47:33.456Z",
+    "data": {
+      "items": [
+        {
+          "id": "ei2ex38u",
+          "workspaceId": "et4pecye",
+          "code": "ESTUDY-ZSIP",
+          "createdBy": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "expiresAt": null,
+          "maxUses": null,
+          "currentUses": 0,
+          "status": "active"
+        },
+        {
+          "id": "ezkba2s1",
+          "workspaceId": "e5my7y1n",
+          "code": "ESTUDY-9S0I",
+          "createdBy": "demo_helena",
+          "createdAt": "2026-09-30T13:47:33.055Z",
+          "expiresAt": null,
+          "maxUses": null,
+          "currentUses": 0,
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "estudy:memberships": {
+    "v": 1,
+    "at": "2026-09-30T13:47:33.456Z",
+    "data": {
+      "items": [
+        {
+          "id": "e1vi4rqq",
+          "workspaceId": "et4pecye",
+          "userId": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+          "role": "owner",
+          "responsibility": "Cronograma e revisões",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": true,
+            "manageMembers": true,
+            "manageInvites": true,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": true
+          }
+        },
+        {
+          "id": "ejthanaq",
+          "workspaceId": "et4pecye",
+          "userId": "demo_marina",
+          "role": "member",
+          "responsibility": "Resumos de cardiologia",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        },
+        {
+          "id": "e5r1c5x3",
+          "workspaceId": "et4pecye",
+          "userId": "demo_rafael",
+          "role": "member",
+          "responsibility": "Banco de questões",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        },
+        {
+          "id": "ee9ao91i",
+          "workspaceId": "et4pecye",
+          "userId": "demo_julia",
+          "role": "member",
+          "responsibility": "Casos clínicos",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        },
+        {
+          "id": "eaw170f8",
+          "workspaceId": "e5my7y1n",
+          "userId": "demo_helena",
+          "role": "owner",
+          "responsibility": "Orientação",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": true,
+            "manageMembers": true,
+            "manageInvites": true,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": true
+          }
+        },
+        {
+          "id": "ergnl0jc",
+          "workspaceId": "e5my7y1n",
+          "userId": "6c098be3-1d0c-40b3-9a0e-bcc177818b9e",
+          "role": "member",
+          "responsibility": "Coleta de dados",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        },
+        {
+          "id": "e7slewc3",
+          "workspaceId": "e5my7y1n",
+          "userId": "demo_bruno",
+          "role": "editor",
+          "responsibility": "Análise estatística",
+          "joinedAt": "2026-09-30T13:47:33.055Z",
+          "status": "active",
+          "permissions": {
+            "manageWorkspace": false,
+            "manageMembers": false,
+            "manageInvites": false,
+            "manageTasks": true,
+            "manageEvents": true,
+            "manageAssets": true,
+            "comment": true,
+            "view": true,
+            "deleteWorkspace": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+# dumps reais de localStorage de alunos não vão para o repositório
+estudy-localstorage*.json
+import*.sql
+.DS_Store
